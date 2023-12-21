@@ -8,15 +8,19 @@
                 Title="CustomerDashboard" Height="450" Width="1200">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="150" />
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
 
-        <ContentControl  Content="{Binding SelectedViewModel}" />
-        <StackPanel Margin ="20" Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left">
-            <Button Content="Personal Info" Margin ="10" Width="90" Command="{Binding UpdateViewCommand}" CommandParameter="personalinof" />
-            <Button Content="Item" Margin ="10" Width="90" Command="{Binding UpdateViewCommand}" CommandParameter="customerviewitem" />
-            <Button Content="Order" Margin ="10" Width="90"  Command="{Binding UpdateViewCommand}" CommandParameter="customervieworder" />
+        <StackPanel Background="#f5f5f5">
+            <StackPanel Margin ="20" Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left" >
+                <Button Content="Personal Info" Margin ="10" Width="90" Command="{Binding UpdateViewCommand}" CommandParameter="personalinfo" />
+                <Button Content="Item" Margin ="10" Width="90" Command="{Binding UpdateViewCommand}" CommandParameter="customerviewitem" />
+                <Button Content="Order" Margin ="10" Width="90"  Command="{Binding UpdateViewCommand}" CommandParameter="customervieworder" />
+            </StackPanel>
         </StackPanel>
+
+
+        <ContentControl   Grid.Column="1" Content="{Binding SelectedViewModel}" />
     </Grid>
 </Window>

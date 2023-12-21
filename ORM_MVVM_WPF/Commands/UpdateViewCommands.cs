@@ -1,4 +1,5 @@
 ﻿using ORM_MVVM_WPF.ViewModels;
+using ORM_MVVM_WPF.ViewModels.Customer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,20 @@ namespace ORM_MVVM_WPF.Commands
                 else if (parameter.ToString() == "signup")
                 {
                     viewModel.SelectedViewModel = new SignupViewModel();
+                }
+
+                //customer
+                else if (parameter.ToString() == "personalinfo")
+                {
+                    viewModel.SelectedViewModel = new CustomerPersonalInfoViewModel();
+                }
+                else if (parameter.ToString() == "customerviewitem")
+                {
+                    viewModel.SelectedViewModel = new CustomerItemViewModel();
+                }
+                else if (parameter.ToString() == "customervieworder")
+                {
+                    viewModel.SelectedViewModel = new CustomerOrderViewModel();
                 }
             }
         }

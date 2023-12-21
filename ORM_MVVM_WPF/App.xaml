@@ -4,15 +4,34 @@
              xmlns:local="clr-namespace:ORM_MVVM_WPF"
              xmlns:views="clr-namespace:ORM_MVVM_WPF.Views"
              xmlns:viewmodels="clr-namespace:ORM_MVVM_WPF.ViewModels"
-             StartupUri="Views/MainWindow.xaml">
+             xmlns:customerviewmodels="clr-namespace:ORM_MVVM_WPF.ViewModels.Customer"
+             xmlns:customerviews="clr-namespace:ORM_MVVM_WPF.Views.Customer"
+             StartupUri="Views/Customer/CustomerDashboard.xaml">
     <Application.Resources>
 
         <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
             <views:Login/>
         </DataTemplate>
+        
         <DataTemplate DataType="{x:Type viewmodels:SignupViewModel}">
             <views:Signup/>
         </DataTemplate>
+
+
+        <DataTemplate DataType="{x:Type customerviewmodels:CustomerPersonalInfoViewModel}">
+            <customerviews:CustomerPersonalInfo/>
+        </DataTemplate>
+
+
+        <DataTemplate DataType="{x:Type customerviewmodels:CustomerItemViewModel}">
+            <customerviews:CustomerItem/> 
+        </DataTemplate>
+
+
+        <DataTemplate DataType="{x:Type customerviewmodels:CustomerOrderViewModel}">
+            <customerviews:CustomerOrder/>
+        </DataTemplate>
+        
 
     </Application.Resources>
 </Application>

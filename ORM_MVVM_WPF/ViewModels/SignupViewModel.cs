@@ -38,11 +38,11 @@ namespace ORM_MVVM_WPF.ViewModels
             try
             {
                 List<User> users = Serialization.DeSerializeList();
-                Customer customer = new Customer();
+                Models.Customer customer = new Models.Customer();
 
-                if (users.OfType<Customer>().Any())
+                if (users.OfType<Models.Customer>().Any())
                 {
-                    customer.CustomerID = users.OfType<Customer>().Max(user => user.CustomerID) + 1;
+                    customer.CustomerID = users.OfType<Models.Customer>().Max(user => user.CustomerID) + 1;
                 }
                 else
                 {

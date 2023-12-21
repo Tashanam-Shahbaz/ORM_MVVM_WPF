@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ORM_MVVM_WPF.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace ORM_MVVM_WPF.Views.Customer
         public CustomerDashboard()
         {
             InitializeComponent();
+            DataContext = new MainViewModel();
         }
     }
 }

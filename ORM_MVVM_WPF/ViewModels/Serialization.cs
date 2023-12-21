@@ -23,7 +23,7 @@ namespace ORM_MVVM_WPF.ViewModels
                 }
 
                 string filePath = "users.xml";
-                XmlSerializer serializer = new XmlSerializer(typeof(List<User>), new[] { typeof(Admin), typeof(Customer), typeof(Seller) });
+                XmlSerializer serializer = new XmlSerializer(typeof(List<User>), new[] { typeof(Admin), typeof(Models.Customer), typeof(Seller) });
 
                 using (TextWriter writer = new StreamWriter(filePath))
                 {
@@ -50,7 +50,7 @@ namespace ORM_MVVM_WPF.ViewModels
             {
                 if (File.Exists(filePath))
                 {
-                    XmlSerializer serializer = new XmlSerializer(typeof(List<User>), new[] { typeof(Admin), typeof(Customer), typeof(Seller) });
+                    XmlSerializer serializer = new XmlSerializer(typeof(List<User>), new[] { typeof(Admin), typeof(Models.Customer), typeof(Seller) });
                     using (FileStream fileStream = new FileStream(filePath, FileMode.Open))
                     {
                         itemList = (List<User>)serializer.Deserialize(fileStream);

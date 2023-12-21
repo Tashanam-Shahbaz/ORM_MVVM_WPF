@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace ORM_MVVM_WPF.ViewModels.Customer
 {
-    internal class CustomerOrderViewModel
+    public class CustomerOrderViewModel : BaseViewModel
     {
+        public CustomerOrderViewModel()
+        {
+            
+        }
     }
 }
