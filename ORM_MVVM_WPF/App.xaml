@@ -6,7 +6,11 @@
              xmlns:viewmodels="clr-namespace:ORM_MVVM_WPF.ViewModels"
              xmlns:customerviewmodels="clr-namespace:ORM_MVVM_WPF.ViewModels.Customer"
              xmlns:customerviews="clr-namespace:ORM_MVVM_WPF.Views.Customer"
-             StartupUri="Views/Customer/CustomerDashboard.xaml">
+             
+             xmlns:adminviewmodels="clr-namespace:ORM_MVVM_WPF.ViewModels.AdminViewModel"
+             xmlns:adminviews="clr-namespace:ORM_MVVM_WPF.Views.Admin"
+             
+             StartupUri="Views/Admin/AdminDashboard.xaml">
     <Application.Resources>
 
         <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
@@ -31,7 +35,15 @@
         <DataTemplate DataType="{x:Type customerviewmodels:CustomerOrderViewModel}">
             <customerviews:CustomerOrder/>
         </DataTemplate>
-        
+
+        <DataTemplate DataType="{x:Type adminviewmodels:AdminManageItemViewModel}">
+            <adminviews:AdminItemManageView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type adminviewmodels:AdminManageOrderViewModel}">
+            <adminviews:AdminOrderManageView/>
+        </DataTemplate>
+
 
     </Application.Resources>
 </Application>

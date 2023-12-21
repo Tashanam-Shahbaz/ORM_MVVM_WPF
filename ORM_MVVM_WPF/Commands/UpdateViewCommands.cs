@@ -1,4 +1,5 @@
 ﻿using ORM_MVVM_WPF.ViewModels;
+using ORM_MVVM_WPF.ViewModels.AdminViewModel;
 using ORM_MVVM_WPF.ViewModels.Customer;
 using System;
 using System.Collections.Generic;
@@ -48,6 +49,16 @@ namespace ORM_MVVM_WPF.Commands
                 {
                     viewModel.SelectedViewModel = new CustomerOrderViewModel();
                 }
+
+                else if (parameter.ToString() == "admin_manage_order")
+                {
+                    viewModel.SelectedViewModel = new   AdminManageOrderViewModel();
+                }
+                else if (parameter.ToString() == "admin_manage_item")
+                {
+                    viewModel.SelectedViewModel = new AdminManageItemViewModel();
+                }
+
             }
         }
     }
