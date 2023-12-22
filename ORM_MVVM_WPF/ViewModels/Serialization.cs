@@ -11,8 +11,7 @@ namespace ORM_MVVM_WPF.ViewModels
 {
     public class Serialization
     {
-
-        public static bool SerializeList(List<User> itemList)
+        public static bool SerializeList<T>(List<T> itemList)
         {
             try
             {
@@ -22,8 +21,13 @@ namespace ORM_MVVM_WPF.ViewModels
                     return false;
                 }
 
-                string filePath = "users.xml";
-                XmlSerializer serializer = new XmlSerializer(typeof(List<User>), new[] { typeof(Admin), typeof(Models.Customer), typeof(Seller) });
+                Type[] extraTypes = new Type[] { typeof(Admin), typeof(Models.Customer), 
+                    typeof(Seller),typeof(ItemElectronic),typeof(ItemCloth) };
+
+                string typeName = typeof(T).Name; 
+                string filePath = $"{typeName}s.xml"; 
+
+                XmlSerializer serializer = new XmlSerializer(typeof(List<T>), extraTypes);
 
                 using (TextWriter writer = new StreamWriter(filePath))
                 {
@@ -33,39 +37,40 @@ namespace ORM_MVVM_WPF.ViewModels
             catch (Exception ex)
             {
                 Console.WriteLine("Serialization Error: " + ex.Message);
-
                 return false;
             }
             return true;
         }
 
-
-
-        public static List<User> DeSerializeList()
+        public static List<T> DeSerializeList<T>()
         {
-            string filePath = "users.xml";
-            List<User> itemList = new List<User>();
+
+            string typeName = typeof(T).Name;
+            string filePath = typeName + "s.xml";
+            List<T> itemList = new List<T>();
 
             try
             {
                 if (File.Exists(filePath))
                 {
-                    XmlSerializer serializer = new XmlSerializer(typeof(List<User>), new[] { typeof(Admin), typeof(Models.Customer), typeof(Seller) });
+                    Type[] extraTypes = new Type[] { typeof(Admin), typeof(Models.Customer),
+                                             typeof(Seller), typeof(ItemElectronic),
+                                             typeof(ItemCloth) };
+
+                    XmlSerializer serializer = new XmlSerializer(typeof(List<T>), extraTypes);
+
                     using (FileStream fileStream = new FileStream(filePath, FileMode.Open))
                     {
-                        itemList = (List<User>)serializer.Deserialize(fileStream);
+                        itemList = (List<T>)serializer.Deserialize(fileStream);
                     }
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine("Deserialization Error: " + e.Message);
-                itemList = new List<User>();
+                itemList = new List<T>();
             }
-
             return itemList;
         }
-
-
     }
 }

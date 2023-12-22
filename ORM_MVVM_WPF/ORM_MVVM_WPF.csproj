@@ -58,6 +58,9 @@
     <Compile Include="Commands\UpdateViewCommands.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\ItemCloth.cs" />
+    <Compile Include="Models\ItemElectronic.cs" />
     <Compile Include="Models\Seller.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="ViewModels\AdminViewModel\AdminManageItemViewModel.cs" />
@@ -70,6 +73,9 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\Serialization.cs" />
     <Compile Include="ViewModels\SignupViewModel.cs" />
+    <Compile Include="Views\Admin\AddNewItemAdminViewWindow.xaml.cs">
+      <DependentUpon>AddNewItemAdminViewWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\AdminDashboard.xaml.cs">
       <DependentUpon>AdminDashboard.xaml</DependentUpon>
     </Compile>
@@ -95,6 +101,10 @@
       <DependentUpon>Signup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EnumType.cs" />
+    <Page Include="Views\Admin\AddNewItemAdminViewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Admin\AdminDashboard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

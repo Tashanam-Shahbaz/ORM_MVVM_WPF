@@ -15,7 +15,7 @@ namespace ORM_MVVM_WPF.ViewModels
         {
             try
             {
-                List<User> users = Serialization.DeSerializeList();
+                List<User> users = Serialization.DeSerializeList<User>();
                 Admin admin = new Admin();
 
                 admin.Username = name;
@@ -37,7 +37,7 @@ namespace ORM_MVVM_WPF.ViewModels
         {
             try
             {
-                List<User> users = Serialization.DeSerializeList();
+                List<User> users = Serialization.DeSerializeList<User>();
                 Models.Customer customer = new Models.Customer();
 
                 if (users.OfType<Models.Customer>().Any())
@@ -68,7 +68,7 @@ namespace ORM_MVVM_WPF.ViewModels
         {
             try 
             {
-                List<User> users = Serialization.DeSerializeList();
+                List<User> users = Serialization.DeSerializeList<User>();
                 Seller seller = new Seller();
 
                 if (users.OfType<Seller>().Any())

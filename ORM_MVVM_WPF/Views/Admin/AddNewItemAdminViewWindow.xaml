@@ -1,0 +1,75 @@
+﻿<Window x:Class="ORM_MVVM_WPF.Views.Admin.AddNewItemAdminViewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ORM_MVVM_WPF.Views.Admin"
+        xmlns:models="clr-namespace:ORM_MVVM_WPF.Models"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d" 
+        d:DesignHeight="500" d:DesignWidth="800" Background="White"
+        Title="AddNewItemAdminViewWindow" Height="450" Width="800">
+
+    <Window.Resources>
+
+
+        <ObjectDataProvider x:Key="ItemType" ObjectType="{x:Type sys:Enum}" MethodName="GetNames">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="models:ItemType" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <ObjectDataProvider x:Key="BrandType" ObjectType="{x:Type sys:Enum}" MethodName="GetNames">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="models:Brand" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="600"/>
+        </Grid.ColumnDefinitions>
+
+
+        <Label Content="Select Itme Type:" Grid.Row="0" Grid.Column="0" Margin="20,0,103,0"/>
+        <ComboBox x:Name="ItemTypeComboBox" Width="200" FontSize="12" ItemsSource="{Binding Source={StaticResource ItemType}}" SelectionChanged="ItemTypeComboBox_SelectionChanged"  Grid.Row="0" Grid.Column="1" Margin="135,5,238,5"/>
+
+        <Label Content="Enter Item Name:" Grid.Row="1" Grid.Column="0" Margin="20,0,103,0" />
+        <TextBox x:Name="NameTextBox" Width="200" Grid.Row="1" Grid.Column="1" Margin="135,5,238,5"/>
+
+        <Label Content="Enter Description:" Grid.Row="2" Grid.Column="0" Margin="20,0,103,0" />
+        <TextBox x:Name="DescriptionTextBox" Width="200" Grid.Row="2" Grid.Column="1" Margin="135,5,238,5"/>
+
+        <Label Content="Enter Price:" Grid.Row="3" Grid.Column="0" Margin="20,0,103,0" />
+        <TextBox x:Name="PriceTextBox" Width="200" Grid.Row="3" Grid.Column="1" Margin="135,5,238,5"/>
+
+        <Label x:Name="SizeLabel" Content="Enter Size:" Grid.Row="4" Grid.Column="0" Margin="20,0,103,0" Visibility="Collapsed"  />
+        <TextBox x:Name="SizeTextBox" Width="200" Grid.Row="4" Grid.Column="1" Margin="135,5,238,5" Visibility="Collapsed" />
+
+        <Label  x:Name="MaterialLabel" Content="Enter Material:" Grid.Row="5" Grid.Column="0" Margin="20,0,103,0" Visibility="Collapsed" />
+        <TextBox x:Name="MaterialTextBox" Width="200" Grid.Row="5" Grid.Column="1" Margin="135,5,238,5" Visibility="Collapsed"/>
+
+        <Label  x:Name="Brandlabel" Content="Enter Brand:" Grid.Row="4" Grid.Column="0" Margin="20,0,103,0" Visibility="Collapsed" />
+        <ComboBox x:Name="BrandTypeComboBox" Width="200" FontSize="12" ItemsSource="{Binding Source={StaticResource BrandType}}" Grid.Row="4" Grid.Column="2" Margin="135,5,238,5" Visibility="Collapsed"/>
+
+        <Button Content="Add" Click="AddItem_Button" Grid.Row="6" Grid.Column="1" Width="200" Margin="0 0 110 0">
+            
+        </Button>
+        
+    </Grid>
+</Window>

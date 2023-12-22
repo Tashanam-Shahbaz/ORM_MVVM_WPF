@@ -4,9 +4,104 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ORM_MVVM_WPF.Views.Admin"
+              xmlns:models="clr-namespace:ORM_MVVM_WPF.Models"
+              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
                      d:DesignHeight="900" d:DesignWidth="1000" Background="White">
-    <Grid>
-        <Label FontSize="50" Content="ITEM MANAMGE"></Label>
+
+    <UserControl.Resources>
+        
+        <ObjectDataProvider x:Key="ItemType" ObjectType="{x:Type sys:Enum}" MethodName="GetNames">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="models:ItemType" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+    </UserControl.Resources>
+    
+    <Grid Margin="10">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Heading Section -->
+        <StackPanel Grid.Row="0" Orientation="Vertical">
+            <Label FontSize="20" FontWeight="Bold" Content="Add New Item"/>
+        </StackPanel>
+        
+        <StackPanel HorizontalAlignment="Left" Grid.Row="1">
+            <Button  Width="250" Height="40" Margin="12" FontSize="15" Content="+ Add New Item" Click="AddItem_Click"/>
+        </StackPanel>
+
+        <!-- Heading Section -->
+        <StackPanel Grid.Row="2" Orientation="Vertical">
+            <Label FontSize="20" FontWeight="Bold" Content="Search Item"/>
+        </StackPanel>
+
+        <!-- Search Fields Section -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="10">
+            <StackPanel Orientation="Horizontal" Margin="0 5">
+                <Label FontSize="15" Content="Enter Type:"></Label>
+                <ComboBox x:Name="SearchItemType" ItemsSource="{Binding Source={StaticResource ItemType}}" Width="200" Margin="5 0"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="40 5">
+                <Label FontSize="15" Content="Enter Name:"></Label>
+                <TextBox x:Name="SearchItemName" Width="200" Margin="5 0"/>
+            </StackPanel>
+
+            <Button Content="SEARCH" Width="100" Margin="5" Click="SearchItem_Click"></Button>
+        </StackPanel>
+
+
+        <!-- Heading Section -->
+        <StackPanel Grid.Row="4" Orientation="Vertical">
+            <Label FontSize="20" FontWeight="Bold" Content="Items"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="5">
+            <ListView ItemsSource="{Binding ItemsList}" BorderBrush="#999" BorderThickness="1"
+              Margin="5" Background="#EEE" HorizontalContentAlignment="Stretch">
+                <ListView.Resources>
+                
+                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                        <Setter Property="FontSize" Value="15" />
+                      
+                        <Setter Property="FontWeight" Value="Bold" />
+                      
+                    </Style>
+                   
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="FontSize" Value="13" />
+                        <Setter Property="Foreground" Value="Black" />
+                    </Style>
+                    
+                </ListView.Resources>
+                <ListView.View>
+                    <GridView>
+                       
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="120"/>
+                        <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}" Width="200"/>
+                        <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}" Width="80"/>
+                        <GridViewColumn  Header ="Action" Width ="80">
+                        <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Action" Click="AdditionalInfo_Click" Tag="{Binding Id}"/>
+                                </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+
+
+
     </Grid>
 </UserControl>
