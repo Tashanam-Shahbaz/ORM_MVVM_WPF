@@ -23,7 +23,8 @@ namespace ORM_MVVM_WPF.Views.Admin
     /// </summary>
     public partial class AdminItemManageView : UserControl
     {
-        public ObservableCollection<Models.Item> ItemsList { get; set; }
+        public ObservableCollection<Models.ItemElectronic> ItemElectronicList { get; set; }
+        public ObservableCollection<Models.ItemCloth> ItemClothList { get; set; }
         public AdminItemManageView()
         {
             InitializeComponent();
@@ -41,7 +42,8 @@ namespace ORM_MVVM_WPF.Views.Admin
         {
           AdminManageItemViewModel viewModel = new AdminManageItemViewModel();
             List<Models.Item> Items =viewModel.DisplayItem();
-            ItemsList = new ObservableCollection<Models.Item>(Items);
+            ItemElectronicList = new ObservableCollection<ItemElectronic>(Items.OfType<ItemElectronic>());
+            ItemClothList = new ObservableCollection<ItemCloth>(Items.OfType<ItemCloth>());
         }
 
 
