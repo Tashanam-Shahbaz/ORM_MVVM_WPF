@@ -27,7 +27,9 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="70"/>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!-- Heading Section -->
@@ -36,7 +38,7 @@
         </StackPanel>
         
         <StackPanel HorizontalAlignment="Left" Grid.Row="1">
-            <Button  Width="250" Height="40" Margin="12" FontSize="15" Content="+ Add New Item" Click="AddItem_Click"/>
+            <Button  Width="250" Height="40" Margin="12" FontSize="15" Content="+ Add New Item" />
         </StackPanel>
 
         <!-- Heading Section -->
@@ -65,43 +67,11 @@
             <Label FontSize="20" FontWeight="Bold" Content="Items"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="5">
-            <ListView ItemsSource="{Binding ItemsList}" BorderBrush="#999" BorderThickness="1"
-              Margin="5" Background="#EEE" HorizontalContentAlignment="Stretch">
-                <ListView.Resources>
-                
-                    <Style TargetType="{x:Type GridViewColumnHeader}">
-                        <Setter Property="FontSize" Value="15" />
-                      
-                        <Setter Property="FontWeight" Value="Bold" />
-                      
-                    </Style>
-                   
-                    <Style TargetType="{x:Type ListViewItem}">
-                        <Setter Property="FontSize" Value="13" />
-                        <Setter Property="Foreground" Value="Black" />
-                    </Style>
-                    
-                </ListView.Resources>
-                <ListView.View>
-                    <GridView>
-                       
-                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="120"/>
-                        <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}" Width="200"/>
-                        <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}" Width="80"/>
-                        <GridViewColumn  Header ="Action" Width ="80">
-                        <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button Content="Action" Click="AdditionalInfo_Click" Tag="{Binding Id}"/>
-                                </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+        <StackPanel   Grid.Row="5"  x:Name="DynamicDataGrid">
+        
         </StackPanel>
 
 
-
+        
     </Grid>
 </UserControl>

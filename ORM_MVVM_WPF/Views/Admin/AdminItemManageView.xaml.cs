@@ -23,8 +23,8 @@ namespace ORM_MVVM_WPF.Views.Admin
     /// </summary>
     public partial class AdminItemManageView : UserControl
     {
-        public ObservableCollection<Models.ItemElectronic> ItemElectronicList { get; set; }
-        public ObservableCollection<Models.ItemCloth> ItemClothList { get; set; }
+
+
         public AdminItemManageView()
         {
             InitializeComponent();
@@ -40,30 +40,29 @@ namespace ORM_MVVM_WPF.Views.Admin
 
         private void DisplayItem_Click()
         {
-          AdminManageItemViewModel viewModel = new AdminManageItemViewModel();
-            List<Models.Item> Items =viewModel.DisplayItem();
-            ItemElectronicList = new ObservableCollection<ItemElectronic>(Items.OfType<ItemElectronic>());
-            ItemClothList = new ObservableCollection<ItemCloth>(Items.OfType<ItemCloth>());
-        }
+            AdminManageItemViewModel viewModel = new AdminManageItemViewModel();
+            List<Models.Item> Items = viewModel.DisplayItem();
 
+            var distinctItemTypes = Items.Select(item => item.GetType()).Distinct().ToList();
 
-        private void AdditionalInfo_Click(object sender, RoutedEventArgs e)
-        {
-            var button = sender as Button;
-            if (button != null)
+            foreach (var itemType in distinctItemTypes)
             {
-                var ItemId = button.Tag;
-                Models.Item selectedItemInfo = ItemsList.First(item => item.Id == Convert.ToInt32(button.Tag));
-                string stg = "";
-                if (selectedItemInfo is ItemElectronic electronic)
+                var itemTypeList = Items.Where(item => item.GetType() == itemType).ToList();
+
+                Type genericType = typeof(ObservableCollection<>).MakeGenericType(itemType);
+                dynamic dynamicObservableCollection = Activator.CreateInstance(genericType);
+
+                var addMethod = genericType.GetMethod("Add"); // Retrieve the 'Add' method
+
+                foreach (var item in itemTypeList)
                 {
-                    stg += " Brand Name: "+Convert.ToString(electronic.Brand);
+                    addMethod.Invoke(dynamicObservableCollection, new[] { item }); // Invoke 'Add' method to add item
                 }
-                else if (selectedItemInfo is ItemCloth cloth)
-                {
-                    stg += " Size : " + Convert.ToString(cloth.Size) + "\n Material : " + cloth.Material;      
-                }
-                MessageBox.Show(stg);
+
+                DataGrid dynamicDataGrid = new DataGrid();
+                dynamicDataGrid.AutoGenerateColumns = true;
+                dynamicDataGrid.ItemsSource = dynamicObservableCollection;
+                DynamicDataGrid.Children.Add(dynamicDataGrid);
             }
         }
 
