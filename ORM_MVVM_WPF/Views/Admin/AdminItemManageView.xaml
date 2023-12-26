@@ -32,6 +32,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        
         <!-- Heading Section -->
         <StackPanel Grid.Row="0" Orientation="Vertical">
             <Label FontSize="20" FontWeight="Bold" Content="Add New Item"/>
