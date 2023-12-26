@@ -36,6 +36,7 @@ namespace ORM_MVVM_WPF.ViewModels
                     serializer.Serialize(writer, itemList);
                 }
             }
+
             catch (Exception ex)
             {
                 Console.WriteLine("Serialization Error: " + ex.Message);
