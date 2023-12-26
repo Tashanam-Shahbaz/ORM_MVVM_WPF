@@ -24,6 +24,7 @@ namespace ORM_MVVM_WPF.ViewModels
                 Type[] extraTypes = new Type[] { typeof(Admin), typeof(Models.Customer), 
                     typeof(Seller),typeof(ItemElectronic),typeof(ItemCloth) };
 
+
                 string typeName = typeof(T).Name; 
                 string filePath = $"{typeName}s.xml"; 
 
