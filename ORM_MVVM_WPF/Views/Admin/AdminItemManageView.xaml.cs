@@ -18,11 +18,15 @@ using System.Windows.Shapes;
 
 namespace ORM_MVVM_WPF.Views.Admin
 {
+
     /// <summary>
     /// Interaction logic for AdminItemManageView.xaml
     /// </summary>
     public partial class AdminItemManageView : UserControl
     {
+        DataGrid dynamicDataGrid;
+        List<Models.Item> Items;
+
 
 
         public AdminItemManageView()
@@ -41,7 +45,7 @@ namespace ORM_MVVM_WPF.Views.Admin
         private void DisplayItem_Click()
         {
             AdminManageItemViewModel viewModel = new AdminManageItemViewModel();
-            List<Models.Item> Items = viewModel.DisplayItem();
+            Items = viewModel.DisplayItem();
 
             var distinctItemTypes = Items.Select(item => item.GetType()).Distinct().ToList();
 
@@ -59,10 +63,10 @@ namespace ORM_MVVM_WPF.Views.Admin
                     addMethod.Invoke(dynamicObservableCollection, new[] { item }); // Invoke 'Add' method to add item
                 }
 
-                DataGrid dynamicDataGrid = new DataGrid();
+                dynamicDataGrid = new DataGrid();
                 dynamicDataGrid.AutoGenerateColumns = true;
                 dynamicDataGrid.ItemsSource = dynamicObservableCollection;
-                DynamicDataGrid.Children.Add(dynamicDataGrid);
+                DynamicDataGrid.Items.Add(dynamicDataGrid);
             }
         }
 
@@ -70,6 +74,34 @@ namespace ORM_MVVM_WPF.Views.Admin
         {
             //SearchItemName
             //SearchItemType
+        }
+
+        private void SearchItemType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string itemtype = SearchItemType.SelectedItem?.ToString();
+            DynamicDataGrid.Items.Clear();
+            switch (itemtype.ToLower())       
+            {
+                case "cloth":
+                    var clothItems = new ObservableCollection<ItemCloth>(Items.OfType<ItemCloth>());
+                    DynamicDataGrid.Items.Add(clothItems);
+                    break;
+                    
+
+                case "electronic":
+                    var electronicItems = new ObservableCollection<ItemElectronic>(Items.OfType<ItemElectronic>());
+                    DynamicDataGrid.Items.Add(electronicItems);
+                    break;
+
+                case "all":
+                    var electronicItems2 = new ObservableCollection<ItemElectronic>(Items.OfType<ItemElectronic>());
+                    var clothItems2 = new ObservableCollection<ItemCloth>(Items.OfType<ItemCloth>());
+                    DynamicDataGrid.Items.Add(electronicItems2);
+                    DynamicDataGrid.Items.Add(clothItems2);
+                    break;
+
+            }
+
         }
     }
 }

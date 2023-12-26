@@ -13,7 +13,7 @@
         
         <ObjectDataProvider x:Key="ItemType" ObjectType="{x:Type sys:Enum}" MethodName="GetNames">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="models:ItemType" />
+                <x:Type TypeName="models:ItemTypeDropDown"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
 
@@ -51,7 +51,8 @@
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="10">
             <StackPanel Orientation="Horizontal" Margin="0 5">
                 <Label FontSize="15" Content="Enter Type:"></Label>
-                <ComboBox x:Name="SearchItemType" ItemsSource="{Binding Source={StaticResource ItemType}}" Width="200" Margin="5 0"/>
+                <ComboBox x:Name="SearchItemType" ItemsSource="{Binding Source={StaticResource ItemType}}" Width="200" Margin="5 0" SelectionChanged="SearchItemType_SelectionChanged"/>
+              
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="40 5">
@@ -68,11 +69,15 @@
             <Label FontSize="20" FontWeight="Bold" Content="Items"/>
         </StackPanel>
 
-        <StackPanel   Grid.Row="5"  x:Name="DynamicDataGrid">
-        
-        </StackPanel>
+        <ItemsControl Grid.Row="5" x:Name="DynamicDataGrid">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <DataGrid ItemsSource="{Binding}" AutoGenerateColumns="True"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
 
 
-        
+
     </Grid>
 </UserControl>

@@ -12,6 +12,14 @@ namespace ORM_MVVM_WPF.Models
             Cloth,
             Electronic
     }
+
+    public enum ItemTypeDropDown
+    {
+        All,
+        Cloth,
+        Electronic,
+    }
+
     public class Item
     {
         public int Id { get; set; }
