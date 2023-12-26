@@ -25,6 +25,7 @@ namespace ORM_MVVM_WPF.ViewModels
                     typeof(Seller),typeof(ItemElectronic),typeof(ItemCloth) };
 
 
+
                 string typeName = typeof(T).Name; 
                 string filePath = $"{typeName}s.xml"; 
 
