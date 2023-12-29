@@ -80,7 +80,7 @@ namespace ORM_MVVM_WPF.Views.Admin
         {
             string itemtype = SearchItemType.SelectedItem?.ToString();
             DynamicDataGrid.Items.Clear();
-            switch (itemtype.ToLower())       
+            switch (itemtype?.ToLower())       
             {
                 case "cloth":
                     var clothItems = new ObservableCollection<ItemCloth>(Items.OfType<ItemCloth>());
@@ -103,5 +103,44 @@ namespace ORM_MVVM_WPF.Views.Admin
             }
 
         }
+
+        private void SearchItemName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string itemName = SearchItemName.Text.Trim();
+            string itemtype = SearchItemType.SelectedItem?.ToString();
+            DynamicDataGrid.Items.Clear(); // Clear existing items
+
+            if (!string.IsNullOrEmpty(itemName))
+            {
+                var filteredItems = Items.Where(item => item.Name.ToLower().Contains(itemName.ToLower())).ToList();
+
+                var clothItems = new ObservableCollection<ItemCloth>();
+                var electronicItems = new ObservableCollection<ItemElectronic>();
+
+                foreach (var item in filteredItems)
+                {
+                    if (item is ItemCloth itemCloth)
+                    {
+                        clothItems.Add(itemCloth);
+                    }
+                    else if (item is ItemElectronic itemElectronic)
+                    { 
+                       electronicItems.Add(itemElectronic);
+                    }
+                }
+
+                DynamicDataGrid.Items.Add(clothItems); // Add cloth items
+                DynamicDataGrid.Items.Add(electronicItems); // Add electronic items
+
+                //Type genericType = typeof(ObservableCollection<>).MakeGenericType(itemtype);
+                //dynamic dynamicObservableCollection = Activator.CreateInstance(genericType);
+
+            }
+            else
+            {
+                SearchItemType_SelectionChanged(null, null);
+            }
+        }
+
     }
 }

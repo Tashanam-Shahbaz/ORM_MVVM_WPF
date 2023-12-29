@@ -57,7 +57,7 @@
 
             <StackPanel Orientation="Horizontal" Margin="40 5">
                 <Label FontSize="15" Content="Enter Name:"></Label>
-                <TextBox x:Name="SearchItemName" Width="200" Margin="5 0"/>
+                <TextBox x:Name="SearchItemName" Width="200" Margin="5 0" TextChanged="SearchItemName_TextChanged"/>
             </StackPanel>
 
             <Button Content="SEARCH" Width="100" Margin="5" Click="SearchItem_Click"></Button>
