@@ -3,6 +3,7 @@ using ORM_MVVM_WPF.ViewModels.AdminViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -106,41 +107,37 @@ namespace ORM_MVVM_WPF.Views.Admin
 
         private void SearchItemName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string itemName = SearchItemName.Text.Trim();
-            string itemtype = SearchItemType.SelectedItem?.ToString();
+            string itemName = SearchItemName.Text.Trim().ToLower();
+            string itemType = SearchItemType.SelectedItem?.ToString()?.ToLower();
             DynamicDataGrid.Items.Clear(); // Clear existing items
 
             if (!string.IsNullOrEmpty(itemName))
             {
-                var filteredItems = Items.Where(item => item.Name.ToLower().Contains(itemName.ToLower())).ToList();
+                var filteredItems = Items.Where(item => item.Name.ToLower().Contains(itemName)).ToList();
+                var clothItems = new ObservableCollection<ItemCloth>(filteredItems.OfType<ItemCloth>());
+                var electronicItems = new ObservableCollection<ItemElectronic>(filteredItems.OfType<ItemElectronic>());
 
-                var clothItems = new ObservableCollection<ItemCloth>();
-                var electronicItems = new ObservableCollection<ItemElectronic>();
 
-                foreach (var item in filteredItems)
+                if ((string.IsNullOrEmpty(itemType) || itemType == "all") && clothItems.Any() && electronicItems.Any())
                 {
-                    if (item is ItemCloth itemCloth)
-                    {
-                        clothItems.Add(itemCloth);
-                    }
-                    else if (item is ItemElectronic itemElectronic)
-                    { 
-                       electronicItems.Add(itemElectronic);
-                    }
+                    DynamicDataGrid.Items.Add(clothItems);
+                    DynamicDataGrid.Items.Add(electronicItems);
                 }
-
-                DynamicDataGrid.Items.Add(clothItems); // Add cloth items
-                DynamicDataGrid.Items.Add(electronicItems); // Add electronic items
-
-                //Type genericType = typeof(ObservableCollection<>).MakeGenericType(itemtype);
-                //dynamic dynamicObservableCollection = Activator.CreateInstance(genericType);
-
+                else if (itemType == "cloth" && clothItems.Any())
+                {
+                    DynamicDataGrid.Items.Add(clothItems);
+                }
+                else if (itemType == "electronic" && electronicItems.Any())
+                {
+                    DynamicDataGrid.Items.Add(electronicItems);
+                }
             }
             else
             {
                 SearchItemType_SelectionChanged(null, null);
             }
         }
+
 
     }
 }

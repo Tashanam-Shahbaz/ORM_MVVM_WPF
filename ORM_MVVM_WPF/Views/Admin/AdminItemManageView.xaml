@@ -39,7 +39,7 @@
         </StackPanel>
         
         <StackPanel HorizontalAlignment="Left" Grid.Row="1">
-            <Button  Width="250" Height="40" Margin="12" FontSize="15" Content="+ Add New Item" />
+            <Button  Width="250" Height="40" Margin="12" FontSize="15" Content="+ Add New Item" Click="AddItem_Click" />
         </StackPanel>
 
         <!-- Heading Section -->
@@ -60,7 +60,6 @@
                 <TextBox x:Name="SearchItemName" Width="200" Margin="5 0" TextChanged="SearchItemName_TextChanged"/>
             </StackPanel>
 
-            <Button Content="SEARCH" Width="100" Margin="5" Click="SearchItem_Click"></Button>
         </StackPanel>
 
 
