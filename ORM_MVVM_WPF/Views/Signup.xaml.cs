@@ -96,10 +96,14 @@ namespace ORM_MVVM_WPF.Views
                 case "Admin":
                     LabelDpartment.Visibility = Visibility.Visible;
                     AdminDepartment.Visibility = Visibility.Visible;
+
+                    // Hide other fields
                     LabelCustomerType.Visibility = Visibility.Collapsed;
                     SelectedCustomerType.Visibility = Visibility.Collapsed;
+
                     LabelCompanyName.Visibility = Visibility.Collapsed;
                     TextCompanyName.Visibility = Visibility.Collapsed;
+
                     LabelSellerType.Visibility = Visibility.Collapsed;
                     SelectedSellerType.Visibility = Visibility.Collapsed;
                     break;
@@ -107,8 +111,11 @@ namespace ORM_MVVM_WPF.Views
                 case "Customer":
                     LabelCustomerType.Visibility = Visibility.Visible;
                     SelectedCustomerType.Visibility = Visibility.Visible;
+
+                    // Hide other fields
                     LabelDpartment.Visibility = Visibility.Collapsed;
                     AdminDepartment.Visibility = Visibility.Collapsed;
+
                     LabelSellerType.Visibility = Visibility.Collapsed;
                     SelectedSellerType.Visibility = Visibility.Collapsed;
                     break;
@@ -116,11 +123,14 @@ namespace ORM_MVVM_WPF.Views
                 case "Seller":
                     LabelSellerType.Visibility = Visibility.Visible;
                     SelectedSellerType.Visibility = Visibility.Visible;
+
+                    // Hide other fields
                     LabelCustomerType.Visibility = Visibility.Collapsed;
                     SelectedCustomerType.Visibility = Visibility.Collapsed;
                     LabelDpartment.Visibility = Visibility.Collapsed;
                     AdminDepartment.Visibility = Visibility.Collapsed;
                     break;
+
             }
         }
         private void SignupButton_Click(object sender, RoutedEventArgs e)
