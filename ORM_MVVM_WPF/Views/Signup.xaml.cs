@@ -22,17 +22,20 @@ namespace ORM_MVVM_WPF.Views
     /// </summary>
     public partial class Signup : UserControl
     {
+        SignupViewModel _signup2;
         public Signup()
         {
             InitializeComponent();
+            _signup2  = new SignupViewModel();
+            this.DataContext = _signup2;
         }
 
         private bool ValidateFields()
         {
             if (string.IsNullOrWhiteSpace(NameTextBox.Text) ||
                 string.IsNullOrWhiteSpace(EmailTextBox.Text) ||
-                string.IsNullOrWhiteSpace(PasswordBox.Password) ||
-                string.IsNullOrWhiteSpace(ConfirmPasswordBox.Password) ||
+                string.IsNullOrWhiteSpace(PasswordBox.Text) ||
+                string.IsNullOrWhiteSpace(ConfirmPasswordBox.Text) ||
                 UserTypeComboBox.SelectedItem == null)
             {
                 ShowIncompleteFieldsMessage();
@@ -150,20 +153,20 @@ namespace ORM_MVVM_WPF.Views
 
                 if (selectedUserType == UserType.Admin)
                 {
-                    result = signup.SinupAction(NameTextBox.Text, EmailTextBox.Text, PasswordBox.Password, TextDepartment.Text);
+                    result = signup.SinupAction(NameTextBox.Text, EmailTextBox.Text, PasswordBox.Text, TextDepartment.Text);
                 }
                 else if (selectedUserType == UserType.Customer)
                 {
                     CustomerType type;
                     Enum.TryParse(OptionCustomerType.SelectedItem.ToString(), out type);
-                    result = signup.SinupAction(NameTextBox.Text, EmailTextBox.Text, PasswordBox.Password, type);
+                    result = signup.SinupAction(NameTextBox.Text, EmailTextBox.Text, PasswordBox.Text, type);
                 }
                 else if (selectedUserType == UserType.Seller)
                 {
 
                     SellerType type;
                     Enum.TryParse(OptionSellerType.SelectedItem.ToString(), out type);
-                    result = signup.SinupAction(NameTextBox.Text, EmailTextBox.Text, PasswordBox.Password, type);
+                    result = signup.SinupAction(NameTextBox.Text, EmailTextBox.Text, PasswordBox.Text, type);
                 }
                 if (result)
                 {

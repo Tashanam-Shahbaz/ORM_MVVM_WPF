@@ -15,17 +15,28 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="1" Margin="2">
+        <!--<StackPanel Grid.Row="1" Margin="2">
             <Label Content="Enter User Email:"/>
             <TextBox x:Name="EmailTextBox" Width="200"/>
+        </StackPanel>-->
+        
+        <!--<StackPanel Grid.Row="2" Margin="2">
+            <Label Content="Enter User Password:"/>
+            <PasswordBox x:Name="PasswordBox" Width="200"/>
+        </StackPanel>-->
+
+        <StackPanel Grid.Row="1" Margin="2">
+            <Label Content="Enter User Email:"/>
+            <TextBox x:Name="UserEmail" Text="{Binding UserEmail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Width="200"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Margin="2">
             <Label Content="Enter User Password:"/>
-            <PasswordBox x:Name="PasswordBox" Width="200"/>
+            <TextBox x:Name="UserPassword" Text="{Binding UserPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Width="200"/>
         </StackPanel>
-
+        
         <Button Grid.Row="3" Content="Submit" Width="100" HorizontalAlignment="Center" Margin="0,20,0,0" Click="LoginButton_Click"/>
         <TextBlock Grid.Row="4" x:Name="ResultText" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Red"/>
+
     </Grid>
 </UserControl>

@@ -11,6 +11,77 @@ namespace ORM_MVVM_WPF.ViewModels
     {
         public SignupViewModel() { }
 
+        private string _userName;
+        private string _userEmail;
+        private string _userPassword;
+        private string _selectedUserType;
+        private string _selectedCustomerType;
+        private string _selectedSellerType;
+        private string _adminDepart;
+        public string UserName
+        {
+            get { return _userName; }
+            set
+            {
+                _userName = value;
+                OnPropertyChanged(nameof(UserName));
+            }
+        }
+        public string UserEmail2
+        {
+            get { return _userEmail; }
+            set
+            {
+                _userEmail = value;
+                OnPropertyChanged(nameof(UserEmail2));
+            }
+        }
+        public string UserPassword2
+        {
+            get { return _userPassword; }
+            set
+            {
+                _userPassword = value;
+                OnPropertyChanged(nameof(UserPassword2));
+            }
+        }
+
+        public string SelectedUserType
+        {
+            get { return _selectedUserType; }
+            set
+            {
+                _selectedUserType = value;
+                OnPropertyChanged(nameof(SelectedUserType));
+            }
+        }
+        public string SelectedCustomerType
+        {
+            get { return _selectedCustomerType; }
+            set
+            {
+                _selectedCustomerType = value;
+                OnPropertyChanged(nameof(SelectedCustomerType));
+            }
+        }
+        public string SelectedSellerType
+        {
+            get { return _selectedSellerType; }
+            set
+            {
+                _selectedSellerType = value;
+                OnPropertyChanged(nameof(SelectedSellerType));
+            }
+        }
+        public string AdminDepartment
+        {
+            get { return _adminDepart; }
+            set
+            {
+                _adminDepart = value;
+                OnPropertyChanged(nameof(AdminDepartment));
+            }
+        }
         public bool SinupAction(string name, string email ,string password, string depart)
         {
             try
@@ -35,6 +106,8 @@ namespace ORM_MVVM_WPF.ViewModels
 
         public bool SinupAction(string name, string email, string password, CustomerType type)
         {
+            string a = UserName;
+            Console.WriteLine(a);
             try
             {
                 List<User> users = Serialization.DeSerializeList<User>();

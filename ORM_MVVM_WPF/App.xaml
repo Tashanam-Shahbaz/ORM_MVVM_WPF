@@ -9,8 +9,8 @@
              
              xmlns:adminviewmodels="clr-namespace:ORM_MVVM_WPF.ViewModels.AdminViewModel"
              xmlns:adminviews="clr-namespace:ORM_MVVM_WPF.Views.Admin"
-             
-             StartupUri="Views/Admin/AdminDashboard.xaml">
+             StartupUri="Views/MainWindow.xaml">
+
     <Application.Resources>
 
         <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
