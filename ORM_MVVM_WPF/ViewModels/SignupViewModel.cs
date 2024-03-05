@@ -9,6 +9,7 @@ namespace ORM_MVVM_WPF.ViewModels
 {
     public class SignupViewModel : BaseViewModel
     {
+
         public SignupViewModel() { }
 
         private string _userName;
