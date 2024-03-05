@@ -53,32 +53,32 @@
         </Grid.ColumnDefinitions>
 
         <Label Content="Enter User Name:" Grid.Row="0" Grid.Column="0" Margin="20 , 0 ,0 ,0"/>
-        <TextBox x:Name="NameTextBox" Text="{Binding NameTextBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" Grid.Row="0" Grid.Column="1" Margin="0 , 5"/>
+        <TextBox x:Name="UserName" Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" Grid.Row="0" Grid.Column="1" Margin="0 , 5"/>
 
         <Label Content="Enter User Email:" Grid.Row="1" Grid.Column="0" Margin="20 , 0 ,0 ,0"/>
-        <TextBox x:Name="EmailTextBox" Text="{Binding UserEmail2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" Grid.Row="1" Grid.Column="1" Margin="0 , 5"/>
+        <TextBox x:Name="UserEmail" Text="{Binding UserEmail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" Grid.Row="1" Grid.Column="1" Margin="0 , 5"/>
 
         <Label Content="Enter User Password:" Grid.Row="2" Grid.Column="0" Margin="20 , 0 ,0 ,0"/>
-        <TextBox x:Name="PasswordBox" Text="{Binding UserPasssword2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" Grid.Row="2" Grid.Column="1" Margin="0 , 5"/>
+        <TextBox x:Name="UserPasssword" Text="{Binding UserPasssword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" Grid.Row="2" Grid.Column="1" Margin="0 , 5"/>
 
         <Label Content="Confirm Password:" Grid.Row="3" Grid.Column="0" Margin="20 , 0 ,0 ,0"/>
-        <TextBox x:Name="ConfirmPasswordBox" Text="{Binding UserConfirmPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" Grid.Row="3" Grid.Column="1" Margin="0 , 5"/>
+        <TextBox x:Name="ConfirmUserPasssword"  Width="200" Grid.Row="3" Grid.Column="1" Margin="0 , 5"/>
 
         <Label Content="Select User Type:" Grid.Row="4" Grid.Column="0" Margin="20 , 0 ,0 ,0"/>
-        <ComboBox x:Name="UserTypeComboBox" Width="200" FontSize="12" ItemsSource="{Binding Source={StaticResource UserType}}"  SelectedItem="{Binding SelectedUserType, Mode=TwoWay}" SelectionChanged="ComboBox_SelectionChanged"  Grid.Row="4" Grid.Column="1" Margin="0 , 5"/>
+        <ComboBox x:Name="SelectedUserType" Width="200" FontSize="12" ItemsSource="{Binding Source={StaticResource UserType}}"  SelectedItem="{Binding SelectedUserType, Mode=TwoWay}" SelectionChanged="ComboBox_SelectionChanged"  Grid.Row="4" Grid.Column="1" Margin="0 , 5"/>
 
 
         <Label x:Name="LabelDpartment" Content="Enter Department" Grid.Row="5" Grid.Column="0" Visibility="Collapsed" Margin="20 , 0 ,0 ,0"/>
-        <TextBox x:Name="TextDepartment" Text="{Binding AdminDepartment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" Grid.Row="5" Grid.Column="1" Margin="0 , 5" Visibility="Collapsed"/>
+        <TextBox x:Name="AdminDepartment" Text="{Binding AdminDepartment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" Grid.Row="5" Grid.Column="1" Margin="0 , 5" Visibility="Collapsed"/>
 
         <Label x:Name="LabelCustomerType" Content="Customer Type:" Grid.Row="5" Grid.Column="0" Visibility="Collapsed" Margin="20 , 0 ,0 ,0"/>
-        <ComboBox x:Name="OptionCustomerType" Width="200" FontSize="12" ItemsSource="{Binding Source={StaticResource CustomerType}}"  SelectedItem="{Binding SelectedCustomerType, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Margin="0 , 5" Visibility="Collapsed"/>
+        <ComboBox x:Name="SelectedCustomerType" Width="200" FontSize="12" ItemsSource="{Binding Source={StaticResource CustomerType}}"  SelectedItem="{Binding SelectedCustomerType, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Margin="0 , 5" Visibility="Collapsed"/>
 
         <Label x:Name="LabelCompanyName" Content="Enter User Email:" Grid.Row="5" Grid.Column="0" Visibility="Collapsed" Margin="20 , 0 ,0 ,0"/>
         <TextBox x:Name="TextCompanyName" Width="200" Grid.Row="7" Grid.Column="1" Margin="0 , 5" Visibility="Collapsed"/>
 
         <Label x:Name="LabelSellerType"  Content="Seller Type:" Grid.Row="5" Grid.Column="0" Visibility="Collapsed" Margin="20 , 0 ,0 ,0"/>
-        <ComboBox x:Name="OptionSellerType" Width="200" FontSize="12" ItemsSource="{Binding Source={StaticResource SellerType}}"  SelectedItem="{Binding SelectedSellerType, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Margin="0 , 5" Visibility="Collapsed"/>
+        <ComboBox x:Name="SelectedSellerType" Width="200" FontSize="12" ItemsSource="{Binding Source={StaticResource SellerType}}"  SelectedItem="{Binding SelectedSellerType, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Margin="0 , 5" Visibility="Collapsed"/>
 
         <Button x:Name="SignupButton" Content="Sign Up" Width="100" HorizontalAlignment="Center" Margin="0,20,0,0" Click="SignupButton_Click" Grid.Row="6" Grid.Column="1"/>
         <TextBlock x:Name="ResultText" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Red" Grid.Row="9" Grid.Column="1"/>

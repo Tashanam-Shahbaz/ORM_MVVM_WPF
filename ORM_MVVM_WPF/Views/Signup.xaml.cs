@@ -22,28 +22,28 @@ namespace ORM_MVVM_WPF.Views
     /// </summary>
     public partial class Signup : UserControl
     {
-        SignupViewModel _signup2;
+        SignupViewModel _signup;
         public Signup()
         {
             InitializeComponent();
-            _signup2  = new SignupViewModel();
-            this.DataContext = _signup2;
+            _signup = new SignupViewModel();
+            DataContext = _signup;
         }
 
         private bool ValidateFields()
         {
-            if (string.IsNullOrWhiteSpace(NameTextBox.Text) ||
-                string.IsNullOrWhiteSpace(EmailTextBox.Text) ||
-                string.IsNullOrWhiteSpace(PasswordBox.Text) ||
-                string.IsNullOrWhiteSpace(ConfirmPasswordBox.Text) ||
-                UserTypeComboBox.SelectedItem == null)
+            if (string.IsNullOrWhiteSpace(_signup.UserName) ||
+                string.IsNullOrWhiteSpace(_signup.UserEmail) ||
+                string.IsNullOrWhiteSpace(_signup.UserPasssword) ||
+                string.IsNullOrWhiteSpace(ConfirmUserPasssword.Text) ||
+                SelectedUserType.SelectedItem == null)
             {
                 ShowIncompleteFieldsMessage();
                 return false;
             }
 
             UserType selectedUserType;
-            if (!Enum.TryParse(UserTypeComboBox.SelectedItem?.ToString(), out selectedUserType))
+            if (!Enum.TryParse(_signup.SelectedUserType, out selectedUserType))
             {
                 return false;
             }
@@ -51,7 +51,7 @@ namespace ORM_MVVM_WPF.Views
             switch (selectedUserType)
             {
                 case UserType.Admin:
-                    if (string.IsNullOrWhiteSpace(TextDepartment.Text))
+                    if (string.IsNullOrWhiteSpace(_signup.AdminDepartment))
                     {
                         ShowIncompleteFieldsMessage();
                         return false;
@@ -59,7 +59,7 @@ namespace ORM_MVVM_WPF.Views
                     break;
 
                 case UserType.Customer:
-                    if (OptionCustomerType.SelectedItem == null)
+                    if (_signup.SelectedCustomerType == null)
                     {
                         ShowIncompleteFieldsMessage();
                         return false;
@@ -67,7 +67,7 @@ namespace ORM_MVVM_WPF.Views
                     break;
 
                 case UserType.Seller:
-                    if (OptionSellerType.SelectedItem == null)
+                    if (_signup.SelectedSellerType == null)
                     {
                         ShowIncompleteFieldsMessage();
                         return false;
@@ -81,103 +81,82 @@ namespace ORM_MVVM_WPF.Views
             return true;
         }
 
-
-    private void ShowIncompleteFieldsMessage()
+        private void ShowIncompleteFieldsMessage()
     {
         MessageBox.Show("Please fill in all the required fields.", "Incomplete Information", MessageBoxButton.OK, MessageBoxImage.Warning);
     }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (UserTypeComboBox.SelectedItem != null)
+            if (SelectedUserType.SelectedItem == null)
+                return;
+
+            switch (_signup.SelectedUserType)
             {
-                UserType selectedUserType;
-                string selectedUserTypeString = UserTypeComboBox.SelectedItem.ToString();
-                Enum.TryParse(selectedUserTypeString, out selectedUserType);
-
-
-                if (selectedUserType == UserType.Admin)
-                {
+                case "Admin":
                     LabelDpartment.Visibility = Visibility.Visible;
-                    TextDepartment.Visibility = Visibility.Visible;
-
-                    // Hide other fields
+                    AdminDepartment.Visibility = Visibility.Visible;
                     LabelCustomerType.Visibility = Visibility.Collapsed;
-                    OptionCustomerType.Visibility = Visibility.Collapsed;
-
+                    SelectedCustomerType.Visibility = Visibility.Collapsed;
                     LabelCompanyName.Visibility = Visibility.Collapsed;
                     TextCompanyName.Visibility = Visibility.Collapsed;
-
                     LabelSellerType.Visibility = Visibility.Collapsed;
-                    OptionSellerType.Visibility = Visibility.Collapsed;
+                    SelectedSellerType.Visibility = Visibility.Collapsed;
+                    break;
 
-                }
-                else if (selectedUserType == UserType.Customer)
-                {
+                case "Customer":
                     LabelCustomerType.Visibility = Visibility.Visible;
-                    OptionCustomerType.Visibility = Visibility.Visible;
-
-                    // Hide other fields
+                    SelectedCustomerType.Visibility = Visibility.Visible;
                     LabelDpartment.Visibility = Visibility.Collapsed;
-                    TextDepartment.Visibility = Visibility.Collapsed;
-
+                    AdminDepartment.Visibility = Visibility.Collapsed;
                     LabelSellerType.Visibility = Visibility.Collapsed;
-                    OptionSellerType.Visibility = Visibility.Collapsed;
-                }
-                else if (selectedUserType == UserType.Seller)
-                {
+                    SelectedSellerType.Visibility = Visibility.Collapsed;
+                    break;
 
+                case "Seller":
                     LabelSellerType.Visibility = Visibility.Visible;
-                    OptionSellerType.Visibility = Visibility.Visible;
-
-
-                    // Hide other fields
+                    SelectedSellerType.Visibility = Visibility.Visible;
                     LabelCustomerType.Visibility = Visibility.Collapsed;
-                    OptionCustomerType.Visibility = Visibility.Collapsed;
+                    SelectedCustomerType.Visibility = Visibility.Collapsed;
                     LabelDpartment.Visibility = Visibility.Collapsed;
-                    TextDepartment.Visibility = Visibility.Collapsed;
-
-                }
+                    AdminDepartment.Visibility = Visibility.Collapsed;
+                    break;
             }
         }
-
         private void SignupButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ValidateFields())
+            if (!ValidateFields())
+                return;
+
+            bool result = false;
+            UserType selectedUserType;
+            Enum.TryParse(SelectedUserType.SelectedItem?.ToString(), out selectedUserType);
+
+            switch (selectedUserType)
             {
-                bool result = false;
-                UserType selectedUserType;
-                Enum.TryParse(UserTypeComboBox.SelectedItem?.ToString(), out selectedUserType);
+                case UserType.Admin:
+                    result = _signup.SinupAction(AdminDepartment.Text);
+                    break;
 
-                SignupViewModel signup = new SignupViewModel();
-
-                if (selectedUserType == UserType.Admin)
-                {
-                    result = signup.SinupAction(NameTextBox.Text, EmailTextBox.Text, PasswordBox.Text, TextDepartment.Text);
-                }
-                else if (selectedUserType == UserType.Customer)
-                {
+                case UserType.Customer:
+            
                     CustomerType type;
-                    Enum.TryParse(OptionCustomerType.SelectedItem.ToString(), out type);
-                    result = signup.SinupAction(NameTextBox.Text, EmailTextBox.Text, PasswordBox.Text, type);
-                }
-                else if (selectedUserType == UserType.Seller)
-                {
+                    Enum.TryParse(SelectedCustomerType.SelectedItem.ToString(), out type);
+                    result = _signup.SinupAction(type);
+                    break;
 
-                    SellerType type;
-                    Enum.TryParse(OptionSellerType.SelectedItem.ToString(), out type);
-                    result = signup.SinupAction(NameTextBox.Text, EmailTextBox.Text, PasswordBox.Text, type);
-                }
-                if (result)
-                {
-                    MessageBox.Show("User Register Successfully!");
-                }
-                else 
-                {
-                    MessageBox.Show("Oops! Registration failed. Please try again later.","Registration failed", MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
-
+                case UserType.Seller:
+                    SellerType sellertype;
+                    Enum.TryParse(SelectedSellerType.SelectedItem.ToString(), out sellertype);
+                    result = _signup.SinupAction(sellertype);
+                    break;
             }
+               
+            if (result)
+                MessageBox.Show("User Register Successfully!");
+            else 
+                MessageBox.Show("Oops! Registration failed. Please try again later.","Registration failed", MessageBoxButton.OK, MessageBoxImage.Warning);
+
         }
 
     }

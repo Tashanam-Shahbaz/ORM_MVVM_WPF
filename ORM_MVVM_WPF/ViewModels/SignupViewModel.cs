@@ -28,22 +28,22 @@ namespace ORM_MVVM_WPF.ViewModels
                 OnPropertyChanged(nameof(UserName));
             }
         }
-        public string UserEmail2
+        public string UserEmail
         {
             get { return _userEmail; }
             set
             {
                 _userEmail = value;
-                OnPropertyChanged(nameof(UserEmail2));
+                OnPropertyChanged(nameof(UserEmail));
             }
         }
-        public string UserPassword2
+        public string UserPasssword
         {
             get { return _userPassword; }
             set
             {
                 _userPassword = value;
-                OnPropertyChanged(nameof(UserPassword2));
+                OnPropertyChanged(nameof(UserPasssword));
             }
         }
 
@@ -83,32 +83,31 @@ namespace ORM_MVVM_WPF.ViewModels
                 OnPropertyChanged(nameof(AdminDepartment));
             }
         }
-        public bool SinupAction(string name, string email ,string password, string depart)
+
+        public bool SinupAction(string depart)
         {
             try
             {
                 List<User> users = Serialization.DeSerializeList<User>();
                 Admin admin = new Admin();
 
-                admin.Username = name;
-                admin.Email = email;
-                admin.Password = password;
+                admin.Username = UserName; // Using ViewModel property
+                admin.Email = UserEmail; // Using ViewModel property
+                admin.Password = UserPasssword; // Using ViewModel property
                 admin.Department = depart;
                 users.Add(admin);
 
                 Serialization.SerializeList(users);
                 return true;
             }
-            catch 
+            catch
             {
                 return false;
-            }     
+            }
         }
 
-        public bool SinupAction(string name, string email, string password, CustomerType type)
+        public bool SinupAction(CustomerType type)
         {
-            string a = UserName;
-            Console.WriteLine(a);
             try
             {
                 List<User> users = Serialization.DeSerializeList<User>();
@@ -122,25 +121,24 @@ namespace ORM_MVVM_WPF.ViewModels
                 {
                     customer.CustomerID = 1;
                 }
-                customer.Username = name;
-                customer.Email = email;
-                customer.Password = password;
+                customer.Username = UserName; // Using ViewModel property
+                customer.Email = UserEmail; // Using ViewModel property
+                customer.Password = UserPasssword; // Using ViewModel property
                 customer.CustomerType = type;
                 users.Add(customer);
 
                 Serialization.SerializeList(users);
                 return true;
             }
-            catch 
+            catch
             {
                 return false;
             }
-           
         }
 
-        public bool SinupAction(string name, string email, string password, SellerType type)
+        public bool SinupAction(SellerType type)
         {
-            try 
+            try
             {
                 List<User> users = Serialization.DeSerializeList<User>();
                 Seller seller = new Seller();
@@ -154,9 +152,9 @@ namespace ORM_MVVM_WPF.ViewModels
                     seller.SellerID = 1;
                 }
 
-                seller.Username = name;
-                seller.Email = email;
-                seller.Password = password;
+                seller.Username = UserName; // Using ViewModel property
+                seller.Email = UserEmail; // Using ViewModel property
+                seller.Password = UserPasssword; // Using ViewModel property
                 seller.SellerType = type;
 
                 users.Add(seller);
@@ -164,14 +162,11 @@ namespace ORM_MVVM_WPF.ViewModels
                 Serialization.SerializeList(users);
                 return true;
             }
-
-            catch 
+            catch
             {
                 return false;
             }
-           
         }
-
-
     }
-}
+   }
+
