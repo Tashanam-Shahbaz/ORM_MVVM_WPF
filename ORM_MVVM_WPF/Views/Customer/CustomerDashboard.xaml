@@ -17,6 +17,7 @@
                 <Button Content="Personal Info" Margin ="10" Width="90" Command="{Binding UpdateViewCommand}" CommandParameter="personalinfo" />
                 <Button Content="Item" Margin ="10" Width="90" Command="{Binding UpdateViewCommand}" CommandParameter="customerviewitem" />
                 <Button Content="Order" Margin ="10" Width="90"  Command="{Binding UpdateViewCommand}" CommandParameter="customervieworder" />
+                <Button Content="Logout" Margin ="10" Width="90"  Click="AdminLogout_Click" />
             </StackPanel>
         </StackPanel>
 

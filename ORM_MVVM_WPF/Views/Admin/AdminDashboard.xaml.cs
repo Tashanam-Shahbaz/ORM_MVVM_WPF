@@ -1,17 +1,6 @@
 ﻿using ORM_MVVM_WPF.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace ORM_MVVM_WPF.Views.Admin
 {
@@ -20,10 +9,25 @@ namespace ORM_MVVM_WPF.Views.Admin
     /// </summary>
     public partial class AdminDashboard : Window
     {
+        private MainViewModel _mainViewModel;
         public AdminDashboard()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
+            _mainViewModel  = new MainViewModel();
+            //_loginVM = new LoginViewModel();
+            DataContext = _mainViewModel;
+        }
+
+        private void AdminLogout_Click(object sender, RoutedEventArgs e)
+        {
+            //_loginVM.LogoutAction();
+            
+            // Open the main window
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+
+            // Closing Admin Dashboard
+            Close();
         }
     }
 }

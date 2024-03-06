@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Media3D;
 using ORM_MVVM_WPF.Models;
 
 namespace ORM_MVVM_WPF.ViewModels.AdminViewModel

@@ -1,21 +1,8 @@
-﻿using ORM_MVVM_WPF.Models;
-using ORM_MVVM_WPF.ViewModels;
+﻿using ORM_MVVM_WPF.ViewModels;
 using ORM_MVVM_WPF.Views.Admin;
 using ORM_MVVM_WPF.Views.Customer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ORM_MVVM_WPF.Views
 {
@@ -25,20 +12,19 @@ namespace ORM_MVVM_WPF.Views
     public partial class Login : UserControl
     {
         LoginViewModel _login;
-        User _user;
         public Login()
         {
             InitializeComponent();
             _login = new LoginViewModel();
             this.DataContext = _login;
-        }
 
+        }
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             if (!ValidateFields())
                 return;
-            _user = _login.LoginAction();
-            string Usertype = _user?.GetType().Name;
+            _login.LoginAction();
+            string Usertype = _login.User?.GetType().Name;
             Window mainWindow = Window.GetWindow(this);
 
             switch (Usertype)
@@ -60,12 +46,14 @@ namespace ORM_MVVM_WPF.Views
                     break;
 
                 default:
+                    ShowLoginFailedMessage();
                     break;
 
             }
 
 
         }
+
         private bool ValidateFields()
         {
             if (string.IsNullOrWhiteSpace(UserEmail.Text) ||
@@ -81,6 +69,10 @@ namespace ORM_MVVM_WPF.Views
         private void ShowIncompleteFieldsMessage()
         {
             MessageBox.Show("Please fill in all the required fields.", "Incomplete Information", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+        private void ShowLoginFailedMessage()
+        {
+            MessageBox.Show("Something went wrong during login. Please try again.", "Login Failed", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 }

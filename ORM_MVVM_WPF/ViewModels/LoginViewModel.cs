@@ -17,6 +17,7 @@ namespace ORM_MVVM_WPF.ViewModels
 
         private string _userEmail;
         private string _userPassword;
+        private User _user ;
         public string UserEmail
         {
             get { return _userEmail; }
@@ -35,21 +36,37 @@ namespace ORM_MVVM_WPF.ViewModels
                 OnPropertyChanged(nameof(UserPassword));
             }
         }
-
-        public User LoginAction()
+       
+        public User User
         {
-            User user_found = null;
+            get { return _user; }
+            set 
+            {
+                _user = value;
+                OnPropertyChanged(nameof(User));
+            }
+        }
+        
+        public void LoginAction()
+        {
+            User = null;
             try
             {
                 List<User> users = Serialization.DeSerializeList<User>();
-                user_found = users.FirstOrDefault(search_user => search_user.Email  == UserEmail && search_user.Password == UserPassword);
+                User = users.FirstOrDefault(search_user => search_user.Email  == UserEmail && search_user.Password == UserPassword);
             }
             catch (Exception ex) 
             {
                 Console.WriteLine(ex.Message);  
             }
-            
-            return user_found;
+
+        }
+        public void LogoutAction()
+        {
+            //For Session Reset
+            User = null;
+            UserEmail = null;
+            UserPassword = null;
         }
     }
 

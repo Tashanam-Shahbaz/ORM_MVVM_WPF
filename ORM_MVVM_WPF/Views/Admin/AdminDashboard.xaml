@@ -16,6 +16,7 @@
             <StackPanel Margin ="20" Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left" >
                 <Button Content="Manage Item" Margin ="10" Width="90" Command="{Binding UpdateViewCommand}" CommandParameter="admin_manage_item" />
                 <Button Content="Manage Order" Margin ="10" Width="90" Command="{Binding UpdateViewCommand}" CommandParameter="admin_manage_order" />
+                <Button Content="Logout" Margin ="10" Width="90"  Click="AdminLogout_Click" />
                
             </StackPanel>
         </StackPanel>

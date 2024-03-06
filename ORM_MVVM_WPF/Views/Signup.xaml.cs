@@ -1,19 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ORM_MVVM_WPF.Models;
 using ORM_MVVM_WPF.ViewModels;
+using ORM_MVVM_WPF.Views.Admin;
+using ORM_MVVM_WPF.Views.Customer;
 
 namespace ORM_MVVM_WPF.Views
 {
@@ -29,62 +20,6 @@ namespace ORM_MVVM_WPF.Views
             _signup = new SignupViewModel();
             DataContext = _signup;
         }
-
-        private bool ValidateFields()
-        {
-            if (string.IsNullOrWhiteSpace(_signup.UserName) ||
-                string.IsNullOrWhiteSpace(_signup.UserEmail) ||
-                string.IsNullOrWhiteSpace(_signup.UserPasssword) ||
-                string.IsNullOrWhiteSpace(ConfirmUserPasssword.Text) ||
-                SelectedUserType.SelectedItem == null)
-            {
-                ShowIncompleteFieldsMessage();
-                return false;
-            }
-
-            UserType selectedUserType;
-            if (!Enum.TryParse(_signup.SelectedUserType, out selectedUserType))
-            {
-                return false;
-            }
-
-            switch (selectedUserType)
-            {
-                case UserType.Admin:
-                    if (string.IsNullOrWhiteSpace(_signup.AdminDepartment))
-                    {
-                        ShowIncompleteFieldsMessage();
-                        return false;
-                    }
-                    break;
-
-                case UserType.Customer:
-                    if (_signup.SelectedCustomerType == null)
-                    {
-                        ShowIncompleteFieldsMessage();
-                        return false;
-                    }
-                    break;
-
-                case UserType.Seller:
-                    if (_signup.SelectedSellerType == null)
-                    {
-                        ShowIncompleteFieldsMessage();
-                        return false;
-                    }
-                    break;
-
-                default:
-                    break;
-            }
-
-            return true;
-        }
-
-        private void ShowIncompleteFieldsMessage()
-    {
-        MessageBox.Show("Please fill in all the required fields.", "Incomplete Information", MessageBoxButton.OK, MessageBoxImage.Warning);
-    }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -139,35 +74,109 @@ namespace ORM_MVVM_WPF.Views
                 return;
 
             bool result = false;
-            UserType selectedUserType;
-            Enum.TryParse(SelectedUserType.SelectedItem?.ToString(), out selectedUserType);
+            Enum.TryParse(SelectedUserType.SelectedItem?.ToString(),  out UserType selectedUserType);
+            Window mainWindow = Window.GetWindow(this);
 
             switch (selectedUserType)
             {
                 case UserType.Admin:
                     result = _signup.SinupAction(AdminDepartment.Text);
+                    if (result)
+                    {
+                        AdminDashboard adminDashboard = new AdminDashboard();
+                        adminDashboard.Show();
+                        mainWindow.Close();
+                    }
+                    else
+                        ShowSignUpFailedMessage();
+
                     break;
 
                 case UserType.Customer:
-            
-                    CustomerType type;
-                    Enum.TryParse(SelectedCustomerType.SelectedItem.ToString(), out type);
-                    result = _signup.SinupAction(type);
+                    Enum.TryParse(SelectedCustomerType.SelectedItem.ToString(), out CustomerType customertype);
+                    result = _signup.SinupAction(customertype);
+                    if (result)
+                    {
+                        CustomerDashboard customerDashboard = new CustomerDashboard();
+                        customerDashboard.Show();
+                        mainWindow.Close();
+                    }
+                    else
+                        ShowSignUpFailedMessage();
                     break;
 
                 case UserType.Seller:
-                    SellerType sellertype;
-                    Enum.TryParse(SelectedSellerType.SelectedItem.ToString(), out sellertype);
+                    Enum.TryParse(SelectedSellerType.SelectedItem.ToString(), out SellerType sellertype);
                     result = _signup.SinupAction(sellertype);
                     break;
             }
-               
+
             if (result)
                 MessageBox.Show("User Register Successfully!");
-            else 
-                MessageBox.Show("Oops! Registration failed. Please try again later.","Registration failed", MessageBoxButton.OK, MessageBoxImage.Warning);
+            else
+                ShowSignUpFailedMessage();
 
         }
 
+        private bool ValidateFields()
+        {
+            if (string.IsNullOrWhiteSpace(_signup.UserName) ||
+                string.IsNullOrWhiteSpace(_signup.UserEmail) ||
+                string.IsNullOrWhiteSpace(_signup.UserPasssword) ||
+                string.IsNullOrWhiteSpace(ConfirmUserPasssword.Text) ||
+                SelectedUserType.SelectedItem == null)
+            {
+                ShowIncompleteFieldsMessage();
+                return false;
+            }
+
+            UserType selectedUserType;
+            if (!Enum.TryParse(_signup.SelectedUserType, out selectedUserType))
+            {
+                return false;
+            }
+
+            switch (selectedUserType)
+            {
+                case UserType.Admin:
+                    if (string.IsNullOrWhiteSpace(_signup.AdminDepartment))
+                    {
+                        ShowIncompleteFieldsMessage();
+                        return false;
+                    }
+                    break;
+
+                case UserType.Customer:
+                    if (_signup.SelectedCustomerType == null)
+                    {
+                        ShowIncompleteFieldsMessage();
+                        return false;
+                    }
+                    break;
+
+                case UserType.Seller:
+                    if (_signup.SelectedSellerType == null)
+                    {
+                        ShowIncompleteFieldsMessage();
+                        return false;
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+
+            return true;
+        }
+
+        private void ShowIncompleteFieldsMessage()
+        {
+            MessageBox.Show("Please fill in all the required fields.", "Incomplete Information", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+
+        private void ShowSignUpFailedMessage()
+        {
+            MessageBox.Show("Something went wrong during sign up. Please try again.", "Sign Up Failed", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
     }
 }
