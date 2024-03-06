@@ -1,20 +1,26 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Media.Animation;
 using ORM_MVVM_WPF.Models;
 
 namespace ORM_MVVM_WPF.ViewModels.AdminViewModel
 {
     public class AdminManageItemViewModel : BaseViewModel
     {
+        public ObservableCollection<Item> ItemObservableCollection = new ObservableCollection<Item>(); 
+        public AdminManageItemViewModel()
+        {            
+        }
         public bool AddItem(string name,string description,int price ,int  size , string material)
         {
-            List<Item> items = Serialization.DeSerializeList<Item>();    
+            List<Item> itemsList = Serialization.DeSerializeList<Item>();    
             
             ItemCloth cloth = new ItemCloth();
 
-            if (items.OfType<ItemCloth>().Any())
+            if (itemsList.OfType<ItemCloth>().Any())
             {
-                cloth.Id = items.OfType<ItemCloth>().Max( item => item.Id ) + 1;
+                cloth.Id = itemsList.OfType<ItemCloth>().Max( item => item.Id ) + 1;
             }
             else 
             { 
@@ -25,8 +31,9 @@ namespace ORM_MVVM_WPF.ViewModels.AdminViewModel
             cloth.Size = size;
             cloth.Price = price;
             cloth.Material = material;
-            items.Add(cloth);
-            Serialization.SerializeList(items);
+            itemsList.Add(cloth);
+            ItemObservableCollection.Add(cloth);
+            Serialization.SerializeList(itemsList);
             return true;
         }
         public bool AddItem(string name, string description, int price, Brand type)
@@ -50,15 +57,16 @@ namespace ORM_MVVM_WPF.ViewModels.AdminViewModel
             itemElectronic.Brand = type;
             itemElectronic.Price = price;
             items.Add(itemElectronic);
+            ItemObservableCollection.Add(itemElectronic);
             Serialization.SerializeList(items);
             return true;
 
         }
 
-        public List<Item> DisplayItem()
+        public void DisplayItem()
         {
-            List<Item> items = Serialization.DeSerializeList<Item>();
-            return items;
+            List<Item> itemsList = Serialization.DeSerializeList<Item>();
+            ItemObservableCollection = new ObservableCollection<Item>(itemsList);
         }
     }
 

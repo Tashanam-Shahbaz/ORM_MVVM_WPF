@@ -21,9 +21,12 @@ namespace ORM_MVVM_WPF.Views.Admin
     /// </summary>
     public partial class AddNewItemAdminViewWindow : Window
     {
-        public AddNewItemAdminViewWindow()
+        AdminManageItemViewModel _viewModel;
+        public AddNewItemAdminViewWindow(AdminManageItemViewModel viewModel)
         {
             InitializeComponent();
+            _viewModel = viewModel;
+            DataContext = viewModel ;
         }
         private void ItemTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -103,14 +106,12 @@ namespace ORM_MVVM_WPF.Views.Admin
         {
             if (ValidateFields())
             {
-
-           AdminManageItemViewModel viewModel = new AdminManageItemViewModel();
                 ItemType selectedItemType;
                 Enum.TryParse(ItemTypeComboBox.SelectedItem?.ToString(), out selectedItemType);
                 switch (selectedItemType)
                 {
                     case ItemType.Cloth:
-                        viewModel.AddItem
+                        _viewModel.AddItem
                             (
                                  NameTextBox.Text,
                                  DescriptionTextBox.Text,
@@ -125,7 +126,7 @@ namespace ORM_MVVM_WPF.Views.Admin
 
                        Brand selectedElectronicType;
                         Enum.TryParse(BrandTypeComboBox.SelectedItem?.ToString(), out selectedElectronicType);
-                        viewModel.AddItem
+                        _viewModel.AddItem
                            (
                                 NameTextBox.Text,
                                 DescriptionTextBox.Text,

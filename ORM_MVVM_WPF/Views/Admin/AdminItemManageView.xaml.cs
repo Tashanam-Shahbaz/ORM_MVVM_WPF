@@ -18,48 +18,20 @@ namespace ORM_MVVM_WPF.Views.Admin
     {
         DataGrid dynamicDataGrid;
         List<Models.Item> Items;
-
-
+        AdminManageItemViewModel _viewModel;
 
         public AdminItemManageView()
         {
             InitializeComponent();
-            DataContext = this;
-            DisplayItem_Click();         
+            _viewModel = new AdminManageItemViewModel();
+            DataContext = _viewModel;
+            DisplayItem_Click();
         }
 
         private void AddItem_Click(object sender, RoutedEventArgs e)
         {
-           AddNewItemAdminViewWindow addNewItemAdminView = new AddNewItemAdminViewWindow();
+            AddNewItemAdminViewWindow addNewItemAdminView = new AddNewItemAdminViewWindow(_viewModel);
             addNewItemAdminView.Show();
-        }
-
-        private void DisplayItem_Click()
-        {
-            AdminManageItemViewModel viewModel = new AdminManageItemViewModel();
-            Items = viewModel.DisplayItem();
-
-            var distinctItemTypes = Items.Select(item => item.GetType()).Distinct().ToList();
-
-            foreach (var itemType in distinctItemTypes)
-            {
-                var itemTypeList = Items.Where(item => item.GetType() == itemType).ToList();
-
-                Type genericType = typeof(ObservableCollection<>).MakeGenericType(itemType);
-                dynamic dynamicObservableCollection = Activator.CreateInstance(genericType);
-
-                var addMethod = genericType.GetMethod("Add"); // Retrieve the 'Add' method
-
-                foreach (var item in itemTypeList)
-                {
-                    addMethod.Invoke(dynamicObservableCollection, new[] { item }); // Invoke 'Add' method to add item
-                }
-
-                dynamicDataGrid = new DataGrid();
-                dynamicDataGrid.AutoGenerateColumns = true;
-                dynamicDataGrid.ItemsSource = dynamicObservableCollection;
-                DynamicDataGrid.Items.Add(dynamicDataGrid);
-            }
         }
 
         private void SearchItem_Click(object sender, RoutedEventArgs e)
@@ -75,21 +47,22 @@ namespace ORM_MVVM_WPF.Views.Admin
             switch (itemtype?.ToLower())       
             {
                 case "cloth":
-                    var clothItems = new ObservableCollection<ItemCloth>(Items.OfType<ItemCloth>());
+                    var clothItems = _viewModel.ItemObservableCollection.Where(Items => Items.GetType().Name == "ItemCloth");
                     DynamicDataGrid.Items.Add(clothItems);
                     break;
                     
 
                 case "electronic":
-                    var electronicItems = new ObservableCollection<ItemElectronic>(Items.OfType<ItemElectronic>());
+                    var electronicItems = _viewModel.ItemObservableCollection.Where(Items => Items.GetType().Name == "ItemElectronic");
                     DynamicDataGrid.Items.Add(electronicItems);
                     break;
 
                 case "all":
-                    var electronicItems2 = new ObservableCollection<ItemElectronic>(Items.OfType<ItemElectronic>());
-                    var clothItems2 = new ObservableCollection<ItemCloth>(Items.OfType<ItemCloth>());
-                    DynamicDataGrid.Items.Add(electronicItems2);
-                    DynamicDataGrid.Items.Add(clothItems2);
+                    //var electronicItems2 = new ObservableCollection<ItemElectronic>(Items.OfType<ItemElectronic>());
+                    //var clothItems2 = new ObservableCollection<ItemCloth>(Items.OfType<ItemCloth>());
+                    //DynamicDataGrid.Items.Add(electronicItems2);
+                    //DynamicDataGrid.Items.Add(clothItems2);
+                    DynamicDataGrid.Items.Add(_viewModel.ItemObservableCollection);
                     break;
 
             }
@@ -129,6 +102,40 @@ namespace ORM_MVVM_WPF.Views.Admin
             }
         }
 
+        private void DisplayItem_Click()
+        {
+            _viewModel.DisplayItem();
+            dynamicDataGrid = new DataGrid();
+            dynamicDataGrid.AutoGenerateColumns = true;
+            dynamicDataGrid.ItemsSource = _viewModel.ItemObservableCollection;
+            DynamicDataGrid.Items.Add(dynamicDataGrid);
+        }
+        //private void DisplayItem_Click()
+        //{
+        //     = new AdminManageItemViewModel();
+        //    Items = viewModel.DisplayItem();
 
+        //    var distinctItemTypes = Items.Select(item => item.GetType()).Distinct().ToList();
+
+        //    foreach (var itemType in distinctItemTypes)
+        //    {
+        //        var itemTypeList = Items.Where(item => item.GetType() == itemType).ToList();
+
+        //        Type genericType = typeof(ObservableCollection<>).MakeGenericType(itemType);
+        //        dynamic dynamicObservableCollection = Activator.CreateInstance(genericType);
+
+        //        var addMethod = genericType.GetMethod("Add"); // Retrieve the 'Add' method
+
+        //        foreach (var item in itemTypeList)
+        //        {
+        //            addMethod.Invoke(dynamicObservableCollection, new[] { item }); // Invoke 'Add' method to add item
+        //        }
+
+        //        dynamicDataGrid = new DataGrid();
+        //        dynamicDataGrid.AutoGenerateColumns = true;
+        //        dynamicDataGrid.ItemsSource = dynamicObservableCollection;
+        //        DynamicDataGrid.Items.Add(dynamicDataGrid);
+        //    }
+        //}
     }
 }
