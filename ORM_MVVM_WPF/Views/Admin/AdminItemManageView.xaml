@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ORM_MVVM_WPF.Views.Admin"
               xmlns:models="clr-namespace:ORM_MVVM_WPF.Models"
-              xmlns:sys="clr-namespace:System;assembly=mscorlib"
+              xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:local1="clr-namespace:ORM_MVVM_WPF.ViewModels"
              mc:Ignorable="d" 
                      d:DesignHeight="900" d:DesignWidth="1000" Background="White">
 
@@ -18,7 +18,7 @@
         </ObjectDataProvider>
 
     </UserControl.Resources>
-    
+
     <Grid Margin="10">
         
         <Grid.RowDefinitions>
@@ -68,15 +68,25 @@
             <Label FontSize="20" FontWeight="Bold" Content="Items"/>
         </StackPanel>
 
-        <ItemsControl Grid.Row="5" x:Name="DynamicDataGrid">
+        <!--<ItemsControl Grid.Row="5" x:Name="DynamicItemControl" ItemsSource="{Binding ItemObservableCollection}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <DataGrid ItemsSource="{Binding}" AutoGenerateColumns="True"/>
+                    <DataGrid AutoGenerateColumns="True" ItemsSource="{Binding}" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        </ItemsControl>-->
 
-
+        <!--<ListBox ItemsSource="{Binding ItemObservableCollection, Mode=TwoWay, UpdateSourceTrigger =PropertyChanged}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal">
+                    </WrapPanel>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>-->
+        <Grid  Grid.Row="5">
+            <DataGrid ItemsSource="{Binding ItemObservableCollection}" AutoGenerateColumns="True"/>
+        </Grid>
 
     </Grid>
 </UserControl>

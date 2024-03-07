@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using ORM_MVVM_WPF.Models;
 
@@ -8,14 +9,26 @@ namespace ORM_MVVM_WPF.ViewModels.AdminViewModel
 {
     public class AdminManageItemViewModel : BaseViewModel
     {
-        public ObservableCollection<Item> ItemObservableCollection = new ObservableCollection<Item>(); 
+        private List<Item> itemsList;
+        private ObservableCollection<Item> _itemObservableCollection;
+
         public AdminManageItemViewModel()
-        {            
+        {
+            BindItem();
         }
+        public ObservableCollection<Item> ItemObservableCollection
+        {
+            get { return _itemObservableCollection; }
+            set
+            {
+                _itemObservableCollection = value;
+                OnPropertyChanged(nameof(ItemObservableCollection));
+            }
+        }
+
         public bool AddItem(string name,string description,int price ,int  size , string material)
         {
-            List<Item> itemsList = Serialization.DeSerializeList<Item>();    
-            
+
             ItemCloth cloth = new ItemCloth();
 
             if (itemsList.OfType<ItemCloth>().Any())
@@ -38,14 +51,11 @@ namespace ORM_MVVM_WPF.ViewModels.AdminViewModel
         }
         public bool AddItem(string name, string description, int price, Brand type)
         {
-            List<Item> items = Serialization.DeSerializeList<Item>();
-            
-
             ItemElectronic itemElectronic = new ItemElectronic();
             
-            if (items.OfType<ItemElectronic>().Any())
+            if (itemsList.OfType<ItemElectronic>().Any())
             {
-                itemElectronic.Id = items.OfType<ItemElectronic>().Max(item => item.Id) + 1;
+                itemElectronic.Id = itemsList.OfType<ItemElectronic>().Max(item => item.Id) + 1;
             }
             else
             {
@@ -56,16 +66,38 @@ namespace ORM_MVVM_WPF.ViewModels.AdminViewModel
             itemElectronic.Description = description;
             itemElectronic.Brand = type;
             itemElectronic.Price = price;
-            items.Add(itemElectronic);
+            itemsList.Add(itemElectronic);
             ItemObservableCollection.Add(itemElectronic);
-            Serialization.SerializeList(items);
+            Serialization.SerializeList(itemsList);
             return true;
 
         }
 
-        public void DisplayItem()
+        public void SearchOnType(string type)
         {
-            List<Item> itemsList = Serialization.DeSerializeList<Item>();
+            switch (type)
+            {
+                case "cloth":
+                    ItemObservableCollection = new ObservableCollection<Item>(itemsList.Where(item => item.GetType().Name == "ItemCloth"));
+                    break;
+                case "electronic":
+                    ItemObservableCollection = new ObservableCollection<Item>(itemsList.Where(item => item.GetType().Name == "ItemElectronic"));
+                    break;
+                default:
+                    ItemObservableCollection = new ObservableCollection<Item>(itemsList);
+                    break;
+
+            }
+        }
+
+        public void SearchOnName(string name)
+        {
+            ItemObservableCollection = new ObservableCollection<Item>(itemsList.Where(item => item.Name.ToLower().Contains(name)));
+        }
+
+        private void BindItem()
+        {
+            itemsList = Serialization.DeSerializeList<Item>();
             ItemObservableCollection = new ObservableCollection<Item>(itemsList);
         }
     }
