@@ -72,29 +72,6 @@ namespace ORM_MVVM_WPF.ViewModels.AdminViewModel
             return true;
 
         }
-
-        public void SearchOnType(string type)
-        {
-            switch (type)
-            {
-                case "cloth":
-                    ItemObservableCollection = new ObservableCollection<Item>(itemsList.Where(item => item.GetType().Name == "ItemCloth"));
-                    break;
-                case "electronic":
-                    ItemObservableCollection = new ObservableCollection<Item>(itemsList.Where(item => item.GetType().Name == "ItemElectronic"));
-                    break;
-                default:
-                    ItemObservableCollection = new ObservableCollection<Item>(itemsList);
-                    break;
-
-            }
-        }
-
-        public void SearchOnName(string name)
-        {
-            ItemObservableCollection = new ObservableCollection<Item>(itemsList.Where(item => item.Name.ToLower().Contains(name)));
-        }
-
         private void BindItem()
         {
             itemsList = Serialization.DeSerializeList<Item>();

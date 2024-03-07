@@ -24,6 +24,11 @@ namespace ORM_MVVM_WPF.Views.Admin
             InitializeComponent();
             _viewModel = new AdminManageItemViewModel();
             this.DataContext = _viewModel;
+
+            //FilterBy.ItemsSource = typeof(Item).GetProperties().Select((o) => o.Name);
+            FilterBy.ItemsSource = new List<string> { "Id" , "Name" , "Type" };
+            ItemGrid.Items.Filter = GetFilter();
+
         }
 
         private void AddItem_Click(object sender, RoutedEventArgs e)
@@ -32,100 +37,75 @@ namespace ORM_MVVM_WPF.Views.Admin
             addNewItemAdminView.Show();
         }
 
-        private void SearchItem_Click(object sender, RoutedEventArgs e)
-        {
-            //SearchItemName
-            //SearchItemType
-        }
-
         private void SearchItemType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string itemtype = SearchItemType.SelectedItem?.ToString();
-            _viewModel.SearchOnType(itemtype?.ToLower());
-            //    string itemtype = SearchItemType.SelectedItem?.ToString();
-            //    DynamicDataGrid.Items.Clear();
-            //    switch (itemtype?.ToLower())
-            //    {
-            //        case "cloth":
-            //            var clothItems = _viewModel.ItemObservableCollection.Where(Items => Items.GetType().Name == "ItemCloth");
-            //            DynamicDataGrid.Items.Add(clothItems);
-            //            break;
-
-
-            //        case "electronic":
-            //            var electronicItems = _viewModel.ItemObservableCollection.Where(Items => Items.GetType().Name == "ItemElectronic");
-            //            DynamicDataGrid.Items.Add(electronicItems);
-            //            break;
-
-            //        case "all":
-            //            DynamicDataGrid.Items.Add(_viewModel.ItemObservableCollection);
-            //            break;
-            //    }
+            ItemGrid.Items.Filter = GetFilter();
 
         }
-
         private void SearchItemName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string itemName = SearchItemName.Text.Trim().ToLower();
-            _viewModel.SearchOnType(itemName);
-            //    string itemType = SearchItemType.SelectedItem?.ToString()?.ToLower();
-            //    DynamicDataGrid.Items.Clear(); // Clear existing items
+            if (FilterTextBox.Text == null)
+            {
+                ItemGrid.Items.Filter = null;
+            }
+            else
+            {
+                ItemGrid.Items.Filter = GetFilter();
+            }
 
-            //    if (!string.IsNullOrEmpty(itemName))
-            //    {
-            //        var filteredItems = Items.Where(item => item.Name.ToLower().Contains(itemName)).ToList();
-            //        var clothItems = new ObservableCollection<ItemCloth>(filteredItems.OfType<ItemCloth>());
-            //        var electronicItems = new ObservableCollection<ItemElectronic>(filteredItems.OfType<ItemElectronic>());
+        }
+        public Predicate<object> GetFilter()
+        {
+            switch (FilterBy.SelectedItem as string)
+            {
+                case "Id":
+                    return IdFilter;
 
+                case "Name":
+                    return NameFilter;
 
-            //        if ((string.IsNullOrEmpty(itemType) || itemType == "all") && clothItems.Any() && electronicItems.Any())
-            //        {
-            //            DynamicDataGrid.Items.Add(clothItems);
-            //            DynamicDataGrid.Items.Add(electronicItems);
-            //        }
-            //        else if (itemType == "cloth" && clothItems.Any())
-            //        {
-            //            DynamicDataGrid.Items.Add(clothItems);
-            //        }
-            //        else if (itemType == "electronic" && electronicItems.Any())
-            //        {
-            //            DynamicDataGrid.Items.Add(electronicItems);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        SearchItemType_SelectionChanged(null, null);
-            //    }
+                case "Type":
+                    return TypeFilter;
+            }
+            return NameFilter;
         }
 
+        private bool IdFilter(object obj)
+        {
+            var FilterObj = obj as Item;
+            if (FilterObj != null)
+            {
+                int filterId;
+                if (int.TryParse(FilterTextBox.Text, out filterId))
+                {
+                    return FilterObj.Id == filterId;
+                }
+            }
+            return false;
+        }
+        private bool NameFilter(object obj)
+        {
+            var FilterObj = obj as Item;
+            if (FilterObj != null)
+            {
+                return FilterObj.Name.IndexOf(FilterTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0;
+            }
+            return false;
+                
+        }
+        private bool TypeFilter(object obj)
+        {
+            var FilterObj = obj as Item;
+            return FilterObj.Type.IndexOf(FilterTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0;
+        }
 
-        //private void DisplayItem_Click()
-        //{
-        //     = new AdminManageItemViewModel();
-        //    Items = viewModel.DisplayItem();
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button deleteButton = (Button)sender;
+            Item item = (Item)deleteButton.DataContext; // Assuming each row is bound to an Item object
+            _viewModel.ItemObservableCollection.Remove(item);
+        }
 
-        //    var distinctItemTypes = Items.Select(item => item.GetType()).Distinct().ToList();
-
-        //    foreach (var itemType in distinctItemTypes)
-        //    {
-        //        var itemTypeList = Items.Where(item => item.GetType() == itemType).ToList();
-
-        //        Type genericType = typeof(ObservableCollection<>).MakeGenericType(itemType);
-        //        dynamic dynamicObservableCollection = Activator.CreateInstance(genericType);
-
-        //        var addMethod = genericType.GetMethod("Add"); // Retrieve the 'Add' method
-
-        //        foreach (var item in itemTypeList)
-        //        {
-        //            addMethod.Invoke(dynamicObservableCollection, new[] { item }); // Invoke 'Add' method to add item
-        //        }
-
-        //        dynamicDataGrid = new DataGrid();
-        //        dynamicDataGrid.AutoGenerateColumns = true;
-        //        dynamicDataGrid.ItemsSource = dynamicObservableCollection;
-        //        DynamicDataGrid.Items.Add(dynamicDataGrid);
-        //    }
-        //}
     }
 
 

@@ -51,13 +51,15 @@
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="10">
             <StackPanel Orientation="Horizontal" Margin="0 5">
                 <Label FontSize="15" Content="Enter Type:"></Label>
-                <ComboBox x:Name="SearchItemType" ItemsSource="{Binding Source={StaticResource ItemType}}" Width="200" Margin="5 0" SelectionChanged="SearchItemType_SelectionChanged"/>
+                <ComboBox x:Name="FilterBy" Width="200" Margin="5 0" SelectionChanged="SearchItemType_SelectionChanged"/>
+                <!--<ComboBox x:Name="SearchItemType" ItemsSource="{Binding Source={StaticResource ItemType}}" Width="200" Margin="5 0" SelectionChanged="SearchItemType_SelectionChanged"/>-->
               
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="40 5">
                 <Label FontSize="15" Content="Enter Name:"></Label>
-                <TextBox x:Name="SearchItemName" Width="200" Margin="5 0" TextChanged="SearchItemName_TextChanged"/>
+                <TextBox x:Name="FilterTextBox" Width="200" Margin="5 0" TextChanged="SearchItemName_TextChanged"/>
+                <!--<TextBox x:Name="SearchItemName" Width="200" Margin="5 0" TextChanged="SearchItemName_TextChanged"/>-->
             </StackPanel>
 
         </StackPanel>
@@ -65,7 +67,7 @@
 
         <!-- Heading Section -->
         <StackPanel Grid.Row="4" Orientation="Vertical">
-            <Label FontSize="20" FontWeight="Bold" Content="Items"/>
+            <Label   FontSize="20" FontWeight="Bold" Content="Items"/>
         </StackPanel>
 
         <!--<ItemsControl Grid.Row="5" x:Name="DynamicItemControl" ItemsSource="{Binding ItemObservableCollection}">
@@ -84,8 +86,8 @@
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
         </ListBox>-->
-        <Grid  Grid.Row="5">
-            <DataGrid ItemsSource="{Binding ItemObservableCollection}" AutoGenerateColumns="True"/>
+        <Grid  Grid.Row="5" >
+            <DataGrid x:Name="ItemGrid" ItemsSource="{Binding ItemObservableCollection}" AutoGenerateColumns="True"/>
         </Grid>
 
     </Grid>
