@@ -1,4 +1,5 @@
 ﻿using ORM_MVVM_WPF.Models;
+using ORM_MVVM_WPF.ViewModels;
 using ORM_MVVM_WPF.ViewModels.AdminViewModel;
 using System;
 using System.Collections;
@@ -98,13 +99,29 @@ namespace ORM_MVVM_WPF.Views.Admin
             var FilterObj = obj as Item;
             return FilterObj.Type.IndexOf(FilterTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0;
         }
-
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            Button deleteButton = (Button)sender;
-            Item item = (Item)deleteButton.DataContext; // Assuming each row is bound to an Item object
-            _viewModel.ItemObservableCollection.Remove(item);
+            if (ItemGrid.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select an item to delete.");
+                return; 
+            }
+            _viewModel.DeleteItem(ItemGrid.SelectedItems);
+            //foreach (var selectedItem in ItemGrid.SelectedItems)
+            //{
+            //    Item item = selectedItem as Item;
+            //    if (item != null)
+            //    {
+
+            //        //ItemObservableCollection.Remove(item);
+            //        //itemsList.Remove(item);
+            //        //Serialization.SerializeList(itemsList);
+
+            //    }
+            
+
         }
+
 
     }
 

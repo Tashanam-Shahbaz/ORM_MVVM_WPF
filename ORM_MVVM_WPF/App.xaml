@@ -12,7 +12,7 @@
              StartupUri="Views/MainWindow.xaml">
 
     <Application.Resources>
-
+  
         <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
             <views:Login/>
         </DataTemplate>
@@ -43,7 +43,6 @@
         <DataTemplate DataType="{x:Type adminviewmodels:AdminManageOrderViewModel}">
             <adminviews:AdminOrderManageView/>
         </DataTemplate>
-
 
     </Application.Resources>
 </Application>

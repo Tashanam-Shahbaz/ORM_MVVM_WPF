@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Controls;
@@ -71,6 +73,25 @@ namespace ORM_MVVM_WPF.ViewModels.AdminViewModel
             Serialization.SerializeList(itemsList);
             return true;
 
+        }
+
+        public bool DeleteItem(object selectedItems) 
+        {
+            try
+            {
+                IEnumerable<Item> enumerableSelectedItems = (selectedItems as IEnumerable)?.OfType<Item>();
+                foreach (var item in enumerableSelectedItems.ToList())
+                {
+                    ItemObservableCollection.Remove(item);
+                    itemsList.Remove(item);
+                }
+                Serialization.SerializeList(itemsList);
+                return true; 
+            }
+            catch 
+            {
+                return false;
+            }
         }
         private void BindItem()
         {
