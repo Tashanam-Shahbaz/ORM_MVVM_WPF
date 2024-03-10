@@ -13,6 +13,17 @@ namespace ORM_MVVM_WPF.Commands
     public class UpdateViewCommands : ICommand
     {
         private MainViewModel viewModel;
+        // Dictionary to map parameter strings to ViewModel types
+        Dictionary<string, Type> viewModelMappings = new Dictionary<string, Type>
+        {
+            { "login", typeof(LoginViewModel) },
+            { "signup", typeof(SignupViewModel) },
+            { "personalinfo", typeof(CustomerPersonalInfoViewModel) },
+            { "customerviewitem", typeof(CustomerItemViewModel) },
+            { "customervieworder", typeof(CustomerOrderViewModel) },
+            { "admin_manage_order", typeof(AdminManageOrderViewModel) },
+            { "admin_manage_item", typeof(AdminManageItemViewModel) }
+        };
         public UpdateViewCommands(MainViewModel viewModel)
         {
             this.viewModel = viewModel;
@@ -27,38 +38,17 @@ namespace ORM_MVVM_WPF.Commands
         {
             if (CanExecuteChanged != null)
             {
-                if (parameter.ToString() == "login")
-                {
-                    viewModel.SelectedViewModel = new LoginViewModel();
-                }
-                else if (parameter.ToString() == "signup")
-                {
-                    viewModel.SelectedViewModel = new SignupViewModel();
-                }
+                string parameterString = parameter.ToString();
 
-                //customer
-                else if (parameter.ToString() == "personalinfo")
+                if (viewModelMappings.ContainsKey(parameterString))
                 {
-                    viewModel.SelectedViewModel = new CustomerPersonalInfoViewModel();
+                    Type viewModelType = viewModelMappings[parameterString];
+                    viewModel.SelectedViewModel = (BaseViewModel)Activator.CreateInstance(viewModelType);
                 }
-                else if (parameter.ToString() == "customerviewitem")
+                else
                 {
-                    viewModel.SelectedViewModel = new CustomerItemViewModel();
+                    // throw new ArgumentException("Unknown parameter: " + parameterString);
                 }
-                else if (parameter.ToString() == "customervieworder")
-                {
-                    viewModel.SelectedViewModel = new CustomerOrderViewModel();
-                }
-
-                else if (parameter.ToString() == "admin_manage_order")
-                {
-                    viewModel.SelectedViewModel = new   AdminManageOrderViewModel();
-                }
-                else if (parameter.ToString() == "admin_manage_item")
-                {
-                    viewModel.SelectedViewModel = new AdminManageItemViewModel();
-                }
-
             }
         }
     }

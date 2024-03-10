@@ -28,11 +28,9 @@ namespace ORM_MVVM_WPF.Views.Customer
 
         private void AdminLogout_Click(object sender, RoutedEventArgs e)
         {
-            // Open the main window
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
-
-            // Closing Admin Dashboard
+            
             Close();
         }
     }
