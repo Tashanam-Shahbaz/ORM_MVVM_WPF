@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using ORM_MVVM_WPF.ViewModels.Customer;
+using ORM_MVVM_WPF.ViewModels.Items;
 using ORM_MVVM_WPF.Models;
+using ORM_MVVM_WPF.ViewModels.Orders;
 
 namespace ORM_MVVM_WPF.Views.Customer
 {
@@ -15,12 +16,15 @@ namespace ORM_MVVM_WPF.Views.Customer
     /// </summary>
     public partial class CustomerItem : UserControl
     {
-        private CustomerItemViewModel _cusIVM;
+        private ItemViewModel _cusIVM;
+        private OrderViewModel _orderVM;
         public CustomerItem()
         {
             InitializeComponent();
-            _cusIVM = new CustomerItemViewModel();
+            _cusIVM = new ItemViewModel();
+            _orderVM = new OrderViewModel();
             this.DataContext = this._cusIVM;
+
 
             //FilterBy.ItemsSource = typeof(Item).GetProperties().Select((o) => o.Name);
             FilterBy.ItemsSource = new List<string> { "Id", "Name", "Type" };
@@ -87,6 +91,11 @@ namespace ORM_MVVM_WPF.Views.Customer
                 ItemGrid.Items.Filter = GetFilter();
             }
 
+        }
+
+        private void PlaceOrder_Click(object sender, RoutedEventArgs e)
+        {
+            _orderVM.PlaceOrder(ItemGrid.SelectedItems);
         }
     }
 }

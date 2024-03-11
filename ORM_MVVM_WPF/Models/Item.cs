@@ -27,6 +27,8 @@ namespace ORM_MVVM_WPF.Models
         public string Description { get; set; }
         public float Price { get; set; }
         public virtual string Type => ItemType();
+
+       
         public virtual string ItemType()
         {
             return "general";

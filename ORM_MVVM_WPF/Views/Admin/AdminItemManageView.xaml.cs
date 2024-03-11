@@ -9,7 +9,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-
+using ORM_MVVM_WPF.ViewModels.Items;
 
 namespace ORM_MVVM_WPF.Views.Admin
 {
@@ -19,11 +19,11 @@ namespace ORM_MVVM_WPF.Views.Admin
     /// </summary>
     public partial class AdminItemManageView : UserControl
     {
-        AdminManageItemViewModel _viewModel;
+        ItemViewModel _viewModel;
         public AdminItemManageView()
         {
             InitializeComponent();
-            _viewModel = new AdminManageItemViewModel();
+            _viewModel = new ItemViewModel();
             this.DataContext = _viewModel;
 
             //FilterBy.ItemsSource = typeof(Item).GetProperties().Select((o) => o.Name);

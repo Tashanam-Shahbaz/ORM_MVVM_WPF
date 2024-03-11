@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="1000" Background="White">
 
-    <Grid>
+    <Grid Margin="50 0 0 0">
        
         <Grid.RowDefinitions>
             <RowDefinition  Height="100" />
@@ -42,36 +42,41 @@
 
         </StackPanel>
 
-        <Label Grid.Row="3" FontSize="20" FontWeight="Bold" Content="Items"/>
+        <WrapPanel Grid.Row="3">
+            <Label  FontSize="20" FontWeight="Bold" Content="Items"/>
+            <Button Content="Buy Item" FontSize="15" FontWeight="DemiBold" Margin="705 0 0 0" Padding="10 0 10 0" Click="PlaceOrder_Click"> </Button>
+        </WrapPanel>
         
-        <DataGrid  Grid.Row="4" x:Name="ItemGrid" ItemsSource="{Binding ItemOC}" AutoGenerateColumns="False" RowHeight="100">
+
+        <DataGrid  Grid.Row="4" x:Name="ItemGrid" ItemsSource="{Binding ItemObservableCollection}" AutoGenerateColumns="False" RowHeight="80" Width="850" >
             <DataGrid.Columns>
+                
                 <!-- First column: Image -->
-                <DataGridTemplateColumn Width="150">
+                <!--<DataGridTemplateColumn Width="150">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Image Source="{Binding ImagePath}" Stretch="Uniform" Width="100" Height="100"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                </DataGridTemplateColumn>-->
 
                 <!-- Second column: Name and Price -->
                 <DataGridTemplateColumn Header="Details" Width="150">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Vertical">
-                                <StackPanel Orientation="Horizontal">
+                            <StackPanel >
+                                <WrapPanel Orientation="Horizontal">
                                     <Label Content="Name:" FontWeight="Bold"/>
                                     <TextBlock Text="{Binding Name}" FontWeight="Normal" Margin="0 5 0 0"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
+                                </WrapPanel>
+                                <WrapPanel>
                                     <Label Content="Price:" FontWeight="Bold"/>
                                     <TextBlock Text="{Binding Price}" FontWeight="Normal" Margin="0 5 0 0"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
+                                </WrapPanel>
+                                <WrapPanel >
                                     <Label Content="Item Type:" FontWeight="Bold"/>
                                     <TextBlock Text="{Binding Type}" FontWeight="Normal" Margin="0 5 0 0"/>
-                                </StackPanel>
+                                </WrapPanel>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
