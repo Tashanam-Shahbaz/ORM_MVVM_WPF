@@ -96,7 +96,7 @@ namespace ORM_MVVM_WPF.ViewModels
                 admin.Password = UserPasssword; // Using ViewModel property
                 admin.Department = depart;
                 users.Add(admin);
-
+                User.AuthUser = admin;
                 Serialization.SerializeList(users);
                 return true;
             }
@@ -104,6 +104,7 @@ namespace ORM_MVVM_WPF.ViewModels
             {
                 return false;
             }
+
         }
 
         public bool SinupAction(CustomerType type)
@@ -126,7 +127,7 @@ namespace ORM_MVVM_WPF.ViewModels
                 customer.Password = UserPasssword; // Using ViewModel property
                 customer.CustomerType = type;
                 users.Add(customer);
-
+                User.AuthUser = customer;
                 Serialization.SerializeList(users);
                 return true;
             }
@@ -156,9 +157,9 @@ namespace ORM_MVVM_WPF.ViewModels
                 seller.Email = UserEmail; // Using ViewModel property
                 seller.Password = UserPasssword; // Using ViewModel property
                 seller.SellerType = type;
-
+                
                 users.Add(seller);
-
+                User.AuthUser = seller;
                 Serialization.SerializeList(users);
                 return true;
             }

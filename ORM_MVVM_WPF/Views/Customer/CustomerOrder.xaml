@@ -7,6 +7,49 @@
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="1000" Background="White">
     <Grid>
-        <Label FontSize="50" Content="CUSTOMER Order"></Label>
+        <!--<Label FontSize="50" Content="CUSTOMER Order"></Label>-->
+        <DataGrid  Grid.Row="4" x:Name="ItemGrid" ItemsSource="{Binding OrderObservableCollection}" AutoGenerateColumns="False" RowHeight="80" Width="850" >
+            <DataGrid.Columns>
+
+                <!-- First column: Image -->
+                <!--<DataGridTemplateColumn Width="150">
+            <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                    <Image Source="{Binding ImagePath}" Stretch="Uniform" Width="100" Height="100"/>
+                </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>-->
+
+                <DataGridTextColumn Header="Order Id" Binding="{Binding Id}" Width="100"/>
+                <DataGridTextColumn Header="Order Date" Binding="{Binding OrderDate}" Width="100"/>
+                
+             
+                <!--<DataGridTemplateColumn Header="Item Details" Width="150">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel >
+                                <WrapPanel Orientation="Horizontal">
+                                    <Label Content="Name:" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Item.Name}" FontWeight="Normal" Margin="0 5 0 0"/>
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <Label Content="Price:" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Price}" FontWeight="Normal" Margin="0 5 0 0"/>
+                                </WrapPanel>
+                                <WrapPanel >
+                                    <Label Content="Item Type:" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Type}" FontWeight="Normal" Margin="0 5 0 0"/>
+                                </WrapPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>-->
+
+                <DataGridTextColumn Header="Payment Status" Binding="{Binding PaymentStatus}" Width="100"/>
+                <DataGridTextColumn Header="Order Status" Binding="{Binding OrderStatus}" Width="500"/>
+                
+            </DataGrid.Columns>
+        </DataGrid>
+        
     </Grid>
 </UserControl>

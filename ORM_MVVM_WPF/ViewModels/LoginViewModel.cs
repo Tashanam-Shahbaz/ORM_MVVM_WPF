@@ -17,7 +17,8 @@ namespace ORM_MVVM_WPF.ViewModels
 
         private string _userEmail;
         private string _userPassword;
-        private User _user ;
+        private User _user;
+
         public string UserEmail
         {
             get { return _userEmail; }
@@ -59,6 +60,7 @@ namespace ORM_MVVM_WPF.ViewModels
             {
                 Console.WriteLine(ex.Message);  
             }
+            User.AuthUser = User;
 
         }
         public void LogoutAction()

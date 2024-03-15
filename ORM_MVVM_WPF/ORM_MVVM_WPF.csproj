@@ -87,7 +87,7 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\Orders\OrderViewModel.cs" />
     <Compile Include="ViewModels\Serialization.cs" />
-    <Compile Include="ViewModels\AuthViewModel.cs" />
+    <Compile Include="ViewModels\SignupViewModel.cs" />
     <Compile Include="Views\Admin\AddNewItemAdminViewWindow.xaml.cs">
       <DependentUpon>AddNewItemAdminViewWindow.xaml</DependentUpon>
     </Compile>

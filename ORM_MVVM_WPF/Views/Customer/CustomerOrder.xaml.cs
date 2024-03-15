@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ORM_MVVM_WPF.ViewModels.Orders;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,12 @@ namespace ORM_MVVM_WPF.Views.Customer
     /// </summary>
     public partial class CustomerOrder : UserControl
     {
+        private OrderViewModel _orderVM;  
         public CustomerOrder()
         {
-            InitializeComponent();
+            InitializeComponent(); 
+            _orderVM = new OrderViewModel();
+            DataContext = _orderVM;
         }
     }
 }

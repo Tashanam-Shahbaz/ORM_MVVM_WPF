@@ -26,11 +26,22 @@ namespace ORM_MVVM_WPF.ViewModels.Orders
             }
         }
 
+        private void BindOrder()
+        {
+            orderList = Serialization.DeSerializeList<Order>();
+            OrderObservableCollection = new ObservableCollection<Order>(orderList);
+        }
+
+        //Customer will place order.
         public bool PlaceOrder(object selectedItem)
         {
             try
             {
                 Order order = new Order();
+                order.Customer = (Models.Customer)User.AuthUser;
+                order.OrderDate = DateTime.Now;
+                order.OrdersItemsByCustomer = new List<Item>();
+
                 if (orderList.Any())
                 {
                     order.Id = orderList.Max(o => o.Id) + 1;
@@ -39,15 +50,12 @@ namespace ORM_MVVM_WPF.ViewModels.Orders
                 {
                     order.Id = 1;
                 }
-                order.OrderDate = DateTime.Now;
-                //order.customer_id = customer_id;
-                order.OrdersItemsByCustomer = new List<Item>();
 
                 IEnumerable<Item> enumerableSelectedOrders = (selectedItem as IEnumerable)?.OfType<Item>();
                 foreach (var item in enumerableSelectedOrders.ToList())
                 {
                     order.OrdersItemsByCustomer.Add(item);
-                   
+
                 }
                 orderList.Add(order);
                 OrderObservableCollection.Add(order);
@@ -59,10 +67,11 @@ namespace ORM_MVVM_WPF.ViewModels.Orders
                 return false;
             }
         }
-        private void BindOrder()
+
+        //Customer can see his/her order
+        public void ViewOrder()
         {
-            orderList = Serialization.DeSerializeList<Order>();
-            OrderObservableCollection = new ObservableCollection<Order>(orderList);
+            OrderObservableCollection = new ObservableCollection<Order>(OrderObservableCollection.Where(o => o.Customer == User.AuthUser ));
         }
     }
 }

@@ -8,6 +8,7 @@ namespace ORM_MVVM_WPF.Models
 {
     public class User
     {
+        public static User user;
         public string Username { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
@@ -19,6 +20,12 @@ namespace ORM_MVVM_WPF.Models
         }
         public User()
         {
+        }
+
+        public static User AuthUser
+        {
+            get  { return user; }
+            set  {user = value; }
         }
     }
 
