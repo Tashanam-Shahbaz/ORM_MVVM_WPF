@@ -38,7 +38,7 @@ namespace ORM_MVVM_WPF.ViewModels.Orders
             try
             {
                 Order order = new Order();
-                order.Customer = (Models.Customer)User.AuthUser;
+                order.Customer_Id = ((Models.Customer)User.AuthUser).CustomerID;
                 order.OrderDate = DateTime.Now;
                 order.OrdersItemsByCustomer = new List<Item>();
 
@@ -71,7 +71,7 @@ namespace ORM_MVVM_WPF.ViewModels.Orders
         //Customer can see his/her order
         public void ViewOrder()
         {
-            OrderObservableCollection = new ObservableCollection<Order>(OrderObservableCollection.Where(o => o.Customer == User.AuthUser ));
+            OrderObservableCollection = new ObservableCollection<Order>(OrderObservableCollection.Where(o => o.Customer_Id == ((Models.Customer)User.AuthUser).CustomerID));
         }
     }
 }

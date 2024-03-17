@@ -24,6 +24,7 @@ namespace ORM_MVVM_WPF.ViewModels.Items
             set
             {
                 _itemObservableCollection = value;
+                CalculateSerialNumbers();
                 OnPropertyChanged(nameof(ItemObservableCollection));
             }
         }
@@ -48,6 +49,7 @@ namespace ORM_MVVM_WPF.ViewModels.Items
             cloth.Material = material;
             itemsList.Add(cloth);
             ItemObservableCollection.Add(cloth);
+            CalculateSerialNumbers();
             Serialization.SerializeList(itemsList);
             return true;
         }
@@ -70,6 +72,7 @@ namespace ORM_MVVM_WPF.ViewModels.Items
             itemElectronic.Price = price;
             itemsList.Add(itemElectronic);
             ItemObservableCollection.Add(itemElectronic);
+            CalculateSerialNumbers();
             Serialization.SerializeList(itemsList);
             return true;
 
@@ -84,7 +87,9 @@ namespace ORM_MVVM_WPF.ViewModels.Items
                 {
                     ItemObservableCollection.Remove(item);
                     itemsList.Remove(item);
+                   
                 }
+                CalculateSerialNumbers();
                 Serialization.SerializeList(itemsList);
                 return true;
             }
@@ -97,6 +102,15 @@ namespace ORM_MVVM_WPF.ViewModels.Items
         {
             itemsList = Serialization.DeSerializeList<Item>();
             ItemObservableCollection = new ObservableCollection<Item>(itemsList);
+        }
+
+        private void CalculateSerialNumbers()
+        {
+            int serialNumber = 1;
+            foreach (var item in _itemObservableCollection)
+            {
+                item.SerialNumber = serialNumber++;
+            }
         }
     }
 }

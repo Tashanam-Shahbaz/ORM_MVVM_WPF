@@ -94,11 +94,11 @@
     <Compile Include="Views\Admin\AdminDashboard.xaml.cs">
       <DependentUpon>AdminDashboard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Admin\AdminItemManageView.xaml.cs">
-      <DependentUpon>AdminItemManageView.xaml</DependentUpon>
+    <Compile Include="Views\Admin\AdminItemView.xaml.cs">
+      <DependentUpon>AdminItemView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Admin\AdminOrderManageView.xaml.cs">
-      <DependentUpon>AdminOrderManageView.xaml</DependentUpon>
+    <Compile Include="Views\Admin\AdminOrderView.xaml.cs">
+      <DependentUpon>AdminOrderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Customer\CustomerDashboard.xaml.cs">
       <DependentUpon>CustomerDashboard.xaml</DependentUpon>
@@ -116,6 +116,7 @@
       <DependentUpon>Signup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EnumType.cs" />
+    <Compile Include="Views\Utilities\SerialNumberConverter.cs" />
     <Page Include="Views\Admin\AddNewItemAdminViewWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -124,11 +125,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Admin\AdminItemManageView.xaml">
+    <Page Include="Views\Admin\AdminItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Admin\AdminOrderManageView.xaml">
+    <Page Include="Views\Admin\AdminOrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

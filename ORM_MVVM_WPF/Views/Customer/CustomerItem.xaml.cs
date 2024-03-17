@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using ORM_MVVM_WPF.ViewModels.Items;
 using ORM_MVVM_WPF.Models;
 using ORM_MVVM_WPF.ViewModels.Orders;
+using System.Windows.Data;
 
 namespace ORM_MVVM_WPF.Views.Customer
 {
@@ -95,6 +96,7 @@ namespace ORM_MVVM_WPF.Views.Customer
 
         private void PlaceOrder_Click(object sender, RoutedEventArgs e)
         {
+
             _orderVM.PlaceOrder(ItemGrid.SelectedItems);
         }
     }

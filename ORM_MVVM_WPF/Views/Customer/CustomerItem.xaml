@@ -3,12 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ORM_MVVM_WPF.Views.Customer"
+             xmlns:local="clr-namespace:ORM_MVVM_WPF.Views.Customer" 
+             xmlns:Utilities="clr-namespace:ORM_MVVM_WPF.Views.Utilities"
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="1000" Background="White">
 
+    <UserControl.Resources>
+        <Utilities:SerialNumberConverter x:Key="SerialNumberConverter" />
+    </UserControl.Resources>
+    
     <Grid Margin="50 0 0 0">
-       
+
         <Grid.RowDefinitions>
             <RowDefinition  Height="100" />
             <RowDefinition Height="40"  />
@@ -44,13 +49,29 @@
 
         <WrapPanel Grid.Row="3">
             <Label  FontSize="20" FontWeight="Bold" Content="Items"/>
-            <Button Content="Buy Item" FontSize="15" FontWeight="DemiBold" Margin="705 0 0 0" Padding="10 0 10 0" Click="PlaceOrder_Click"> </Button>
+            <Button Content="Buy Item" FontSize="15" FontWeight="DemiBold" Margin="705 0 0 0" Padding="10 0 10 0" Click="PlaceOrder_Click"></Button>
         </WrapPanel>
-        
 
-        <DataGrid  Grid.Row="4" x:Name="ItemGrid" ItemsSource="{Binding ItemObservableCollection}" AutoGenerateColumns="False" RowHeight="80" Width="850" >
+
+        <DataGrid  Grid.Row="3" x:Name="ItemGrid" ItemsSource="{Binding ItemObservableCollection}" AutoGenerateColumns="False" RowHeight="80" Width="850" Margin="50,30,50,10" Grid.RowSpan="2" >
             <DataGrid.Columns>
+
                 
+                <DataGridTemplateColumn Header="SNo" Width="50">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding Converter="{StaticResource SerialNumberConverter}">
+                                        <Binding Path="ItemsSource" RelativeSource="{RelativeSource AncestorType=DataGrid}" />
+                                        <Binding Path="." />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
                 <!-- First column: Image -->
                 <!--<DataGridTemplateColumn Width="150">
                     <DataGridTemplateColumn.CellTemplate>

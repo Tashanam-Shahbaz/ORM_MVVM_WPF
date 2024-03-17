@@ -107,18 +107,7 @@ namespace ORM_MVVM_WPF.Views.Admin
                 return; 
             }
             _viewModel.DeleteItem(ItemGrid.SelectedItems);
-            //foreach (var selectedItem in ItemGrid.SelectedItems)
-            //{
-            //    Item item = selectedItem as Item;
-            //    if (item != null)
-            //    {
 
-            //        //ItemObservableCollection.Remove(item);
-            //        //itemsList.Remove(item);
-            //        //Serialization.SerializeList(itemsList);
-
-            //    }
-            
 
         }
 

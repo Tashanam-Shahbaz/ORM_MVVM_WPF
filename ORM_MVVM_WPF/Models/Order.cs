@@ -22,7 +22,7 @@ namespace ORM_MVVM_WPF.Models
     {
 
         public int Id { get; set; }
-        public Customer Customer { get; set; }
+        public int Customer_Id { get; set; }
         public DateTime OrderDate { get; set; } = DateTime.Now;
         public List<Item> OrdersItemsByCustomer { get; set; }
         public OrderStatus OrderStatus { get; set; } = OrderStatus.Pending;
