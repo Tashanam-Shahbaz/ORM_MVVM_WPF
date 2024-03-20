@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ORM_MVVM_WPF.Models;
 
 namespace ORM_MVVM_WPF.Views.Customer
 {
@@ -28,5 +29,23 @@ namespace ORM_MVVM_WPF.Views.Customer
             _orderVM = new OrderViewModel();
             DataContext = _orderVM;
         }
+
+        private void PayButton_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            
+            if (button == null)
+                return;
+            
+            var id = button.CommandParameter; 
+        }
+
+        //private void OrderGrid_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        //{
+        //    if (OrderGrid.SelectedItems == null )
+        //        return;
+
+        //    List<Order> selectOrder =OrderGrid.SelectedItems?.OfType<Order>().ToList();
+        //}
     }
 }

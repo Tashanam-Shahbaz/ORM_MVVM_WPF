@@ -109,6 +109,9 @@
     <Compile Include="Views\Customer\CustomerOrder.xaml.cs">
       <DependentUpon>CustomerOrder.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Customer\CustomerPayment.xaml.cs">
+      <DependentUpon>CustomerPayment.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Customer\CustomerPersonalInfo.xaml.cs">
       <DependentUpon>CustomerPersonalInfo.xaml</DependentUpon>
     </Compile>
@@ -116,7 +119,6 @@
       <DependentUpon>Signup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EnumType.cs" />
-    <Compile Include="Views\Utilities\SerialNumberConverter.cs" />
     <Page Include="Views\Admin\AddNewItemAdminViewWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -142,6 +144,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Customer\CustomerOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Customer\CustomerPayment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

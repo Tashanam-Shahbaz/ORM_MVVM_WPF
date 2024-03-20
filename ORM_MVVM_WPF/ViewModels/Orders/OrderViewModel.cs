@@ -10,26 +10,60 @@ namespace ORM_MVVM_WPF.ViewModels.Orders
     public class OrderViewModel : BaseViewModel
     {
         private List<Order> orderList;
+        private List<Item> itemList;
         private ObservableCollection<Order> _orderObservableCollection;
+        private ObservableCollection<Item> _itemOCOrder;  
 
         public OrderViewModel()
         {
-            BindOrder();
+            Bind();
         }
+        public ObservableCollection<Item> ItemOCOrder
+        {
+            get { return _itemOCOrder; }
+            set
+            {
+                _itemOCOrder = value;
+                OnPropertyChanged(nameof(ItemOCOrder));
+            }
+        }
+
         public ObservableCollection<Order> OrderObservableCollection
         {
             get { return _orderObservableCollection; }
             set
             {
                 _orderObservableCollection = value;
+                CalculateSerialNumbers();
                 OnPropertyChanged(nameof(OrderObservableCollection));
             }
         }
 
-        private void BindOrder()
+        private void Bind()
         {
+
             orderList = Serialization.DeSerializeList<Order>();
-            OrderObservableCollection = new ObservableCollection<Order>(orderList);
+            itemList = Serialization.DeSerializeList<Item>();
+            //int count = 0; 
+            OrderObservableCollection = new ObservableCollection<Order>
+                (
+                orderList.Select(order =>
+                    {
+                        //count += 1;
+                        //order.SerialNumber = count ;
+                        order.OrdersItemsByCustomer = itemList.Where(item => order.OrdersItemIDByCustomer.Contains(item.Id)).ToList();
+                        return order;
+                    }
+                    )
+                );
+        }
+        private void CalculateSerialNumbers()
+        {
+            int serialNumber = 1;
+            foreach (var item in _orderObservableCollection)
+            {
+                item.SerialNumber = serialNumber++;
+            }
         }
 
         //Customer will place order.
@@ -38,23 +72,14 @@ namespace ORM_MVVM_WPF.ViewModels.Orders
             try
             {
                 Order order = new Order();
+                order.Id = orderList.Count > 0 ?  orderList.Max(o => o.Id) + 1 : 1 ;
                 order.Customer_Id = ((Models.Customer)User.AuthUser).CustomerID;
                 order.OrderDate = DateTime.Now;
-                order.OrdersItemsByCustomer = new List<Item>();
-
-                if (orderList.Any())
-                {
-                    order.Id = orderList.Max(o => o.Id) + 1;
-                }
-                else
-                {
-                    order.Id = 1;
-                }
-
+                order.OrdersItemIDByCustomer = new List<int>();
                 IEnumerable<Item> enumerableSelectedOrders = (selectedItem as IEnumerable)?.OfType<Item>();
                 foreach (var item in enumerableSelectedOrders.ToList())
                 {
-                    order.OrdersItemsByCustomer.Add(item);
+                    order.OrdersItemIDByCustomer.Add(item.Id);
 
                 }
                 orderList.Add(order);
