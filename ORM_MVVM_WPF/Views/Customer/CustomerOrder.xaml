@@ -6,78 +6,107 @@
              xmlns:local="clr-namespace:ORM_MVVM_WPF.Views.Customer"
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="1000" Background="White">
+
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-        <DataGrid   x:Name="OrderGrid" ItemsSource="{Binding OrderObservableCollection}" AutoGenerateColumns="False"  Width="850" CanUserAddRows="False" HeadersVisibility="Column" MaxHeight="400" VerticalScrollBarVisibility="Auto" Margin="20 0 0 20">
-            <DataGrid.Resources>
-                <Style TargetType="DataGridColumnHeader">
-                    <Setter Property="FontWeight" Value="Bold" ></Setter>
-                </Style>
-            </DataGrid.Resources>
-            
-            <DataGrid.Columns>
+        <StackPanel Grid.Row="0"  Margin="40 0 40 0">
+            <TextBlock   FontWeight="Bold" FontSize="30">My Order</TextBlock>
+        </StackPanel>
+        
+        <ScrollViewer Grid.Row="1"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="50 0 50 0" MaxHeight="600">
+            <StackPanel>
+                <WrapPanel  Orientation="Vertical" >
+            <ItemsControl ItemsSource="{Binding OrderObservableCollection}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderThickness="1" BorderBrush="Black" Margin="10" Padding="10">
+                            <StackPanel>
+                                <WrapPanel>
+                                    <TextBlock Text="SNo "  FontWeight="Bold"></TextBlock>
+                                    <TextBlock Text="{Binding SerialNumber}" />
+                                </WrapPanel>
 
-                <DataGridTextColumn Header="SNo" Binding="{Binding SerialNumber}" Width="Auto"/>
-                
-                <!-- First column: Order Id -->
-                <DataGridTextColumn Header="Order Id" Binding="{Binding Id}" Width="Auto"/>
+                                <WrapPanel>
+                                    <TextBlock Text="Order ID  "  FontWeight="Bold"></TextBlock>
+                                    <TextBlock Text="{Binding Id}"  Margin="0 0 0 5"/>
+                                </WrapPanel>
 
-                <!-- Second column: Order Date -->
-                <DataGridTextColumn Header="Order Date" Binding="{Binding OrderDate}" Width="Auto"/>
+                                <WrapPanel>
+                                    <TextBlock Text="Order Date   "  FontWeight="Bold"></TextBlock>
+                                    <TextBlock Text="{Binding OrderDate}" Margin="0 0 0 5"/>
+                                </WrapPanel>
 
-                <!-- Third column: Payment Status -->
-                <DataGridTextColumn Header="Payment Status" Binding="{Binding PaymentStatus}" Width="Auto"/>
+                                <WrapPanel>
+                                    <TextBlock Text="Payment Status  "  FontWeight="Bold"></TextBlock>
+                                    <TextBlock Text="{Binding PaymentStatus}" Margin="0 0 0 5"/>
+                                </WrapPanel>
 
-                <!-- Fourth column: Order Status -->
-                <DataGridTextColumn Header="Order Status" Binding="{Binding OrderStatus}" Width="Auto"/>
+                                <WrapPanel>
+                                    <TextBlock Text="Order Status  "  FontWeight="Bold"></TextBlock>
+                                    <TextBlock Text="{Binding OrderStatus}" Margin="0 0 0 5"/>
+                                </WrapPanel>
 
-                <!-- Fifth column: Item Detail -->
-                <DataGridTemplateColumn Header="Item Details">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <ItemsControl ItemsSource="{Binding OrdersItemsByCustomer}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel Orientation="Horizontal"/>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Border BorderThickness="1" BorderBrush="DarkGreen" Margin="5" Padding="5" >
-                                            <StackPanel>
-                                                <WrapPanel Orientation="Horizontal" Margin="0 0 0 0">
-                                                    <TextBlock Text="Name:" FontWeight="Bold"/>
-                                                    <TextBlock Text="{Binding Name}" FontWeight="Normal" Margin="5 0 0 5"/>
-                                                </WrapPanel>
-                                                <WrapPanel Orientation="Horizontal" Margin="0 0 0 0">
-                                                    <TextBlock Text="Price:" FontWeight="Bold"/>
-                                                    <TextBlock Text="{Binding Price}" FontWeight="Normal" Margin="5 0 0 5"/>
-                                                </WrapPanel>
-                                                <WrapPanel Orientation="Horizontal">
-                                                    <TextBlock Text="Item Type:" FontWeight="Bold"/>
-                                                    <TextBlock Text="{Binding Type}" FontWeight="Normal" Margin="5 0 0 5"/>
-                                                </WrapPanel>
+                                <WrapPanel Orientation="Horizontal">
+                                    <ItemsControl ItemsSource="{Binding OrdersItemsByCustomer}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel Orientation="Horizontal"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border BorderThickness="1" BorderBrush="DarkGreen" Margin="5" Padding="5" >
+                                                    <StackPanel>
+                                                        <WrapPanel Orientation="Horizontal" Margin="0 0 0 0">
+                                                            <TextBlock Text="Name:" FontWeight="Bold"/>
+                                                            <TextBlock Text="{Binding Name}" FontWeight="Normal" Margin="5 0 0 5"/>
+                                                        </WrapPanel>
+                                                        <WrapPanel Orientation="Horizontal" Margin="0 0 0 0">
+                                                            <TextBlock Text="Price:" FontWeight="Bold"/>
+                                                            <TextBlock Text="{Binding Price}" FontWeight="Normal" Margin="5 0 0 5"/>
+                                                        </WrapPanel>
+                                                        <WrapPanel Orientation="Horizontal">
+                                                            <TextBlock Text="Item Type:" FontWeight="Bold"/>
+                                                            <TextBlock Text="{Binding Type}" FontWeight="Normal" Margin="5 0 0 5"/>
+                                                        </WrapPanel>
+                                                    </StackPanel>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </WrapPanel>
+
+                                <WrapPanel >
+                                            <StackPanel Orientation="Horizontal" >
+                                                <TextBlock Text="GRAND TOTAL  "  FontWeight="Bold"></TextBlock>
+                                                <TextBlock Text="{Binding TotalAmount}" Margin="0 0 0 5"/>
                                             </StackPanel>
-                                        </Border>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
 
-
-                <DataGridTemplateColumn Header="Pay" Width="100">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Content="Pay" Click="PayButton_Click" CommandParameter="{Binding Id}" Margin="20 30" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
-            </DataGrid.Columns>
-        </DataGrid>
-
-
+                                            <Button Content="Pay" Click="PayButton_Click" CommandParameter="{Binding Id}" Width="200" Margin="450 0 0 0">
+                                                <Button.Style>
+                                                    <Style TargetType="Button">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding PaymentStatus}" Value="Pending">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+                                            </Button>
+                                        </WrapPanel>
+                           
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </WrapPanel>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

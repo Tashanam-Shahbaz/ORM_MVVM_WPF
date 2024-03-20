@@ -32,12 +32,17 @@ namespace ORM_MVVM_WPF.Views.Customer
 
         private void PayButton_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            
-            if (button == null)
-                return;
-            
-            var id = button.CommandParameter; 
+            MessageBoxResult msg = MessageBox.Show("Are you sure you want to proceed with the payment?", "Payment Confirmation", MessageBoxButton.OKCancel);
+
+            if (msg == MessageBoxResult.OK )
+            {
+                var button = sender as Button;
+                if (button == null)
+                    return;
+                int id = (int)button.CommandParameter;
+                _orderVM.PayOrder(id);
+            }
+
         }
 
         //private void OrderGrid_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)

@@ -207,6 +207,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Data\" />
     <Folder Include="Views\Seller\" />
   </ItemGroup>
   <ItemGroup>

@@ -44,14 +44,12 @@ namespace ORM_MVVM_WPF.ViewModels.Orders
 
             orderList = Serialization.DeSerializeList<Order>();
             itemList = Serialization.DeSerializeList<Item>();
-            //int count = 0; 
             OrderObservableCollection = new ObservableCollection<Order>
                 (
                 orderList.Select(order =>
                     {
-                        //count += 1;
-                        //order.SerialNumber = count ;
                         order.OrdersItemsByCustomer = itemList.Where(item => order.OrdersItemIDByCustomer.Contains(item.Id)).ToList();
+                        order.TotalAmount = order.OrdersItemsByCustomer.Sum(item => item.Price);
                         return order;
                     }
                     )
@@ -97,6 +95,21 @@ namespace ORM_MVVM_WPF.ViewModels.Orders
         public void ViewOrder()
         {
             OrderObservableCollection = new ObservableCollection<Order>(OrderObservableCollection.Where(o => o.Customer_Id == ((Models.Customer)User.AuthUser).CustomerID));
+        }
+
+        public void PayOrder(int orderId)
+        {
+           
+           foreach (var order in orderList)
+            {
+                if (order.Id == orderId)
+                {
+                    order.PaymentStatus = PaymentStatus.Paid;
+                    break;
+                }
+            }   
+            Serialization.SerializeList(orderList);
+            OrderObservableCollection = new ObservableCollection<Order>(orderList); 
         }
     }
 }

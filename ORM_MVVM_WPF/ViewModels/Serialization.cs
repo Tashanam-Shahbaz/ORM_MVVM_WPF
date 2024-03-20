@@ -11,6 +11,7 @@ namespace ORM_MVVM_WPF.ViewModels
 {
     public class Serialization
     {
+        static string folderPath = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName  + "\\Data\\";
         private static Type[] extraTypes = new Type[] 
         { 
             typeof(Admin), 
@@ -32,7 +33,7 @@ namespace ORM_MVVM_WPF.ViewModels
 
 
                 string typeName = typeof(T).Name; 
-                string filePath = $"{typeName}s.xml"; 
+                string filePath = $"{folderPath}{typeName}s.xml"; 
 
                 XmlSerializer serializer = new XmlSerializer(typeof(List<T>), extraTypes);
 
@@ -55,7 +56,7 @@ namespace ORM_MVVM_WPF.ViewModels
         {
 
             string typeName = typeof(T).Name;
-            string filePath = typeName + "s.xml";
+            string filePath = folderPath + typeName + "s.xml";
             List<T> serList = new List<T>();
 
             try

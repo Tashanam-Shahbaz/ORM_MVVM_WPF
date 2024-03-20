@@ -55,6 +55,12 @@
         </StackPanel>
 
         <DataGrid Grid.Row="5" x:Name="ItemGrid" ItemsSource="{Binding ItemObservableCollection}" AutoGenerateColumns="False"  Width="850" Margin="50,30,50,10" Grid.RowSpan="2" CanUserAddRows="False" HeadersVisibility="Column" MaxHeight="400" VerticalScrollBarVisibility="Auto">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="FontWeight" Value="Bold" ></Setter>
+                </Style>
+            </DataGrid.Resources>
+            
             <DataGrid.Columns>
                 <!-- First column: SerialNumber -->
                 <DataGridTextColumn Header="SNo" Binding="{Binding SerialNumber}" />
@@ -82,7 +88,14 @@
                 </DataGridTemplateColumn>
 
                 <!-- Third column: Description -->
-                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="670"/>
+                <DataGridTemplateColumn Header="Description" Width="650" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Padding ="5 2 5 5" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
             </DataGrid.Columns>
         </DataGrid>
 

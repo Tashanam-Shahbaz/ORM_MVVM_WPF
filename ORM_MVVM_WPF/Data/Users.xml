@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfUser xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <User xsi:type="Customer">
+    <Username>Irtiza</Username>
+    <Password>I</Password>
+    <Email>I</Email>
+    <CustomerID>1</CustomerID>
+    <CustomerType>regular</CustomerType>
+  </User>
+  <User xsi:type="Customer">
+    <Username>Irtiza</Username>
+    <Password>I2</Password>
+    <Email>I2</Email>
+    <CustomerID>2</CustomerID>
+    <CustomerType>regular</CustomerType>
+  </User>
+  <User xsi:type="Customer">
+    <Username>q</Username>
+    <Password>q</Password>
+    <Email>q</Email>
+    <CustomerID>3</CustomerID>
+    <CustomerType>regular</CustomerType>
+  </User>
+  <User xsi:type="Customer">
+    <Username>f</Username>
+    <Password>f</Password>
+    <Email>d</Email>
+    <CustomerID>4</CustomerID>
+    <CustomerType>regular</CustomerType>
+  </User>
+  <User xsi:type="Customer">
+    <Username>di</Username>
+    <Password>di</Password>
+    <Email>di</Email>
+    <CustomerID>5</CustomerID>
+    <CustomerType>regular</CustomerType>
+  </User>
+  <User xsi:type="Customer">
+    <Username>h</Username>
+    <Password>h</Password>
+    <Email>h</Email>
+    <CustomerID>6</CustomerID>
+    <CustomerType>regular</CustomerType>
+  </User>
+  <User xsi:type="Customer">
+    <Username>t</Username>
+    <Password>t</Password>
+    <Email>t</Email>
+    <CustomerID>7</CustomerID>
+    <CustomerType>regular</CustomerType>
+  </User>
+  <User xsi:type="Customer">
+    <Username>l</Username>
+    <Password>l</Password>
+    <Email>l</Email>
+    <CustomerID>8</CustomerID>
+    <CustomerType>regular</CustomerType>
+  </User>
+  <User xsi:type="Customer">
+    <Username>u</Username>
+    <Password>u</Password>
+    <Email>u</Email>
+    <CustomerID>9</CustomerID>
+    <CustomerType>regular</CustomerType>
+  </User>
+  <User xsi:type="Customer">
+    <Username>u</Username>
+    <Password>u</Password>
+    <Email>u</Email>
+    <CustomerID>10</CustomerID>
+    <CustomerType>regular</CustomerType>
+  </User>
+  <User xsi:type="Customer">
+    <Username>f</Username>
+    <Password>ffff</Password>
+    <Email>ff</Email>
+    <CustomerID>11</CustomerID>
+    <CustomerType>premium</CustomerType>
+  </User>
+  <User xsi:type="Customer">
+    <Username>w</Username>
+    <Password>w</Password>
+    <Email>w</Email>
+    <CustomerID>12</CustomerID>
+    <CustomerType>regular</CustomerType>
+  </User>
+  <User xsi:type="Customer">
+    <Username>a</Username>
+    <Password>a</Password>
+    <Email>a</Email>
+    <CustomerID>13</CustomerID>
+    <CustomerType>regular</CustomerType>
+  </User>
+  <User xsi:type="Customer">
+    <Username>g</Username>
+    <Password>g</Password>
+    <Email>g</Email>
+    <CustomerID>14</CustomerID>
+    <CustomerType>regular</CustomerType>
+  </User>
+  <User xsi:type="Customer">
+    <Username>t</Username>
+    <Password>t</Password>
+    <Email>t</Email>
+    <CustomerID>15</CustomerID>
+    <CustomerType>regular</CustomerType>
+  </User>
+  <User xsi:type="Customer">
+    <Username>t</Username>
+    <Password>t</Password>
+    <Email>t</Email>
+    <CustomerID>16</CustomerID>
+    <CustomerType>premium</CustomerType>
+  </User>
+  <User xsi:type="Customer">
+    <Username>2</Username>
+    <Password>2</Password>
+    <Email>2</Email>
+    <CustomerID>17</CustomerID>
+    <CustomerType>premium</CustomerType>
+  </User>
+  <User xsi:type="Customer">
+    <Username>s</Username>
+    <Password>s</Password>
+    <Email>s</Email>
+    <CustomerID>18</CustomerID>
+    <CustomerType>regular</CustomerType>
+  </User>
+  <User xsi:type="Customer">
+    <Username>m</Username>
+    <Password>m</Password>
+    <Email>m</Email>
+    <CustomerID>19</CustomerID>
+    <CustomerType>premium</CustomerType>
+  </User>
+  <User xsi:type="Admin">
+    <Username>d</Username>
+    <Password>d</Password>
+    <Email>d</Email>
+    <Department>d</Department>
+  </User>
+  <User xsi:type="Customer">
+    <Username>c</Username>
+    <Password>c</Password>
+    <Email>c</Email>
+    <CustomerID>20</CustomerID>
+    <CustomerType>premium</CustomerType>
+  </User>
+  <User xsi:type="Admin">
+    <Username>ad</Username>
+    <Password>ad</Password>
+    <Email>ad</Email>
+    <Department>opt</Department>
+  </User>
+</ArrayOfUser>

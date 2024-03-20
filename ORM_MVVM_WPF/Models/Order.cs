@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xaml.Behaviors.Layout;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Security.Cryptography;
@@ -30,6 +31,7 @@ namespace ORM_MVVM_WPF.Models
         private OrderStatus _orderStatus;
         private PaymentStatus _paymentStatus; 
         private int _serialNumber;
+        private float _totalAmount;
 
         public int Id
         {
@@ -131,7 +133,18 @@ namespace ORM_MVVM_WPF.Models
             }
         }
 
-
+        public float TotalAmount
+        {
+            get { return _totalAmount; }
+            set
+            {
+                if (_totalAmount != value)
+                {
+                    _totalAmount = value;
+                    OnPropertyChanged(nameof(TotalAmount));
+                }
+            }
+        }
         public Order()
         {
         }
