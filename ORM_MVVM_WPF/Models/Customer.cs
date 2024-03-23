@@ -23,7 +23,7 @@ namespace ORM_MVVM_WPF.Models
 
     public enum CustomerType
     {
-        regular,
-        premium
+        Regular,
+        Premium
     }
 }

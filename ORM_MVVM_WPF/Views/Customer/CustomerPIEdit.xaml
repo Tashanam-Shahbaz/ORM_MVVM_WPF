@@ -1,0 +1,50 @@
+﻿<Window x:Class="ORM_MVVM_WPF.Views.Customer.CustomerPIEdit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ORM_MVVM_WPF.Views.Customer"
+        xmlns:utilities="clr-namespace:ORM_MVVM_WPF.Utilities"
+        xmlns:models="clr-namespace:ORM_MVVM_WPF.Models"
+         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="CustomerPIEdit" Height="450" Width="800">
+    <Grid Margin="50 0 0 0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <TextBlock FontWeight="Bold" FontSize="30" HorizontalAlignment="Center">Edit Personal Information</TextBlock>
+        </StackPanel>
+
+        <Label Content="Your Id:" Grid.Row="1" Grid.Column="0" FontSize="18" FontWeight="DemiBold" Margin="20 , 0 ,0 ,0"/>
+        <TextBox Text="{Binding PIId, Mode=TwoWay}"  Width="200"  FontSize="18" Margin="0 , 5" Grid.Row="1" Grid.Column="1"/>
+
+        <Label Content="User Name:" Grid.Row="2" Grid.Column="0" FontSize="18" FontWeight="DemiBold" Margin="20 , 0 ,0 ,0" />
+        <TextBox Text="{Binding PIUserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  FontSize="18" Width="200"  Margin="0 , 5"  Grid.Row="2" Grid.Column="1" />
+
+        <Label Content="Email:" Grid.Row="3" Grid.Column="0" FontSize="18" FontWeight="DemiBold" Margin="20 , 0 ,0 ,0" />
+        <TextBox Text="{Binding PIEmail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"   FontSize="18" Width="200"  Margin="0 , 5"  Grid.Row="3" Grid.Column="1" />
+
+        <Label Content="Password:" Grid.Row="4" Grid.Column="0" FontSize="18" FontWeight="DemiBold" Margin="20 , 0 ,0 ,0" />
+        <TextBox Text="{Binding PIPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"   FontSize="18" Width="200"  Margin="0 , 5"  Grid.Row="4" Grid.Column="1" />
+
+        <Label Content="User Category:" Grid.Row="5" Grid.Column="0" FontSize="18" FontWeight="DemiBold" Margin="20 , 0 ,0 ,0" />
+        <ComboBox ItemsSource="{Binding Source={utilities:EnumBindingSourceExtention {x:Type models:CustomerType}}}" SelectedItem="{Binding PIUserCategory, Mode=TwoWay}"     FontSize="18" Width="200"  Margin="0 , 5"  Grid.Row="5" Grid.Column="1" />
+      
+        <Button Grid.Row="5" Grid.Column="0" Content="Edit Your Information" HorizontalAlignment="Center" Width="200"  Margin="0 , 5" Click="SaveEditButton_Click" />
+
+    </Grid>
+</Window>

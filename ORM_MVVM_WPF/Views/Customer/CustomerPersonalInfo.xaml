@@ -6,7 +6,41 @@
              xmlns:local="clr-namespace:ORM_MVVM_WPF.Views.Customer"
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="1000" Background="White">
-    <Grid>
-        <Label FontSize="50" Content="personal info"></Label>
+
+    <Grid Margin="50 0 0 0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <TextBlock FontWeight="Bold" FontSize="30" HorizontalAlignment="Center">Personal Information</TextBlock>
+        </StackPanel>
+
+        <Label Content="Your Id:" Grid.Row="1" Grid.Column="0" FontSize="18" FontWeight="DemiBold" Margin="20 , 0 ,0 ,0"/>
+        <TextBlock Text="{Binding PIId, Mode=TwoWay}"  Width="200"  FontSize="18" Margin="0 , 5" Grid.Row="1" Grid.Column="1"/>
+
+        <Label Content="User Name:" Grid.Row="2" Grid.Column="0" FontSize="18" FontWeight="DemiBold" Margin="20 , 0 ,0 ,0" />
+        <TextBlock Text="{Binding PIUserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  FontSize="18" Width="200"  Margin="0 , 5"  Grid.Row="2" Grid.Column="1" />
+
+        <Label Content="Email:" Grid.Row="3" Grid.Column="0" FontSize="18" FontWeight="DemiBold" Margin="20 , 0 ,0 ,0" />
+        <TextBlock Text="{Binding PIEmail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"   FontSize="18" Width="200"  Margin="0 , 5"  Grid.Row="3" Grid.Column="1" />
+
+        <Label Content="User Category:" Grid.Row="4" Grid.Column="0" FontSize="18" FontWeight="DemiBold" Margin="20 , 0 ,0 ,0" />
+        <TextBlock Text="{Binding PIUserCategory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"    FontSize="18" Width="200"  Margin="0 , 5"  Grid.Row="4" Grid.Column="1" />
+
+
+        <Button Grid.Row="5" Grid.Column="0" Content="Edit Your Information" HorizontalAlignment="Center" Width="200"  Margin="0 , 5" Click="EditButton_Click"/>
+        
     </Grid>
 </UserControl>

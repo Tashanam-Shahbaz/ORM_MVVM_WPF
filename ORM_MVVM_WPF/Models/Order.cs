@@ -9,12 +9,14 @@ namespace ORM_MVVM_WPF.Models
 {
     public enum PaymentStatus
     {
+        All,
         Pending,
         Paid
     }
 
     public enum OrderStatus
     {
+        All,
         Pending,
         Approved,
         Shipped,

@@ -76,6 +76,7 @@
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Seller.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Utilities\EnumBindingSourceExtention.cs" />
     <Compile Include="ViewModels\AdminViewModel\AdminManageItemViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModel\AdminManageOrderViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
@@ -115,6 +116,9 @@
     <Compile Include="Views\Customer\CustomerPersonalInfo.xaml.cs">
       <DependentUpon>CustomerPersonalInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Customer\CustomerPIEdit.xaml.cs">
+      <DependentUpon>CustomerPIEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Signup.xaml.cs">
       <DependentUpon>Signup.xaml</DependentUpon>
     </Compile>
@@ -152,6 +156,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Customer\CustomerPersonalInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Customer\CustomerPIEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -12,7 +12,10 @@ namespace ORM_MVVM_WPF.ViewModels.Orders
         private List<Order> orderList;
         private List<Item> itemList;
         private ObservableCollection<Order> _orderObservableCollection;
-        private ObservableCollection<Item> _itemOCOrder;  
+        private ObservableCollection<Item> _itemOCOrder; 
+        
+        private PaymentStatus _paymentStatus;
+        private OrderStatus _orderStatus;
 
         public OrderViewModel()
         {
@@ -24,7 +27,37 @@ namespace ORM_MVVM_WPF.ViewModels.Orders
             set
             {
                 _itemOCOrder = value;
+                FilterOOC();
                 OnPropertyChanged(nameof(ItemOCOrder));
+            }
+        }
+
+        public PaymentStatus ComboPaymentStatus
+        {
+            get => _paymentStatus;
+            set
+            {
+                if (_paymentStatus != value)
+                {
+                    _paymentStatus = value;
+                    OnPropertyChanged(nameof(ComboPaymentStatus));
+                    FilterOOC();
+                }
+            }
+        }
+
+        //Customer Order Filter 
+        public OrderStatus ComboOrderStatus
+        {
+            get => _orderStatus;
+            set
+            {
+                if (_orderStatus != value)
+                {
+                    _orderStatus = value;
+                    OnPropertyChanged(nameof(ComboOrderStatus));
+                    FilterOOC();
+                }
             }
         }
 
@@ -62,6 +95,14 @@ namespace ORM_MVVM_WPF.ViewModels.Orders
             {
                 item.SerialNumber = serialNumber++;
             }
+        }
+        private void FilterOOC()
+        {
+            Func<Order, bool> filterPredicate = o =>
+                (_paymentStatus == PaymentStatus.All || o.PaymentStatus == _paymentStatus) &&
+                (_orderStatus == OrderStatus.All || o.OrderStatus == _orderStatus);
+
+            OrderObservableCollection = new ObservableCollection<Order>(orderList.Where(filterPredicate));
         }
 
         //Customer will place order.

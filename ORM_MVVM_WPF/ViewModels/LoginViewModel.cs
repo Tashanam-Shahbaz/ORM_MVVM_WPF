@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ORM_MVVM_WPF.ViewModels
 {
@@ -12,7 +10,7 @@ namespace ORM_MVVM_WPF.ViewModels
 
         public LoginViewModel()
         {
-            
+
         }
 
         private string _userEmail;
@@ -37,28 +35,28 @@ namespace ORM_MVVM_WPF.ViewModels
                 OnPropertyChanged(nameof(UserPassword));
             }
         }
-       
+
         public User User
         {
             get { return _user; }
-            set 
+            set
             {
                 _user = value;
                 OnPropertyChanged(nameof(User));
             }
         }
-        
+
         public void LoginAction()
         {
             User = null;
             try
             {
                 List<User> users = Serialization.DeSerializeList<User>();
-                User = users.FirstOrDefault(search_user => search_user.Email  == UserEmail && search_user.Password == UserPassword);
+                User = users.FirstOrDefault(search_user => search_user.Email == UserEmail && search_user.Password == UserPassword);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);  
+                Console.WriteLine(ex.Message);
             }
             User.AuthUser = User;
 

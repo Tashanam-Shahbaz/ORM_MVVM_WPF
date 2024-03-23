@@ -25,7 +25,7 @@ namespace ORM_MVVM_WPF.Views.Customer
         private OrderViewModel _orderVM;  
         public CustomerOrder()
         {
-            InitializeComponent(); 
+            InitializeComponent();
             _orderVM = new OrderViewModel();
             DataContext = _orderVM;
         }
@@ -42,6 +42,11 @@ namespace ORM_MVVM_WPF.Views.Customer
                 int id = (int)button.CommandParameter;
                 _orderVM.PayOrder(id);
             }
+
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ORM_MVVM_WPF.ViewModels.Customer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using ORM_MVVM_WPF.ViewModels;
 namespace ORM_MVVM_WPF.Views.Customer
 {
     /// <summary>
@@ -20,9 +21,18 @@ namespace ORM_MVVM_WPF.Views.Customer
     /// </summary>
     public partial class CustomerPersonalInfo : UserControl
     {
+        private CustomerPersonalInfoViewModel _customerPIVM;
         public CustomerPersonalInfo()
         {
             InitializeComponent();
+            _customerPIVM = new CustomerPersonalInfoViewModel();
+            DataContext = _customerPIVM;
+        }
+
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            CustomerPIEdit cPIEdit = new CustomerPIEdit(_customerPIVM);
+            cPIEdit.Show();
         }
     }
 }
