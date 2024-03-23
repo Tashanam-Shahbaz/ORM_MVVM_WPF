@@ -47,6 +47,20 @@
             <Button Content="Buy Item" FontSize="15" FontWeight="DemiBold" Margin="705 0 0 0" Padding="10 0 10 0" Click="PlaceOrder_Click"></Button>
         </WrapPanel>
 
+        <!--NO DATA LABEL-->
+        <Label Grid.Row="4" Content="No Data Found" FontSize="20" HorizontalAlignment="Center">
+            <Label.Style>
+                <Style TargetType="Label">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ItemObservableCollection.Count}" Value="0">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+
+        </Label>
 
         <DataGrid  Grid.Row="4" x:Name="ItemGrid" ItemsSource="{Binding ItemObservableCollection}" AutoGenerateColumns="False" Width="850" Margin="0,-50,0,0" Grid.RowSpan="2"  CanUserAddRows="False" HeadersVisibility="Column" MaxHeight="400" VerticalScrollBarVisibility="Auto">
             <DataGrid.Resources>

@@ -2,9 +2,15 @@
 <ArrayOfUser xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <User xsi:type="Customer">
     <Username>Tash</Username>
-    <Password>ta1</Password>
-    <Email>ta1</Email>
+    <Password>t</Password>
+    <Email>t</Email>
     <CustomerID>1</CustomerID>
-    <CustomerType>Premium</CustomerType>
+    <CustomerType>Regular</CustomerType>
+  </User>
+  <User xsi:type="Admin">
+    <Username>Admin</Username>
+    <Password>a</Password>
+    <Email>a</Email>
+    <Department>operational</Department>
   </User>
 </ArrayOfUser>

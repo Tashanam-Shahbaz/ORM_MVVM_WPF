@@ -97,7 +97,11 @@ namespace ORM_MVVM_WPF.Views.Customer
         private void PlaceOrder_Click(object sender, RoutedEventArgs e)
         {
 
-            _orderVM.PlaceOrder(ItemGrid.SelectedItems);
+           bool result =  _orderVM.PlaceOrder(ItemGrid.SelectedItems);
+            if (result)
+                MessageBox.Show("Order Placed Successfully");
+            else
+                MessageBox.Show("Order Placed Failed");
         }
     }
 }

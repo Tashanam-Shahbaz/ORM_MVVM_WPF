@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfOrder xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Order>
+    <Id>1</Id>
+    <SerialNumber>1</SerialNumber>
+    <Customer_Id>1</Customer_Id>
+    <OrderDate>2024-03-23T13:57:33.4427689+05:00</OrderDate>
+    <OrdersItemIDByCustomer>
+      <int>1</int>
+    </OrdersItemIDByCustomer>
+    <OrdersItemsByCustomer>
+      <Item xsi:type="ItemCloth">
+        <Id>1</Id>
+        <SerialNumber>1</SerialNumber>
+        <Name>Shirt</Name>
+        <Description>“Elevate Your Style with Our Classic Shirts!” Whether it’s a crisp white button-down or a playful printed shirt, our collection offers timeless elegance and versatility. Perfect for both formal occasions and casual outings, our shirts blend comfort with sophistication. Get ready to make a lasting impression! 👔</Description>
+        <Price>1500</Price>
+        <Size>1</Size>
+        <Material>cotton</Material>
+      </Item>
+      <Item xsi:type="ItemElectronic">
+        <Id>1</Id>
+        <SerialNumber>4</SerialNumber>
+        <Name>Air Purifier</Name>
+        <Description>“Breathe Fresh, Live Pure!” Our air purifiers silently combat dust, allergens, and pollutants, leaving you with crisp, clean air. Say goodbye to sneezes and hello to serenity! 🌬️</Description>
+        <Price>5000</Price>
+        <Brand>sony</Brand>
+      </Item>
+    </OrdersItemsByCustomer>
+    <OrderStatus>Pending</OrderStatus>
+    <PaymentStatus>Pending</PaymentStatus>
+    <TotalAmount>6500</TotalAmount>
+  </Order>
+  <Order>
+    <Id>2</Id>
+    <SerialNumber>0</SerialNumber>
+    <Customer_Id>1</Customer_Id>
+    <OrderDate>2024-03-23T20:19:15.1567896+05:00</OrderDate>
+    <OrdersItemIDByCustomer>
+      <int>1</int>
+      <int>2</int>
+    </OrdersItemIDByCustomer>
+    <OrderStatus>Pending</OrderStatus>
+    <PaymentStatus>Pending</PaymentStatus>
+    <TotalAmount>0</TotalAmount>
+  </Order>
+</ArrayOfOrder>

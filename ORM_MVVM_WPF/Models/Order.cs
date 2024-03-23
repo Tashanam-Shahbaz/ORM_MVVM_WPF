@@ -35,6 +35,12 @@ namespace ORM_MVVM_WPF.Models
         private int _serialNumber;
         private float _totalAmount;
 
+        public Order()
+        {
+            OrderStatus = OrderStatus.Pending;
+            PaymentStatus = PaymentStatus.Pending;
+        }
+
         public int Id
         {
             get { return _id; }
@@ -146,9 +152,6 @@ namespace ORM_MVVM_WPF.Models
                     OnPropertyChanged(nameof(TotalAmount));
                 }
             }
-        }
-        public Order()
-        {
         }
         public bool ProcessPayment()
         {
