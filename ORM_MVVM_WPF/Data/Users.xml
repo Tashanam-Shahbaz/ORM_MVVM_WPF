@@ -13,4 +13,11 @@
     <Email>a</Email>
     <Department>operational</Department>
   </User>
+  <User xsi:type="Seller">
+    <Username>Seller1</Username>
+    <Password>s</Password>
+    <Email>seller@gmail.com</Email>
+    <SellerID>1</SellerID>
+    <SellerType>Wholesaler</SellerType>
+  </User>
 </ArrayOfUser>

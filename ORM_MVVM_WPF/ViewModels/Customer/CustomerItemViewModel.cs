@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,26 +11,37 @@ namespace ORM_MVVM_WPF.ViewModels.Customer
 {
     public class CustomerItemViewModel : BaseViewModel
     {
-        private ObservableCollection<Item> _itemOC;
         private List<Item> itemsList;
-        public ObservableCollection<Item> ItemOC
-        {
-            get { return _itemOC; }
-            set
-            {
-                _itemOC = value;
-                OnPropertyChanged(nameof(ItemOC));
-            }
-        }
-        public CustomerItemViewModel() 
+        private ObservableCollection<Item> _itemObservableCollection;
+
+        public CustomerItemViewModel()
         {
             BindItem();
         }
+        public ObservableCollection<Item> ItemObservableCollection
+        {
+            get { return _itemObservableCollection; }
+            set
+            {
+                _itemObservableCollection = value;
+                CalculateSerialNumbers();
+                OnPropertyChanged(nameof(ItemObservableCollection));
+            }
+        }
 
-        public void BindItem()
+        private void BindItem()
         {
             itemsList = Serialization.DeSerializeList<Item>();
-            _itemOC = new ObservableCollection<Item>(itemsList);
+            ItemObservableCollection = new ObservableCollection<Item>(itemsList);
+        }
+
+        private void CalculateSerialNumbers()
+        {
+            int serialNumber = 1;
+            foreach (var item in _itemObservableCollection)
+            {
+                item.SerialNumber = serialNumber++;
+            }
         }
     }
 }

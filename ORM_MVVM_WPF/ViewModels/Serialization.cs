@@ -16,7 +16,7 @@ namespace ORM_MVVM_WPF.ViewModels
         { 
             typeof(Admin), 
             typeof(Models.Customer),                              
-            typeof(Seller), 
+            typeof(Models.Seller), 
             typeof(ItemElectronic),                        
             typeof(ItemCloth) ,
             typeof(Order)

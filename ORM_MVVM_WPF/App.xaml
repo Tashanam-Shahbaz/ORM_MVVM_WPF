@@ -9,6 +9,10 @@
              
              xmlns:adminviewmodels="clr-namespace:ORM_MVVM_WPF.ViewModels.AdminViewModel"
              xmlns:adminviews="clr-namespace:ORM_MVVM_WPF.Views.Admin"
+             
+             xmlns:sellerviewmodels="clr-namespace:ORM_MVVM_WPF.ViewModels.Seller"
+             xmlns:sellerviews="clr-namespace:ORM_MVVM_WPF.Views.Seller"
+             
              StartupUri="Views/MainWindow.xaml">
 
     <Application.Resources>
@@ -44,5 +48,12 @@
             <adminviews:AdminOrderManageView/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type sellerviewmodels:SellerItemViewModel}">
+            <sellerviews:SellerItemView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type sellerviewmodels:SellerOrderViewModel}">
+            <sellerviews:SellerOrderView/>
+        </DataTemplate>
     </Application.Resources>
 </Application>

@@ -1,35 +1,61 @@
-﻿using System;
+﻿using ORM_MVVM_WPF.ViewModels.Items;
+using ORM_MVVM_WPF.Views.Admin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using ORM_MVVM_WPF.ViewModels.Items;
-using ORM_MVVM_WPF.Models;
-using ORM_MVVM_WPF.ViewModels.Orders;
 using System.Windows.Data;
-using ORM_MVVM_WPF.ViewModels.Customer;
-namespace ORM_MVVM_WPF.Views.Customer
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using ORM_MVVM_WPF.Models;    
+
+namespace ORM_MVVM_WPF.Views.Seller
 {
     /// <summary>
-    /// Interaction logic for CustomerItem.xaml
+    /// Interaction logic for SellerItemView.xaml
     /// </summary>
-    public partial class CustomerItem : UserControl
+    public partial class SellerItemView : UserControl
     {
-        private CustomerItemViewModel _cusIVM;
-        private CustomerOrderViewModel _orderVM;
-        public CustomerItem()
+        ItemViewModel _viewModel;
+        public SellerItemView()
         {
             InitializeComponent();
-            _cusIVM = new CustomerItemViewModel();
-            _orderVM = new CustomerOrderViewModel();
-            this.DataContext = this._cusIVM;
-
+            _viewModel = new ItemViewModel();
+            this.DataContext = _viewModel;
 
             //FilterBy.ItemsSource = typeof(Item).GetProperties().Select((o) => o.Name);
             FilterBy.ItemsSource = new List<string> { "Id", "Name", "Type" };
             ItemGrid.Items.Filter = GetFilter();
+        }
+        private void AddItem_Click(object sender, RoutedEventArgs e)
+        {
+            AddNewItemAdminViewWindow addNewItemAdminView = new AddNewItemAdminViewWindow(_viewModel);
+            addNewItemAdminView.Show();
+        }
+
+        private void SearchItemType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ItemGrid.Items.Filter = GetFilter();
+
+        }
+        private void SearchItemName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (FilterTextBox.Text == null)
+            {
+                ItemGrid.Items.Filter = null;
+            }
+            else
+            {
+                ItemGrid.Items.Filter = GetFilter();
+            }
+
         }
         public Predicate<object> GetFilter()
         {
@@ -75,33 +101,20 @@ namespace ORM_MVVM_WPF.Views.Customer
             var FilterObj = obj as Item;
             return FilterObj.Type.IndexOf(FilterTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0;
         }
-
-        private void SearchItemType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            ItemGrid.Items.Filter = GetFilter();
-
-        }
-        private void SearchItemName_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (FilterTextBox.Text == null)
+            if (ItemGrid.SelectedItems.Count == 0)
             {
-                ItemGrid.Items.Filter = null;
+                MessageBox.Show("Please select an item to delete.");
+                return;
             }
-            else
-            {
-                ItemGrid.Items.Filter = GetFilter();
-            }
+            _viewModel.DeleteItem(ItemGrid.SelectedItems);
+
 
         }
 
-        private void PlaceOrder_Click(object sender, RoutedEventArgs e)
-        {
 
-           bool result =  _orderVM.PlaceOrder(ItemGrid.SelectedItems);
-            if (result)
-                MessageBox.Show("Order Placed Successfully");
-            else
-                MessageBox.Show("Order Placed Failed");
-        }
     }
+
+
 }

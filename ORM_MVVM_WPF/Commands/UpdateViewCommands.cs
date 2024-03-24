@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ORM_MVVM_WPF.ViewModels.Seller;
 
 namespace ORM_MVVM_WPF.Commands
 {
@@ -22,7 +23,9 @@ namespace ORM_MVVM_WPF.Commands
             { "customerviewitem", typeof(CustomerItemViewModel) },
             { "customervieworder", typeof(CustomerOrderViewModel) },
             { "admin_manage_order", typeof(AdminManageOrderViewModel) },
-            { "admin_manage_item", typeof(AdminManageItemViewModel) }
+            { "admin_manage_item", typeof(AdminManageItemViewModel) },
+            { "seller_manage_order", typeof(SellerOrderViewModel) },
+            { "seller_manage_item", typeof(SellerItemViewModel) }
         };
         public UpdateViewCommands(MainViewModel viewModel)
         {

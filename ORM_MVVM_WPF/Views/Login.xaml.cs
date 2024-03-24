@@ -1,6 +1,7 @@
 ﻿using ORM_MVVM_WPF.ViewModels;
 using ORM_MVVM_WPF.Views.Admin;
 using ORM_MVVM_WPF.Views.Customer;
+using ORM_MVVM_WPF.Views.Seller;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -43,6 +44,9 @@ namespace ORM_MVVM_WPF.Views
                     break;
 
                 case ("Seller"):
+                    SellerDashboard sellerDashboard = new SellerDashboard();
+                    sellerDashboard.Show();
+                    mainWindow.Close();
                     break;
 
                 default:

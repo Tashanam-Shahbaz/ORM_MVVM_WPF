@@ -142,11 +142,11 @@ namespace ORM_MVVM_WPF.ViewModels
             try
             {
                 List<User> users = Serialization.DeSerializeList<User>();
-                Seller seller = new Seller();
+                Models.Seller seller = new Models.Seller();
 
-                if (users.OfType<Seller>().Any())
+                if (users.OfType<Models.Seller>().Any())
                 {
-                    seller.SellerID = users.OfType<Seller>().Max(user => user.SellerID) + 1;
+                    seller.SellerID = users.OfType<Models.Seller>().Max(user => user.SellerID) + 1;
                 }
                 else
                 {

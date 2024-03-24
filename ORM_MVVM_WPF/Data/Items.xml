@@ -51,12 +51,4 @@
     <Price>900</Price>
     <Brand>samsung</Brand>
   </Item>
-  <Item xsi:type="ItemElectronic">
-    <Id>4</Id>
-    <SerialNumber>7</SerialNumber>
-    <Name>Bread Maker</Name>
-    <Description>“Knead to Know: Fresh Bread Awaits!” Our bread makers turn your kitchen into a bakery. Imagine waking up to the aroma of warm, crusty bread. From baguettes to cinnamon swirls, unleash your inner baker! 🍞🥖</Description>
-    <Price>5000</Price>
-    <Brand>samsung</Brand>
-  </Item>
 </ArrayOfItem>

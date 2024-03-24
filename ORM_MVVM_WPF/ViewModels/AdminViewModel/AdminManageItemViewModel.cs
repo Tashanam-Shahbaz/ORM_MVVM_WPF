@@ -24,6 +24,7 @@ namespace ORM_MVVM_WPF.ViewModels.AdminViewModel
             set
             {
                 _itemObservableCollection = value;
+                CalculateSerialNumbers();
                 OnPropertyChanged(nameof(ItemObservableCollection));
             }
         }
@@ -37,9 +38,9 @@ namespace ORM_MVVM_WPF.ViewModels.AdminViewModel
             {
                 cloth.Id = itemsList.OfType<ItemCloth>().Max( item => item.Id ) + 1;
             }
-            else 
-            { 
-            cloth.Id=1;
+            else
+            {
+                cloth.Id=1;
             }
             cloth.Name = name;
             cloth.Description = description;
@@ -48,13 +49,14 @@ namespace ORM_MVVM_WPF.ViewModels.AdminViewModel
             cloth.Material = material;
             itemsList.Add(cloth);
             ItemObservableCollection.Add(cloth);
+            CalculateSerialNumbers();
             Serialization.SerializeList(itemsList);
             return true;
         }
         public bool AddItem(string name, string description, int price, Brand type)
         {
             ItemElectronic itemElectronic = new ItemElectronic();
-            
+
             if (itemsList.OfType<ItemElectronic>().Any())
             {
                 itemElectronic.Id = itemsList.OfType<ItemElectronic>().Max(item => item.Id) + 1;
@@ -70,12 +72,13 @@ namespace ORM_MVVM_WPF.ViewModels.AdminViewModel
             itemElectronic.Price = price;
             itemsList.Add(itemElectronic);
             ItemObservableCollection.Add(itemElectronic);
+            CalculateSerialNumbers();
             Serialization.SerializeList(itemsList);
             return true;
 
         }
 
-        public bool DeleteItem(object selectedItems) 
+        public bool DeleteItem(object selectedItems)
         {
             try
             {
@@ -85,10 +88,11 @@ namespace ORM_MVVM_WPF.ViewModels.AdminViewModel
                     ItemObservableCollection.Remove(item);
                     itemsList.Remove(item);
                 }
+                CalculateSerialNumbers();
                 Serialization.SerializeList(itemsList);
-                return true; 
+                return true;
             }
-            catch 
+            catch
             {
                 return false;
             }
@@ -97,6 +101,14 @@ namespace ORM_MVVM_WPF.ViewModels.AdminViewModel
         {
             itemsList = Serialization.DeSerializeList<Item>();
             ItemObservableCollection = new ObservableCollection<Item>(itemsList);
+        }
+        private void CalculateSerialNumbers()
+        {
+            int serialNumber = 1;
+            foreach (var item in _itemObservableCollection)
+            {
+                item.SerialNumber = serialNumber++;
+            }
         }
     }
 
