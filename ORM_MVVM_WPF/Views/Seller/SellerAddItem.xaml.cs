@@ -1,5 +1,6 @@
 ﻿using ORM_MVVM_WPF.Models;
-using ORM_MVVM_WPF.ViewModels.AdminViewModel;
+using ORM_MVVM_WPF.ViewModels.Items;
+using ORM_MVVM_WPF.ViewModels.Seller;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,21 +14,20 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using ORM_MVVM_WPF.ViewModels.Items;
 
-namespace ORM_MVVM_WPF.Views.Admin
+namespace ORM_MVVM_WPF.Views.Seller
 {
     /// <summary>
-    /// Interaction logic for AddNewItemAdminViewWindow.xaml
+    /// Interaction logic for SellerAddItem.xaml
     /// </summary>
     public partial class SellerAddItem : Window
     {
-        ItemViewModel _viewModel;
-        public SellerAddItem(ItemViewModel viewModel)
+        SellerItemViewModel _viewModel;
+        public SellerAddItem(SellerItemViewModel viewModel)
         {
             InitializeComponent();
             _viewModel = viewModel;
-            DataContext = viewModel ;
+            DataContext = viewModel;
         }
         private void ItemTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -45,7 +45,7 @@ namespace ORM_MVVM_WPF.Views.Admin
             else if (type == ItemType.Cloth)
             {
 
-                BrandTypeComboBox.Visibility = Visibility.Collapsed; 
+                BrandTypeComboBox.Visibility = Visibility.Collapsed;
                 Brandlabel.Visibility = Visibility.Collapsed;
                 SizeTextBox.Visibility = Visibility.Visible;
                 SizeLabel.Visibility = Visibility.Visible;
@@ -86,7 +86,7 @@ namespace ORM_MVVM_WPF.Views.Admin
 
                 case ItemType.Electronic:
 
-                    if (BrandTypeComboBox.SelectedItem == null ) 
+                    if (BrandTypeComboBox.SelectedItem == null)
                     {
                         ShowIncompleteFieldsMessage();
                         return false;
@@ -120,12 +120,12 @@ namespace ORM_MVVM_WPF.Views.Admin
                                  Convert.ToInt32(SizeTextBox.Text),
                                  MaterialTextBox.Text
                             );
-                      
+
                         break;
 
                     case ItemType.Electronic:
 
-                       Brand selectedElectronicType;
+                        Brand selectedElectronicType;
                         Enum.TryParse(BrandTypeComboBox.SelectedItem?.ToString(), out selectedElectronicType);
                         _viewModel.AddItem
                            (

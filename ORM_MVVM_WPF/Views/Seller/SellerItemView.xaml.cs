@@ -1,4 +1,4 @@
-﻿using ORM_MVVM_WPF.ViewModels.Items;
+﻿using ORM_MVVM_WPF.ViewModels.Seller;
 using ORM_MVVM_WPF.Views.Admin;
 using System;
 using System.Collections.Generic;
@@ -23,11 +23,11 @@ namespace ORM_MVVM_WPF.Views.Seller
     /// </summary>
     public partial class SellerItemView : UserControl
     {
-        ItemViewModel _viewModel;
+        SellerItemViewModel _viewModel;
         public SellerItemView()
         {
             InitializeComponent();
-            _viewModel = new ItemViewModel();
+            _viewModel = new SellerItemViewModel();
             this.DataContext = _viewModel;
 
             //FilterBy.ItemsSource = typeof(Item).GetProperties().Select((o) => o.Name);
@@ -36,7 +36,7 @@ namespace ORM_MVVM_WPF.Views.Seller
         }
         private void AddItem_Click(object sender, RoutedEventArgs e)
         {
-            AddNewItemAdminViewWindow addNewItemAdminView = new AddNewItemAdminViewWindow(_viewModel);
+            SellerAddItem addNewItemAdminView = new SellerAddItem(_viewModel);
             addNewItemAdminView.Show();
         }
 

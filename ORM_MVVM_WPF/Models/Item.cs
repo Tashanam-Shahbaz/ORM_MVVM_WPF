@@ -28,6 +28,7 @@ namespace ORM_MVVM_WPF.Models
         private string _name;
         private string _description;
         private float _price;
+        private int _seller_id;
 
         public int Id
         {
@@ -91,6 +92,20 @@ namespace ORM_MVVM_WPF.Models
                 }
             }
         }
+
+        public int SellerID
+        {
+            get { return _seller_id; }
+            set
+            {
+                if (_seller_id != value)
+                {
+                    _seller_id = value;
+                    OnPropertyChanged(nameof(SellerID));
+                }
+            }
+        }
+        
         public virtual string Type => ItemType();
 
        

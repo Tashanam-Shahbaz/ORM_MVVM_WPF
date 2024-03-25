@@ -8,6 +8,7 @@
     <Price>1500</Price>
     <Size>1</Size>
     <Material>cotton</Material>
+    <SellerID>1</SellerID>
   </Item>
   <Item xsi:type="ItemCloth">
     <Id>2</Id>
@@ -17,6 +18,7 @@
     <Price>2000</Price>
     <Size>2</Size>
     <Material>silk</Material>
+    <SellerID>1</SellerID>
   </Item>
   <Item xsi:type="ItemCloth">
     <Id>3</Id>
@@ -26,6 +28,7 @@
     <Price>3000</Price>
     <Size>3</Size>
     <Material>Leather</Material>
+    <SellerID>1</SellerID>
   </Item>
   <Item xsi:type="ItemElectronic">
     <Id>1</Id>
@@ -34,6 +37,7 @@
     <Description>“Breathe Fresh, Live Pure!” Our air purifiers silently combat dust, allergens, and pollutants, leaving you with crisp, clean air. Say goodbye to sneezes and hello to serenity! 🌬️</Description>
     <Price>5000</Price>
     <Brand>sony</Brand>
+    <SellerID>1</SellerID>
   </Item>
   <Item xsi:type="ItemElectronic">
     <Id>2</Id>
@@ -42,6 +46,7 @@
     <Description>Wake Up in Style!” Our sleek alarm clocks blend functionality with aesthetics. Rise and shine to soothing melodies or a gentle crescendo. Time waits for no one—make every second count! ⏰🎶</Description>
     <Price>1000</Price>
     <Brand>sony</Brand>
+    <SellerID>1</SellerID>
   </Item>
   <Item xsi:type="ItemElectronic">
     <Id>3</Id>
@@ -50,5 +55,6 @@
     <Description>“Power Up Anywhere!” Our portable chargers are your lifeline. When your phone’s battery gasps its last breath, our backup chargers swoop in like superheroes. Stay connected, stay charged! 🔋💪</Description>
     <Price>900</Price>
     <Brand>samsung</Brand>
+    <SellerID>1</SellerID>
   </Item>
 </ArrayOfItem>
