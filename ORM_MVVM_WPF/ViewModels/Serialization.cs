@@ -14,7 +14,7 @@ namespace ORM_MVVM_WPF.ViewModels
         static string folderPath = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName  + "\\Data\\";
         private static Type[] extraTypes = new Type[] 
         { 
-            typeof(Admin), 
+            typeof(Models.Admin), 
             typeof(Models.Customer),                              
             typeof(Models.Seller), 
             typeof(ItemElectronic),                        

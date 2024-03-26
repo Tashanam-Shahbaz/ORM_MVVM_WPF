@@ -13,11 +13,14 @@ namespace ORM_MVVM_WPF.ViewModels.Seller
     {
         private List<Order> orderList;
         private List<Item> itemList;
+        private List<Item> filterSellerItemsList;
         private ObservableCollection<Order> _orderObservableCollection;
         private ObservableCollection<Item> _itemOCOrder;
 
         private PaymentStatus _paymentStatus;
         private OrderStatus _orderStatus;
+
+        private int  sellerId = ((Models.Seller)User.AuthUser).SellerID;
 
         public SellerOrderViewModel()
         {
@@ -33,7 +36,6 @@ namespace ORM_MVVM_WPF.ViewModels.Seller
                 OnPropertyChanged(nameof(ItemOCOrder));
             }
         }
-
         public PaymentStatus ComboPaymentStatus
         {
             get => _paymentStatus;
@@ -42,13 +44,13 @@ namespace ORM_MVVM_WPF.ViewModels.Seller
                 if (_paymentStatus != value)
                 {
                     _paymentStatus = value;
-                    OnPropertyChanged(nameof(ComboPaymentStatus));
                     FilterOOC();
+                    OnPropertyChanged(nameof(ComboPaymentStatus));
+                    
                 }
             }
         }
-
-        //Customer Order Filter 
+   
         public OrderStatus ComboOrderStatus
         {
             get => _orderStatus;
@@ -62,7 +64,6 @@ namespace ORM_MVVM_WPF.ViewModels.Seller
                 }
             }
         }
-
         public ObservableCollection<Order> OrderObservableCollection
         {
             get { return _orderObservableCollection; }
@@ -76,19 +77,26 @@ namespace ORM_MVVM_WPF.ViewModels.Seller
 
         private void Bind()
         {
-
-            orderList = Serialization.DeSerializeList<Order>();
+            OrderObservableCollection = new ObservableCollection<Order>();
             itemList = Serialization.DeSerializeList<Item>();
-            OrderObservableCollection = new ObservableCollection<Order>
-                (
-                orderList.Select(order =>
+            filterSellerItemsList = itemList.Where(i => i.SellerID == sellerId).ToList();
+            
+            if (filterSellerItemsList.Count == 0)
+                return; // No items to show
+            
+            orderList = Serialization.DeSerializeList<Order>();
+            foreach (var order in orderList)
+            {
+                order.OrdersItemsByCustomer = filterSellerItemsList.Where(item =>
+                                                    order.OrdersItemIDByCustomer.Contains(item.Id)).ToList();
+                if (order.OrdersItemsByCustomer.Count > 0)
                 {
-                    order.OrdersItemsByCustomer = itemList.Where(item => order.OrdersItemIDByCustomer.Contains(item.Id)).ToList();
                     order.TotalAmount = order.OrdersItemsByCustomer.Sum(item => item.Price);
-                    return order;
+                    OrderObservableCollection.Add(order);
                 }
-                    )
-                );
+            
+            }
+            CalculateSerialNumbers();
         }
         private void CalculateSerialNumbers()
         {
@@ -102,57 +110,30 @@ namespace ORM_MVVM_WPF.ViewModels.Seller
         {
             Func<Order, bool> filterPredicate = o =>
                 (_paymentStatus == PaymentStatus.All || o.PaymentStatus == _paymentStatus) &&
-                (_orderStatus == OrderStatus.All || o.OrderStatus == _orderStatus);
+                (_orderStatus == OrderStatus.All || o.OrderStatus == _orderStatus) &&
+                o.OrdersItemsByCustomer.Any(i => i.SellerID == sellerId);
+
 
             OrderObservableCollection = new ObservableCollection<Order>(orderList.Where(filterPredicate));
         }
 
-        //Customer will place order.
-        public bool PlaceOrder(object selectedItem)
+        public bool DeliverOrder(int id)
         {
             try
             {
-                Order order = new Order();
-                order.Id = orderList.Count > 0 ? orderList.Max(o => o.Id) + 1 : 1;
-                order.Customer_Id = ((Models.Customer)User.AuthUser).CustomerID;
-                order.OrderDate = DateTime.Now;
-                order.OrdersItemIDByCustomer = new List<int>();
-                IEnumerable<Item> enumerableSelectedOrders = (selectedItem as IEnumerable)?.OfType<Item>();
-                foreach (var item in enumerableSelectedOrders.ToList())
+                var orderToUpdate = orderList.FirstOrDefault(or => or.Id == id);
+                if (orderToUpdate != null)
                 {
-                    order.OrdersItemIDByCustomer.Add(item.Id);
-
+                    orderToUpdate.OrderStatus = OrderStatus.Delivered;
+                    Serialization.SerializeList(orderList);
+                    OrderObservableCollection = new ObservableCollection<Order>(orderList);
                 }
-                orderList.Add(order);
-                OrderObservableCollection.Add(order);
-                Serialization.SerializeList(orderList);
-                return true;
             }
-            catch
-            {
+            catch 
+            { 
                 return false;
             }
-        }
-
-        //Customer can see his/her order
-        public void ViewOrder()
-        {
-            OrderObservableCollection = new ObservableCollection<Order>(OrderObservableCollection.Where(o => o.Customer_Id == ((Models.Customer)User.AuthUser).CustomerID));
-        }
-
-        public void PayOrder(int orderId)
-        {
-
-            foreach (var order in orderList)
-            {
-                if (order.Id == orderId)
-                {
-                    order.PaymentStatus = PaymentStatus.Paid;
-                    break;
-                }
-            }
-            Serialization.SerializeList(orderList);
-            OrderObservableCollection = new ObservableCollection<Order>(orderList);
+            return true;
         }
     }
 }

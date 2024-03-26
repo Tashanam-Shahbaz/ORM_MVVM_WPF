@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Security.Cryptography;
-
+using System.Xml.Serialization;
 
 namespace ORM_MVVM_WPF.Models
 {
@@ -18,10 +18,10 @@ namespace ORM_MVVM_WPF.Models
     {
         All,
         Pending,
-        Approved,
-        Shipped,
-        Delivered,
-        Cancelled
+        shipped,   // Seller will ship the order
+        Delivered, //  admin will mark the order as delivered
+        Completed, //  customer will mark the order as completed
+        Cancelled //   admin or seller will cancel the order
     }
     public class Order : IPayment , INotifyPropertyChanged
     {
@@ -54,6 +54,7 @@ namespace ORM_MVVM_WPF.Models
             }
         }
 
+        [XmlIgnore]
         public int SerialNumber
         {
             get { return _serialNumber; }
@@ -103,6 +104,8 @@ namespace ORM_MVVM_WPF.Models
                 }
             }
         }
+
+        [XmlIgnore]
         public List<Item> OrdersItemsByCustomer
         {
             get { return _ordersItemsByCustomer; }
@@ -141,6 +144,7 @@ namespace ORM_MVVM_WPF.Models
             }
         }
 
+        [XmlIgnore]
         public float TotalAmount
         {
             get { return _totalAmount; }

@@ -28,9 +28,14 @@ namespace ORM_MVVM_WPF.Views.Seller
             _sellerOVM = new SellerOrderViewModel();
             DataContext = _sellerOVM;
         }
-        private void PayButton_Click(object sender, RoutedEventArgs e)
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            MessageBoxResult msg = MessageBox.Show("Are you sure you want to proceed with the payment?", "Payment Confirmation", MessageBoxButton.OKCancel);
+
+        }
+
+        private void OrderStatusChange_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult msg = MessageBox.Show("Are you sure you want to deliver items?", "Delivary Confirmation", MessageBoxButton.OKCancel);
 
             if (msg == MessageBoxResult.OK)
             {
@@ -38,15 +43,9 @@ namespace ORM_MVVM_WPF.Views.Seller
                 if (button == null)
                     return;
                 int id = (int)button.CommandParameter;
-                _sellerOVM.PayOrder(id);
+                _sellerOVM.DeliverOrder(id);
             }
 
         }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
     }
 }

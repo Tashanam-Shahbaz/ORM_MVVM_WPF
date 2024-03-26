@@ -1,5 +1,5 @@
 ﻿using ORM_MVVM_WPF.Models;
-using ORM_MVVM_WPF.ViewModels.AdminViewModel;
+using ORM_MVVM_WPF.ViewModels.Admin;
 using System;
 using System.Collections.Generic;
 using System.Linq;

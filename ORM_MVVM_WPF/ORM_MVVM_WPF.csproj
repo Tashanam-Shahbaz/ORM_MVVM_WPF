@@ -77,8 +77,8 @@
     <Compile Include="Models\Seller.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Utilities\EnumBindingSourceExtention.cs" />
-    <Compile Include="ViewModels\AdminViewModel\AdminManageItemViewModel.cs" />
-    <Compile Include="ViewModels\AdminViewModel\AdminManageOrderViewModel.cs" />
+    <Compile Include="ViewModels\Admin\AdminItemViewModel.cs" />
+    <Compile Include="ViewModels\Admin\AdminOrderViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Customer\CustomerItemViewModel.cs" />
     <Compile Include="ViewModels\Customer\CustomerOrderViewModel.cs" />

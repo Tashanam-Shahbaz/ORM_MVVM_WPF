@@ -13,11 +13,15 @@ namespace ORM_MVVM_WPF.ViewModels.Customer
     {
         private List<Order> orderList;
         private List<Item> itemList;
+        
         private ObservableCollection<Order> _orderObservableCollection;
         private ObservableCollection<Item> _itemOCOrder;
-
+        
+        
         private PaymentStatus _paymentStatus;
         private OrderStatus _orderStatus;
+
+        private int cusId = ((Models.Customer)User.AuthUser).CustomerID;
 
         public CustomerOrderViewModel()
         {
@@ -79,6 +83,7 @@ namespace ORM_MVVM_WPF.ViewModels.Customer
 
             orderList = Serialization.DeSerializeList<Order>();
             itemList = Serialization.DeSerializeList<Item>();
+            
             OrderObservableCollection = new ObservableCollection<Order>
                 (
                 orderList.Select(order =>
@@ -87,8 +92,8 @@ namespace ORM_MVVM_WPF.ViewModels.Customer
                     order.TotalAmount = order.OrdersItemsByCustomer.Sum(item => item.Price);
                     return order;
                 }
-                    )
-                );
+                    ).Where(order => order.Customer_Id == cusId )
+                ); 
         }
         private void CalculateSerialNumbers()
         {
@@ -102,7 +107,7 @@ namespace ORM_MVVM_WPF.ViewModels.Customer
         {
             Func<Order, bool> filterPredicate = o =>
                 (_paymentStatus == PaymentStatus.All || o.PaymentStatus == _paymentStatus) &&
-                (_orderStatus == OrderStatus.All || o.OrderStatus == _orderStatus);
+                (_orderStatus == OrderStatus.All || o.OrderStatus == _orderStatus) && o.Customer_Id == cusId;
 
             OrderObservableCollection = new ObservableCollection<Order>(orderList.Where(filterPredicate));
         }
@@ -113,7 +118,7 @@ namespace ORM_MVVM_WPF.ViewModels.Customer
             try
             {
                 Order order = new Order();
-                order.Id = orderList.Count > 0 ? orderList.Max(o => o.Id) + 1 : 1;
+                order.Id =  orderList.Count + 1 ;
                 order.Customer_Id = ((Models.Customer)User.AuthUser).CustomerID;
                 order.OrderDate = DateTime.Now;
                 order.OrdersItemIDByCustomer = new List<int>();
@@ -137,22 +142,41 @@ namespace ORM_MVVM_WPF.ViewModels.Customer
         //Customer can see his/her order
         public void ViewOrder()
         {
-            OrderObservableCollection = new ObservableCollection<Order>(OrderObservableCollection.Where(o => o.Customer_Id == ((Models.Customer)User.AuthUser).CustomerID));
+            OrderObservableCollection = new ObservableCollection<Order>(OrderObservableCollection.Where(o => o.Customer_Id == cusId ));
         }
 
         public void PayOrder(int orderId)
         {
 
-            foreach (var order in orderList)
+            var o = orderList.FirstOrDefault(or => or.Id == orderId);
+            if (o != null)
             {
-                if (order.Id == orderId)
-                {
-                    order.PaymentStatus = PaymentStatus.Paid;
-                    break;
-                }
+                o.PaymentStatus = PaymentStatus.Paid;
+                Serialization.SerializeList(orderList);
+                OrderObservableCollection = new ObservableCollection<Order>(orderList.Where(oi => oi.Customer_Id == cusId));
+
             }
-            Serialization.SerializeList(orderList);
-            OrderObservableCollection = new ObservableCollection<Order>(orderList);
+            
         }
+        public bool ConfirmDelivery(int orderId)
+        {
+            try
+            {
+                var o = orderList.FirstOrDefault(or => or.Id == orderId);
+                if (o != null)
+                {
+                    o.OrderStatus = OrderStatus.Completed;
+                    Serialization.SerializeList(orderList);
+                    OrderObservableCollection = new ObservableCollection<Order>(orderList.Where(oi => oi.Customer_Id == cusId));
+                }
+                
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+
     }
 }

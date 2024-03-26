@@ -27,4 +27,11 @@
     <SellerID>2</SellerID>
     <SellerType>Wholesaler</SellerType>
   </User>
+  <User xsi:type="Customer">
+    <Username>c2</Username>
+    <Password>c2</Password>
+    <Email>c2</Email>
+    <CustomerID>2</CustomerID>
+    <CustomerType>Regular</CustomerType>
+  </User>
 </ArrayOfUser>

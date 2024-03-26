@@ -56,14 +56,7 @@ namespace ORM_MVVM_WPF.ViewModels.Seller
 
             ItemCloth cloth = new ItemCloth();
 
-            if (itemsList.OfType<ItemCloth>().Any())
-            {
-                cloth.Id = itemsList.OfType<ItemCloth>().Max(item => item.Id) + 1;
-            }
-            else
-            {
-                cloth.Id = 1;
-            }
+            cloth.Id = itemsList.Count + 1;
             cloth.Name = name;
             cloth.Description = description;
             cloth.Size = size;
@@ -78,17 +71,8 @@ namespace ORM_MVVM_WPF.ViewModels.Seller
         }
         public bool AddItem(string name, string description, int price, Brand type)
         {
-            ItemElectronic itemElectronic = new ItemElectronic();
-
-            if (itemsList.OfType<ItemElectronic>().Any())
-            {
-                itemElectronic.Id = itemsList.OfType<ItemElectronic>().Max(item => item.Id) + 1;
-            }
-            else
-            {
-                itemElectronic.Id = 1;
-            }
-
+            ItemElectronic itemElectronic = new ItemElectronic();             
+            itemElectronic.Id= itemsList.Count + 1;
             itemElectronic.Name = name;
             itemElectronic.Description = description;
             itemElectronic.Brand = type;

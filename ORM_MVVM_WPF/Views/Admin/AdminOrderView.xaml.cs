@@ -12,17 +12,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ORM_MVVM_WPF.ViewModels.Admin;
 
 namespace ORM_MVVM_WPF.Views.Admin
 {
     /// <summary>
     /// Interaction logic for AdminOrderManageView.xaml
     /// </summary>
-    public partial class AdminOrderManageView : UserControl
+    public partial class AdminOrderView : UserControl
     {
-        public AdminOrderManageView()
+        private AdminOrderViewModel _adminOVM;
+        public AdminOrderView()
         {
             InitializeComponent();
+            _adminOVM = new AdminOrderViewModel();
+            DataContext = _adminOVM;
         }
     }
 }

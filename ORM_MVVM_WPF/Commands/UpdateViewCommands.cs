@@ -1,5 +1,5 @@
 ﻿using ORM_MVVM_WPF.ViewModels;
-using ORM_MVVM_WPF.ViewModels.AdminViewModel;
+using ORM_MVVM_WPF.ViewModels.Admin;
 using ORM_MVVM_WPF.ViewModels.Customer;
 using System;
 using System.Collections.Generic;
@@ -22,8 +22,8 @@ namespace ORM_MVVM_WPF.Commands
             { "personalinfo", typeof(CustomerPersonalInfoViewModel) },
             { "customerviewitem", typeof(CustomerItemViewModel) },
             { "customervieworder", typeof(CustomerOrderViewModel) },
-            { "admin_manage_order", typeof(AdminManageOrderViewModel) },
-            { "admin_manage_item", typeof(AdminManageItemViewModel) },
+            { "admin_manage_order", typeof(AdminOrderViewModel) },
+            { "admin_manage_item", typeof(AdminItemViewModel) },
             { "seller_manage_order", typeof(SellerOrderViewModel) },
             { "seller_manage_item", typeof(SellerItemViewModel) }
         };

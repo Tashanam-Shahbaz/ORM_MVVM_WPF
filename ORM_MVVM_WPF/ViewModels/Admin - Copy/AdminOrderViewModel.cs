@@ -9,17 +9,20 @@ using System.Threading.Tasks;
 
 namespace ORM_MVVM_WPF.ViewModels.AdminViewModel
 {
-    public class AdminManageOrderViewModel : BaseViewModel
+    public class AdminOrderViewModel : BaseViewModel
     {
         private List<Order> orderList;
         private List<Item> itemList;
+        private List<Item> filterSellerItemsList;
         private ObservableCollection<Order> _orderObservableCollection;
         private ObservableCollection<Item> _itemOCOrder;
 
         private PaymentStatus _paymentStatus;
         private OrderStatus _orderStatus;
 
-        public AdminManageOrderViewModel()
+        private int sellerId = ((Models.Seller)User.AuthUser).SellerID;
+
+        public AdminOrderViewModel()
         {
             Bind();
         }
@@ -33,7 +36,6 @@ namespace ORM_MVVM_WPF.ViewModels.AdminViewModel
                 OnPropertyChanged(nameof(ItemOCOrder));
             }
         }
-
         public PaymentStatus ComboPaymentStatus
         {
             get => _paymentStatus;
@@ -42,8 +44,9 @@ namespace ORM_MVVM_WPF.ViewModels.AdminViewModel
                 if (_paymentStatus != value)
                 {
                     _paymentStatus = value;
-                    OnPropertyChanged(nameof(ComboPaymentStatus));
                     FilterOOC();
+                    OnPropertyChanged(nameof(ComboPaymentStatus));
+
                 }
             }
         }
@@ -61,7 +64,6 @@ namespace ORM_MVVM_WPF.ViewModels.AdminViewModel
                 }
             }
         }
-
         public ObservableCollection<Order> OrderObservableCollection
         {
             get { return _orderObservableCollection; }
@@ -75,19 +77,26 @@ namespace ORM_MVVM_WPF.ViewModels.AdminViewModel
 
         private void Bind()
         {
+            OrderObservableCollection = new ObservableCollection<Order>();
+            itemList = Serialization.DeSerializeList<Item>();
+            filterSellerItemsList = itemList.Where(i => i.SellerID == sellerId).ToList();
+
+            if (filterSellerItemsList.Count == 0)
+                return; // No items to show
 
             orderList = Serialization.DeSerializeList<Order>();
-            itemList = Serialization.DeSerializeList<Item>();
-            OrderObservableCollection = new ObservableCollection<Order>
-                (
-                orderList.Select(order =>
+            foreach (var order in orderList)
+            {
+                order.OrdersItemsByCustomer = filterSellerItemsList.Where(item =>
+                                                    order.OrdersItemIDByCustomer.Contains(item.Id)).ToList();
+                if (order.OrdersItemsByCustomer.Count > 0)
                 {
-                    order.OrdersItemsByCustomer = itemList.Where(item => order.OrdersItemIDByCustomer.Contains(item.Id)).ToList();
                     order.TotalAmount = order.OrdersItemsByCustomer.Sum(item => item.Price);
-                    return order;
+                    OrderObservableCollection.Add(order);
                 }
-                    )
-                );
+
+            }
+            CalculateSerialNumbers();
         }
         private void CalculateSerialNumbers()
         {
@@ -101,11 +110,30 @@ namespace ORM_MVVM_WPF.ViewModels.AdminViewModel
         {
             Func<Order, bool> filterPredicate = o =>
                 (_paymentStatus == PaymentStatus.All || o.PaymentStatus == _paymentStatus) &&
-                (_orderStatus == OrderStatus.All || o.OrderStatus == _orderStatus);
+                (_orderStatus == OrderStatus.All || o.OrderStatus == _orderStatus) &&
+                o.OrdersItemsByCustomer.Any(i => i.SellerID == sellerId);
+
 
             OrderObservableCollection = new ObservableCollection<Order>(orderList.Where(filterPredicate));
         }
 
-       
+        public bool DeliverOrder(int id)
+        {
+            try
+            {
+                var orderToUpdate = orderList.FirstOrDefault(or => or.Id == id);
+                if (orderToUpdate != null)
+                {
+                    orderToUpdate.OrderStatus = OrderStatus.Delivered;
+                    Serialization.SerializeList(orderList);
+                    OrderObservableCollection = new ObservableCollection<Order>(orderList);
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

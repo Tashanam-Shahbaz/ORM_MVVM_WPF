@@ -9,12 +9,12 @@ using ORM_MVVM_WPF.Models;
 
 namespace ORM_MVVM_WPF.ViewModels.AdminViewModel
 {
-    public class AdminManageItemViewModel : BaseViewModel
+    public class AdminItemViewModel : BaseViewModel
     {
         private List<Item> itemsList;
         private ObservableCollection<Item> _itemObservableCollection;
 
-        public AdminManageItemViewModel()
+        public AdminItemViewModel()
         {
             BindItem();
         }

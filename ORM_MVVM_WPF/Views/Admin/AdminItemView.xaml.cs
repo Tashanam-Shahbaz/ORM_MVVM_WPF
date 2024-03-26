@@ -1,6 +1,6 @@
 ﻿using ORM_MVVM_WPF.Models;
 using ORM_MVVM_WPF.ViewModels;
-using ORM_MVVM_WPF.ViewModels.AdminViewModel;
+using ORM_MVVM_WPF.ViewModels.Admin;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,10 +17,10 @@ namespace ORM_MVVM_WPF.Views.Admin
     /// <summary>
     /// Interaction logic for AdminItemManageView.xaml
     /// </summary>
-    public partial class AdminItemManageView : UserControl
+    public partial class AdminItemView : UserControl
     {
         ItemViewModel _viewModel;
-        public AdminItemManageView()
+        public AdminItemView()
         {
             InitializeComponent();
             _viewModel = new ItemViewModel();

@@ -7,7 +7,7 @@
              xmlns:customerviewmodels="clr-namespace:ORM_MVVM_WPF.ViewModels.Customer"
              xmlns:customerviews="clr-namespace:ORM_MVVM_WPF.Views.Customer"
              
-             xmlns:adminviewmodels="clr-namespace:ORM_MVVM_WPF.ViewModels.AdminViewModel"
+             xmlns:adminviewmodels="clr-namespace:ORM_MVVM_WPF.ViewModels.Admin"
              xmlns:adminviews="clr-namespace:ORM_MVVM_WPF.Views.Admin"
              
              xmlns:sellerviewmodels="clr-namespace:ORM_MVVM_WPF.ViewModels.Seller"
@@ -40,12 +40,12 @@
             <customerviews:CustomerOrder/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type adminviewmodels:AdminManageItemViewModel}">
-            <adminviews:AdminItemManageView/>
+        <DataTemplate DataType="{x:Type adminviewmodels:AdminItemViewModel}">
+            <adminviews:AdminItemView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type adminviewmodels:AdminManageOrderViewModel}">
-            <adminviews:AdminOrderManageView/>
+        <DataTemplate DataType="{x:Type adminviewmodels:AdminOrderViewModel}">
+            <adminviews:AdminOrderView/>
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type sellerviewmodels:SellerItemViewModel}">

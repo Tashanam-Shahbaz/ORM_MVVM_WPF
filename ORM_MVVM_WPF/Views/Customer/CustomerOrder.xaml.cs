@@ -44,18 +44,20 @@ namespace ORM_MVVM_WPF.Views.Customer
             }
 
         }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ConfirmCompleteOrder_Click(object sender, RoutedEventArgs e)
         {
+            MessageBoxResult msg = MessageBox.Show("Are you sure you want to confirm that your order has been delivered?", "Delivery Confirmation", MessageBoxButton.OKCancel);
+
+            if (msg == MessageBoxResult.OK)
+            {
+                var button = sender as Button;
+                if (button == null)
+                    return;
+                int id = (int)button.CommandParameter;
+                _orderVM.ConfirmDelivery(id);
+            }
 
         }
 
-        //private void OrderGrid_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        //{
-        //    if (OrderGrid.SelectedItems == null )
-        //        return;
-
-        //    List<Order> selectOrder =OrderGrid.SelectedItems?.OfType<Order>().ToList();
-        //}
     }
 }

@@ -89,7 +89,7 @@ namespace ORM_MVVM_WPF.ViewModels
             try
             {
                 List<User> users = Serialization.DeSerializeList<User>();
-                Admin admin = new Admin();
+                Models.Admin admin = new Models.Admin();
 
                 admin.Username = UserName; // Using ViewModel property
                 admin.Email = UserEmail; // Using ViewModel property
