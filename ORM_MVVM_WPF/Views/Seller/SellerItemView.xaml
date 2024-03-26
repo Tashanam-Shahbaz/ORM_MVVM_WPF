@@ -55,7 +55,32 @@
             <Button  Margin="600,5,0,5" FontSize="15" FontWeight="Bold" Content="Delete" Width="150" Click="DeleteButton_Click"/>
         </StackPanel>
 
-        <DataGrid Grid.Row="5" x:Name="ItemGrid" ItemsSource="{Binding ItemObservableCollection}" AutoGenerateColumns="False"  Width="850" Margin="50,30,50,10" Grid.RowSpan="2" CanUserAddRows="False" HeadersVisibility="Column" MaxHeight="400" VerticalScrollBarVisibility="Auto">
+        <!--NO DATA LABEL-->
+        <Label Grid.Row="5" Content="No Data Found" FontSize="20" HorizontalAlignment="Center">
+            <Label.Style>
+                <Style TargetType="Label">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsLabelVisible}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+
+        <DataGrid Grid.Row="5" x:Name="ItemGrid" ItemsSource="{Binding ItemObservableCollection}" AutoGenerateColumns="False"  Width="850" Margin="50,30,50,10" Grid.RowSpan="2" CanUserAddRows="False" HeadersVisibility="Column" MaxHeight="400" VerticalScrollBarVisibility="Auto" >
+            <DataGrid.Style>
+                <Style TargetType="DataGrid">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsItemGridVisible}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.Style>
+            
             <DataGrid.Resources>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="FontWeight" Value="Bold" ></Setter>

@@ -24,6 +24,7 @@ namespace ORM_MVVM_WPF.Views.Seller
     public partial class SellerItemView : UserControl
     {
         SellerItemViewModel _viewModel;
+
         public SellerItemView()
         {
             InitializeComponent();

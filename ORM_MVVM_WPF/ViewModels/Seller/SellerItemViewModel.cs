@@ -12,7 +12,10 @@ namespace ORM_MVVM_WPF.ViewModels.Seller
     public class SellerItemViewModel : BaseViewModel
     {
         private List<Item> itemsList;
+        private List<Item> filterSellerItemsList;
         private ObservableCollection<Item> _itemObservableCollection;
+        private bool isItemGridVisible;
+        private bool isLabelVisible;
 
         public SellerItemViewModel()
         {
@@ -24,8 +27,27 @@ namespace ORM_MVVM_WPF.ViewModels.Seller
             set
             {
                 _itemObservableCollection = value;
-                CalculateSerialNumbers();
+                UpdateSerialNumbersAndVisibility();
                 OnPropertyChanged(nameof(ItemObservableCollection));
+            }
+        }
+        public bool IsItemGridVisible
+        {
+            get { return isItemGridVisible; }
+            set
+            {
+                isItemGridVisible = value;
+                OnPropertyChanged(nameof(IsItemGridVisible));
+            }
+        }
+
+        public bool IsLabelVisible
+        {
+            get { return isLabelVisible; }
+            set
+            {
+                isLabelVisible = value;
+                OnPropertyChanged(nameof(IsLabelVisible));
             }
         }
 
@@ -50,7 +72,7 @@ namespace ORM_MVVM_WPF.ViewModels.Seller
             cloth.SellerID = ((Models.Seller)User.AuthUser).SellerID;
             itemsList.Add(cloth);
             ItemObservableCollection.Add(cloth);
-            CalculateSerialNumbers();
+            UpdateSerialNumbersAndVisibility();
             Serialization.SerializeList(itemsList);
             return true;
         }
@@ -74,7 +96,7 @@ namespace ORM_MVVM_WPF.ViewModels.Seller
             itemElectronic.SellerID = ((Models.Seller)User.AuthUser).SellerID;
             itemsList.Add(itemElectronic);
             ItemObservableCollection.Add(itemElectronic);
-            CalculateSerialNumbers();
+            UpdateSerialNumbersAndVisibility();
             Serialization.SerializeList(itemsList);
             return true;
 
@@ -91,7 +113,7 @@ namespace ORM_MVVM_WPF.ViewModels.Seller
                     itemsList.Remove(item);
 
                 }
-                CalculateSerialNumbers();
+                UpdateSerialNumbersAndVisibility();
                 Serialization.SerializeList(itemsList);
                 return true;
             }
@@ -102,17 +124,21 @@ namespace ORM_MVVM_WPF.ViewModels.Seller
         }
         private void BindItem()
         {
-            itemsList = Serialization.DeSerializeList<Item>().Where(i => i.SellerID == ((Models.Seller)User.AuthUser).SellerID ).ToList();
-            ItemObservableCollection = new ObservableCollection<Item>(itemsList);
+            itemsList = Serialization.DeSerializeList<Item>();
+            filterSellerItemsList = itemsList.Where(i => i.SellerID == ((Models.Seller)User.AuthUser).SellerID).ToList();
+            ItemObservableCollection = new ObservableCollection<Item>(filterSellerItemsList);
         }
 
-        private void CalculateSerialNumbers()
+        private void UpdateSerialNumbersAndVisibility()
         {
             int serialNumber = 1;
             foreach (var item in _itemObservableCollection)
             {
                 item.SerialNumber = serialNumber++;
             }
+
+            IsItemGridVisible = _itemObservableCollection.Count > 0;
+            IsLabelVisible = _itemObservableCollection.Count == 0;
         }
     }
 }

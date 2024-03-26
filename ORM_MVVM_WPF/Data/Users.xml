@@ -20,4 +20,11 @@
     <SellerID>1</SellerID>
     <SellerType>Wholesaler</SellerType>
   </User>
+  <User xsi:type="Seller">
+    <Username>s2</Username>
+    <Password>s2</Password>
+    <Email>s2</Email>
+    <SellerID>2</SellerID>
+    <SellerType>Wholesaler</SellerType>
+  </User>
 </ArrayOfUser>

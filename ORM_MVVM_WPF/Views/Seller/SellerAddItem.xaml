@@ -31,7 +31,7 @@
 
 
         <Label Content="Select Itme Type:" Grid.Row="0" Grid.Column="0" Margin="20,0,103,0"/>
-        <ComboBox x:Name="ItemTypeComboBox" Width="200" FontSize="12" ItemsSource="{Binding Source={StaticResource ItemType}}" SelectionChanged="ItemTypeComboBox_SelectionChanged"  Grid.Row="0" Grid.Column="1" Margin="135,5,238,5"/>
+        <ComboBox x:Name="ItemTypeComboBox" Width="200" FontSize="12" ItemsSource="{Binding Source={utilities:EnumBindingSourceExtention {x:Type models:ItemType}}}"  SelectionChanged="ItemTypeComboBox_SelectionChanged"  Grid.Row="0" Grid.Column="1" Margin="135,5,238,5"/>
 
         <Label Content="Enter Item Name:" Grid.Row="1" Grid.Column="0" Margin="20,0,103,0" />
         <TextBox x:Name="NameTextBox" Width="200" Grid.Row="1" Grid.Column="1" Margin="135,5,238,5"/>
