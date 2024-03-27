@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ORM_MVVM_WPF.ViewModels.AdminViewModel
+namespace ORM_MVVM_WPF.ViewModels.Admin
 {
     public class AdminOrderViewModel : BaseViewModel
     {

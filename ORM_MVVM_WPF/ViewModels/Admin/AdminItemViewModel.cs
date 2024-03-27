@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using ORM_MVVM_WPF.Models;
 
-namespace ORM_MVVM_WPF.ViewModels.AdminViewModel
+namespace ORM_MVVM_WPF.ViewModels.Admin
 {
     public class AdminItemViewModel : BaseViewModel
     {
@@ -29,18 +29,18 @@ namespace ORM_MVVM_WPF.ViewModels.AdminViewModel
             }
         }
 
-        public bool AddItem(string name,string description,int price ,int  size , string material)
+        public bool AddItem(string name, string description, int price, int size, string material)
         {
 
             ItemCloth cloth = new ItemCloth();
 
             if (itemsList.OfType<ItemCloth>().Any())
             {
-                cloth.Id = itemsList.OfType<ItemCloth>().Max( item => item.Id ) + 1;
+                cloth.Id = itemsList.OfType<ItemCloth>().Max(item => item.Id) + 1;
             }
             else
             {
-                cloth.Id=1;
+                cloth.Id = 1;
             }
             cloth.Name = name;
             cloth.Description = description;
