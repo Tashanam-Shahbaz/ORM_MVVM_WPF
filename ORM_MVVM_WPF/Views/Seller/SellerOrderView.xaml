@@ -127,15 +127,15 @@
                                                 <TextBlock Text="{Binding TotalAmount}" Margin="0 0 0 5"/>
                                             </StackPanel>
 
-                                            <Button Content="Deliver" Click="OrderStatusChange_Click" CommandParameter="{Binding Id}" Width="200" Margin="450 0 0 0">
+                                            <Button Content="Deliver" Click="ItemStatusChangeinOrder_Click" CommandParameter="{Binding Id}" Width="200" Margin="450 0 0 0">
                                                 <Button.Style>
                                                     <Style TargetType="Button">
                                                         <Setter Property="Visibility" Value="Collapsed"/>
                                                         <Style.Triggers>
                                                             <MultiDataTrigger>
                                                                 <MultiDataTrigger.Conditions>
-                                                                    <Condition Binding="{Binding PaymentStatus}" Value="Paid"/>
-                                                                    <Condition Binding="{Binding OrderStatus}" Value="Pending"/>
+                                                                    <Condition Binding="{Binding OrderStatusDictionary.Key}" Value="{Binding SellerIDMV}" />
+                                                                    <Condition Binding="{Binding OrderStatusDictionary.Value}" Value="Pending"/>
                                                                 </MultiDataTrigger.Conditions>
                                                                 <Setter Property="Visibility" Value="Visible"/>
                                                             </MultiDataTrigger>
@@ -143,6 +143,10 @@
                                                     </Style>
                                                 </Button.Style>
                                             </Button>
+
+
+
+
 
 
                                         </WrapPanel>

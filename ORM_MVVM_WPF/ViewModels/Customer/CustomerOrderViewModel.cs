@@ -1,4 +1,5 @@
 ﻿using ORM_MVVM_WPF.Models;
+using ORM_MVVM_WPF.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,16 +7,17 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static MaterialDesignThemes.Wpf.Theme.ToolBar;
 
 namespace ORM_MVVM_WPF.ViewModels.Customer
 {
     public class CustomerOrderViewModel : BaseViewModel
     {
         private List<Order> orderList;
-        private List<Item> itemList;
+        private List<Models.Item> itemList;
         
         private ObservableCollection<Order> _orderObservableCollection;
-        private ObservableCollection<Item> _itemOCOrder;
+        private ObservableCollection<Models.Item> _itemOCOrder;
         
         
         private PaymentStatus _paymentStatus;
@@ -27,7 +29,7 @@ namespace ORM_MVVM_WPF.ViewModels.Customer
         {
             Bind();
         }
-        public ObservableCollection<Item> ItemOCOrder
+        public ObservableCollection<Models.Item> ItemOCOrder
         {
             get { return _itemOCOrder; }
             set
@@ -82,7 +84,7 @@ namespace ORM_MVVM_WPF.ViewModels.Customer
         {
 
             orderList = Serialization.DeSerializeList<Order>();
-            itemList = Serialization.DeSerializeList<Item>();
+            itemList = Serialization.DeSerializeList<Models.Item>();
             
             OrderObservableCollection = new ObservableCollection<Order>
                 (
@@ -122,11 +124,20 @@ namespace ORM_MVVM_WPF.ViewModels.Customer
                 order.Customer_Id = ((Models.Customer)User.AuthUser).CustomerID;
                 order.OrderDate = DateTime.Now;
                 order.OrdersItemIDByCustomer = new List<int>();
-                IEnumerable<Item> enumerableSelectedOrders = (selectedItem as IEnumerable)?.OfType<Item>();
-                foreach (var item in enumerableSelectedOrders.ToList())
+                HashSet<int> uniqueSellerIDs = new HashSet<int>();
+                order.OrderStatusDictionary = new List<MyDictionary>();
+                IEnumerable<Models.Item> enumerableSelectedOrders = (selectedItem as IEnumerable)?.OfType<Models.Item>();
+                foreach (var item in enumerableSelectedOrders)
                 {
                     order.OrdersItemIDByCustomer.Add(item.Id);
-
+                    uniqueSellerIDs.Add(item.SellerID);
+                }
+                foreach (int si in uniqueSellerIDs)
+                {
+                   MyDictionary temp = new MyDictionary();
+                    temp.Key = si;
+                    temp.Value = OrderStatus.Pending;
+                    order.OrderStatusDictionary.Add(temp);
                 }
                 orderList.Add(order);
                 OrderObservableCollection.Add(order);
