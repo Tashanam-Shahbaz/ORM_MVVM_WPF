@@ -1,11 +1,9 @@
 ﻿using Microsoft.Xaml.Behaviors.Layout;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Xml.Serialization;
-using System.Linq;
-using System.Runtime.Serialization;
 using ORM_MVVM_WPF.Utilities;
+using ORM_MVVM_WPF.ViewModels;
 
 namespace ORM_MVVM_WPF.Models
 {
@@ -25,30 +23,29 @@ namespace ORM_MVVM_WPF.Models
         Completed, //  customer will mark the order as completed
         Cancelled //   admin or seller will cancel the order
     }
-    public class Order : IPayment , INotifyPropertyChanged
+    public class Order : BaseViewModel , IPayment
     {
         private int _id;
         private int _customer_ID;
         private DateTime _orderDate;
-        private List<int> _ordersItemIDIByCustomer;
+        private HashSet<int> _ordersItemIDIByCustomer;
         private List<Item> _ordersItemsByCustomer;
-        private OrderStatus _orderStatus;
-        private PaymentStatus _paymentStatus; 
+        private SerializableDictionary<string, OrderStatus> _orderStatusDictionary;
         
         //Variables related to View only
         private int _serialNumber;
         private float _totalAmount;
-        private bool _areAllItemsShipped;
-        //private SerializableDictionary<string, OrderStatus> _orderStatusDictionary;
-        private List<MyDictionary> _orderStatusDictionary;
+        private OrderStatus _orderStatus;
+        private PaymentStatus _paymentStatus;
+
+        //private List<MyDictionary> _orderStatusDictionary;
 
         public Order()
         {
             OrderStatus = OrderStatus.Pending;
             PaymentStatus = PaymentStatus.Pending;
-            //OrderStatusDictionary = new SerializableDictionary<string, OrderStatus>();
-        }
-
+            OrderStatusDictionary = new SerializableDictionary<string, OrderStatus>();
+        } 
         public int Id
         {
             get { return _id; }
@@ -87,7 +84,7 @@ namespace ORM_MVVM_WPF.Models
             }
         }
 
-        public List<int> OrdersItemIDByCustomer
+        public HashSet<int> OrdersItemIDByCustomer
         {
             get { return _ordersItemIDIByCustomer; }
             set
@@ -100,7 +97,20 @@ namespace ORM_MVVM_WPF.Models
             }
         }
 
+        public SerializableDictionary<string, OrderStatus> OrderStatusDictionary
+        {
+            get { return _orderStatusDictionary; }
+            set
+            {
+                if (_orderStatusDictionary != value)
+                {
+                    _orderStatusDictionary = value;
+                    OnPropertyChanged(nameof(OrderStatusDictionary));
+                }
+            }
+        }
 
+        [XmlIgnore]
         public OrderStatus OrderStatus
         {
             get { return _orderStatus; }
@@ -112,7 +122,7 @@ namespace ORM_MVVM_WPF.Models
                     OnPropertyChanged(nameof(Order.OrderStatus));
                 }
             }
-        }
+        }      
         public PaymentStatus PaymentStatus
         {
             get { return _paymentStatus; }
@@ -135,7 +145,6 @@ namespace ORM_MVVM_WPF.Models
                 {
                     _ordersItemsByCustomer = value;
                     OnPropertyChanged(nameof(OrdersItemsByCustomer));
-                    CheckAllItemsShipped();
                 }
             }
         }
@@ -168,62 +177,11 @@ namespace ORM_MVVM_WPF.Models
             }
         }
 
-        [XmlIgnore]
-        public bool AreAllItemsShipped
-        {
-            get { return _areAllItemsShipped; }
-            set
-            {
-                if (_areAllItemsShipped != value)
-                {
-                    _areAllItemsShipped = value;
-                    OnPropertyChanged(nameof(_areAllItemsShipped));
-                }
-            }
-        }
-
-        //public SerializableDictionary<string, OrderStatus> OrderStatusDictionary
-        //{
-        //    get { return _orderStatusDictionary; }
-        //    set
-        //    {
-        //        if (_orderStatusDictionary != value)
-        //        {
-        //            _orderStatusDictionary = value;
-        //            OnPropertyChanged(nameof(OrderStatusDictionary));
-        //        }
-        //    }
-        //}
-
-        public List<MyDictionary> OrderStatusDictionary
-        {
-            get { return _orderStatusDictionary; }
-            set
-            {
-                if (_orderStatusDictionary != value)
-                {
-                    _orderStatusDictionary = value;
-                    OnPropertyChanged(nameof(OrderStatusDictionary));
-                }
-            }
-        }
-
-        private void CheckAllItemsShipped()
-        {
-            if (OrdersItemsByCustomer.Count != 0)
-                AreAllItemsShipped = OrdersItemsByCustomer.All(item => item.ItemStatusinOrder == OrderStatus.Shipped );
-        }
 
         public bool ProcessPayment()
         {
             PaymentStatus = PaymentStatus.Paid;
             return true;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
     }

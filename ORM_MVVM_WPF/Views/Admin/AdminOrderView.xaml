@@ -126,13 +126,13 @@
                                             </StackPanel>
 
 
-                                            <Button Content="Deliver this Order" CommandParameter="{Binding Id}" Width="200" Margin="450 0 0 0">
+                                            <Button Content="Deliver this Order" CommandParameter="{Binding Id}" Width="200" Margin="450 0 0 0" Click="DeliverOrder_Click">
                                                 <Button.Style>
                                                     <Style TargetType="Button">
                                                         <Setter Property="Visibility" Value="Collapsed"/>
                                                         <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding AreAllItemsShipped}" 
-                                                                Value="True" >
+                                                            <DataTrigger Binding="{Binding OrderStatus}" 
+                                                                Value="Shipped" >
                                                                 <Setter Property="Visibility" Value="Visible"/>
                                                             </DataTrigger>
                                                         </Style.Triggers>

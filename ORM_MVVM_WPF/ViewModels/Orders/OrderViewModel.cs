@@ -114,7 +114,7 @@ namespace ORM_MVVM_WPF.ViewModels.Orders
                 order.Id = orderList.Count > 0 ?  orderList.Max(o => o.Id) + 1 : 1 ;
                 order.Customer_Id = ((Models.Customer)User.AuthUser).CustomerID;
                 order.OrderDate = DateTime.Now;
-                order.OrdersItemIDByCustomer = new List<int>();
+                order.OrdersItemIDByCustomer = new HashSet<int>();
                 IEnumerable<Item> enumerableSelectedOrders = (selectedItem as IEnumerable)?.OfType<Item>();
                 foreach (var item in enumerableSelectedOrders.ToList())
                 {

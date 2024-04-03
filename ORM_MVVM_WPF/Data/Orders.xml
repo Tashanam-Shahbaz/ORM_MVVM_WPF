@@ -3,33 +3,46 @@
   <Order>
     <Id>1</Id>
     <Customer_Id>1</Customer_Id>
-    <OrderDate>2024-04-01T00:03:33.6226303+05:00</OrderDate>
-    <OrdersItemIDByCustomer>
-      <int>7</int>
-      <int>6</int>
-    </OrdersItemIDByCustomer>
-    <OrderStatus>Pending</OrderStatus>
-    <PaymentStatus>Paid</PaymentStatus>
-    <OrderStatusDictionary>
-      <Key>sel_1</Key>
-      <Value>Shipped</Value>
-    </OrderStatusDictionary>
-  </Order>
-  <Order>
-    <Id>2</Id>
-    <Customer_Id>1</Customer_Id>
-    <OrderDate>2024-04-01T00:40:36.6533806+05:00</OrderDate>
+    <OrderDate>2024-04-04T01:17:26.5124583+05:00</OrderDate>
     <OrdersItemIDByCustomer>
       <int>8</int>
       <int>7</int>
       <int>6</int>
-      <int>5</int>
     </OrdersItemIDByCustomer>
-    <OrderStatus>Pending</OrderStatus>
-    <PaymentStatus>Pending</PaymentStatus>
     <OrderStatusDictionary>
-      <Key>sel_1</Key>
-      <Value>Pending</Value>
+      <Item>
+        <Key>
+          <string>sel_1</string>
+        </Key>
+        <Value>
+          <OrderStatus>Shipped</OrderStatus>
+        </Value>
+      </Item>
+      <Item>
+        <Key>
+          <string>sel_2</string>
+        </Key>
+        <Value>
+          <OrderStatus>Shipped</OrderStatus>
+        </Value>
+      </Item>
+      <Item>
+        <Key>
+          <string>admin_0</string>
+        </Key>
+        <Value>
+          <OrderStatus>Delivered</OrderStatus>
+        </Value>
+      </Item>
+      <Item>
+        <Key>
+          <string>cus_1</string>
+        </Key>
+        <Value>
+          <OrderStatus>Completed</OrderStatus>
+        </Value>
+      </Item>
     </OrderStatusDictionary>
+    <PaymentStatus>Paid</PaymentStatus>
   </Order>
 </ArrayOfOrder>

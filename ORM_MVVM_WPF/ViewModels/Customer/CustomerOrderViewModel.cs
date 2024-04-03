@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using static MaterialDesignThemes.Wpf.Theme.ToolBar;
 
 namespace ORM_MVVM_WPF.ViewModels.Customer
@@ -19,7 +20,7 @@ namespace ORM_MVVM_WPF.ViewModels.Customer
         private ObservableCollection<Order> _orderObservableCollection;
         private ObservableCollection<Models.Item> _itemOCOrder;
         
-        
+        //For Filters
         private PaymentStatus _paymentStatus;
         private OrderStatus _orderStatus;
 
@@ -90,8 +91,25 @@ namespace ORM_MVVM_WPF.ViewModels.Customer
                 (
                 orderList.Select(order =>
                 {
-                    order.OrdersItemsByCustomer = itemList.Where(item => order.OrdersItemIDByCustomer.Contains(item.Id)).ToList();
+                    order.OrdersItemsByCustomer = itemList
+                    .Where(item => order.OrdersItemIDByCustomer.Contains(item.Id))
+                    .ToList();
+
                     order.TotalAmount = order.OrdersItemsByCustomer.Sum(item => item.Price);
+                    OrderStatus os;
+                    
+                    if (order.OrderStatusDictionary.TryGetValue($"cus_{cusId}", out os) 
+                    || order.OrderStatusDictionary.TryGetValue("admin_0", out os))
+                    {
+                        order.OrderStatus = os;
+                    }
+                    else
+                    {
+                        // If neither 'cus_{cusId}' nor 'admin_0' entry exists, check other sellers for pending status
+                        bool anyPending = order.OrderStatusDictionary.Values.Any(status => status == OrderStatus.Pending);
+                        order.OrderStatus = anyPending ? OrderStatus.Pending : OrderStatus.Shipped;
+                    }
+
                     return order;
                 }
                     ).Where(order => order.Customer_Id == cusId )
@@ -119,29 +137,33 @@ namespace ORM_MVVM_WPF.ViewModels.Customer
         {
             try
             {
-                Order order = new Order();
-                order.Id =  orderList.Count + 1 ;
-                order.Customer_Id = ((Models.Customer)User.AuthUser).CustomerID;
-                order.OrderDate = DateTime.Now;
-                order.OrdersItemIDByCustomer = new List<int>();
+                Order order = new Order
+                {
+                    Id = orderList.Count + 1,
+                    Customer_Id = ((Models.Customer)User.AuthUser).CustomerID,
+                    OrderDate = DateTime.Now,
+                    OrdersItemIDByCustomer = new HashSet<int>(),
+                };
+
                 HashSet<int> uniqueSellerIDs = new HashSet<int>();
-                order.OrderStatusDictionary = new List<MyDictionary>();
+
                 IEnumerable<Models.Item> enumerableSelectedOrders = (selectedItem as IEnumerable)?.OfType<Models.Item>();
+
                 foreach (var item in enumerableSelectedOrders)
                 {
                     order.OrdersItemIDByCustomer.Add(item.Id);
                     uniqueSellerIDs.Add(item.SellerID);
                 }
-                foreach (int si in uniqueSellerIDs)
+                order.OrderStatusDictionary[$"sel_{cusId}"] = OrderStatus.Pending;
+                foreach (int sellerID in uniqueSellerIDs)
                 {
-                   MyDictionary temp = new MyDictionary();
-                    temp.Key = si;
-                    temp.Value = OrderStatus.Pending;
-                    order.OrderStatusDictionary.Add(temp);
+                    order.OrderStatusDictionary[$"sel_{sellerID}"] = OrderStatus.Pending;
                 }
+
                 orderList.Add(order);
                 OrderObservableCollection.Add(order);
                 Serialization.SerializeList(orderList);
+
                 return true;
             }
             catch
@@ -176,6 +198,7 @@ namespace ORM_MVVM_WPF.ViewModels.Customer
                 var o = orderList.FirstOrDefault(or => or.Id == orderId);
                 if (o != null)
                 {
+                    o.OrderStatusDictionary[$"cus_{cusId}"] = OrderStatus.Completed;
                     o.OrderStatus = OrderStatus.Completed;
                     Serialization.SerializeList(orderList);
                     OrderObservableCollection = new ObservableCollection<Order>(orderList.Where(oi => oi.Customer_Id == cusId));

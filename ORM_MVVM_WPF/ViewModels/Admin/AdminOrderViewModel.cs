@@ -73,27 +73,33 @@ namespace ORM_MVVM_WPF.ViewModels.Admin
                 }
             }
         }
-        
+
 
         private void Bind()
         {
             OrderObservableCollection = new ObservableCollection<Order>();
             itemList = Serialization.DeSerializeList<Item>();
-          
 
             orderList = Serialization.DeSerializeList<Order>();
+            int serialNumber = 1;
             foreach (var order in orderList)
             {
-                order.OrdersItemsByCustomer = itemList.Where(item =>
-                                                    order.OrdersItemIDByCustomer.Contains(item.Id)).ToList();
+                order.OrdersItemsByCustomer = itemList
+                                               .Where(item => order.OrdersItemIDByCustomer.Contains(item.Id))
+                                               .ToList();
+
                 if (order.OrdersItemsByCustomer.Count > 0)
                 {
+                    order.SerialNumber = serialNumber++;
                     order.TotalAmount = order.OrdersItemsByCustomer.Sum(item => item.Price);
+                    if (order.OrderStatusDictionary.Values.All(stu => stu == OrderStatus.Shipped))
+                    {
+                        order.OrderStatus = OrderStatus.Shipped;
+                    }
                     OrderObservableCollection.Add(order);
                 }
 
             }
-            CalculateSerialNumbers();
         }
         private void CalculateSerialNumbers()
         {
@@ -120,6 +126,7 @@ namespace ORM_MVVM_WPF.ViewModels.Admin
                 var orderToUpdate = orderList.FirstOrDefault(or => or.Id == id);
                 if (orderToUpdate != null)
                 {
+                    orderToUpdate.OrderStatusDictionary["admin_0"] = OrderStatus.Delivered;
                     orderToUpdate.OrderStatus = OrderStatus.Delivered;
                     Serialization.SerializeList(orderList);
                     OrderObservableCollection = new ObservableCollection<Order>(orderList);
