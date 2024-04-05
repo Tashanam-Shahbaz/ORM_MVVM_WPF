@@ -125,25 +125,14 @@
                                                 <TextBlock Text="{Binding TotalAmount}" Margin="0 0 0 5"/>
                                             </StackPanel>
 
-                                            <Button Content="Pay" CommandParameter="{Binding Id}" Width="200" Margin="450 0 0 0">
-                                                <Button.Style>
-                                                    <Style TargetType="Button">
-                                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding PaymentStatus}" Value="Pending">
-                                                                <Setter Property="Visibility" Value="Visible"/>
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Button.Style>
-                                            </Button>
 
-                                            <Button Content="Confirm Complete Order"  CommandParameter="{Binding Id}" Width="200" Margin="450 0 0 0">
+                                            <Button Content="Deliver this Order" CommandParameter="{Binding Id}" Width="200" Margin="450 0 0 0" Click="DeliverOrder_Click">
                                                 <Button.Style>
                                                     <Style TargetType="Button">
                                                         <Setter Property="Visibility" Value="Collapsed"/>
                                                         <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding OrderStatus}" Value="Delivered">
+                                                            <DataTrigger Binding="{Binding OrderStatus}" 
+                                                                Value="Shipped" >
                                                                 <Setter Property="Visibility" Value="Visible"/>
                                                             </DataTrigger>
                                                         </Style.Triggers>

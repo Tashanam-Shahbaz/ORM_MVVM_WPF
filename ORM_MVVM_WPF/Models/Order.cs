@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xaml.Behaviors.Layout;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Security.Cryptography;
 using System.Xml.Serialization;
+using ORM_MVVM_WPF.Utilities;
+using ORM_MVVM_WPF.ViewModels;
 
 namespace ORM_MVVM_WPF.Models
 {
@@ -18,29 +18,34 @@ namespace ORM_MVVM_WPF.Models
     {
         All,
         Pending,
-        shipped,   // Seller will ship the order
+        Shipped,   // Seller will ship the order
         Delivered, //  admin will mark the order as delivered
         Completed, //  customer will mark the order as completed
         Cancelled //   admin or seller will cancel the order
     }
-    public class Order : IPayment , INotifyPropertyChanged
+    public class Order : BaseViewModel , IPayment
     {
         private int _id;
         private int _customer_ID;
         private DateTime _orderDate;
-        private List<int> _ordersItemIDIByCustomer;
+        private HashSet<int> _ordersItemIDIByCustomer;
         private List<Item> _ordersItemsByCustomer;
-        private OrderStatus _orderStatus;
-        private PaymentStatus _paymentStatus; 
+        private SerializableDictionary<string, OrderStatus> _orderStatusDictionary;
+        
+        //Variables related to View only
         private int _serialNumber;
         private float _totalAmount;
+        private OrderStatus _orderStatus;
+        private PaymentStatus _paymentStatus;
+
+        //private List<MyDictionary> _orderStatusDictionary;
 
         public Order()
         {
             OrderStatus = OrderStatus.Pending;
             PaymentStatus = PaymentStatus.Pending;
-        }
-
+            OrderStatusDictionary = new SerializableDictionary<string, OrderStatus>();
+        } 
         public int Id
         {
             get { return _id; }
@@ -54,19 +59,6 @@ namespace ORM_MVVM_WPF.Models
             }
         }
 
-        [XmlIgnore]
-        public int SerialNumber
-        {
-            get { return _serialNumber; }
-            set
-            {
-                if (_serialNumber != value)
-                {
-                    _serialNumber = value;
-                    OnPropertyChanged(nameof(SerialNumber));
-                }
-            }
-        }
         public int Customer_Id
         {
             get { return _customer_ID; }
@@ -92,7 +84,7 @@ namespace ORM_MVVM_WPF.Models
             }
         }
 
-        public List<int> OrdersItemIDByCustomer
+        public HashSet<int> OrdersItemIDByCustomer
         {
             get { return _ordersItemIDIByCustomer; }
             set
@@ -105,6 +97,44 @@ namespace ORM_MVVM_WPF.Models
             }
         }
 
+        public SerializableDictionary<string, OrderStatus> OrderStatusDictionary
+        {
+            get { return _orderStatusDictionary; }
+            set
+            {
+                if (_orderStatusDictionary != value)
+                {
+                    _orderStatusDictionary = value;
+                    OnPropertyChanged(nameof(OrderStatusDictionary));
+                }
+            }
+        }
+
+        [XmlIgnore]
+        public OrderStatus OrderStatus
+        {
+            get { return _orderStatus; }
+            set
+            {
+                if (_orderStatus != value)
+                {
+                    _orderStatus = value;
+                    OnPropertyChanged(nameof(Order.OrderStatus));
+                }
+            }
+        }      
+        public PaymentStatus PaymentStatus
+        {
+            get { return _paymentStatus; }
+            set
+            {
+                if (_paymentStatus != value)
+                {
+                    _paymentStatus = value;
+                    OnPropertyChanged(nameof(PaymentStatus));
+                }
+            }
+        }
         [XmlIgnore]
         public List<Item> OrdersItemsByCustomer
         {
@@ -119,27 +149,16 @@ namespace ORM_MVVM_WPF.Models
             }
         }
 
-        public OrderStatus OrderStatus
+        [XmlIgnore]
+        public int SerialNumber
         {
-            get { return _orderStatus; }
+            get { return _serialNumber; }
             set
             {
-                if (_orderStatus != value)
+                if (_serialNumber != value)
                 {
-                    _orderStatus = value;
-                    OnPropertyChanged(nameof(Order.OrderStatus));
-                }
-            }
-        }
-        public PaymentStatus PaymentStatus
-        {
-            get { return _paymentStatus; }
-            set
-            {
-                if (_paymentStatus != value)
-                {
-                    _paymentStatus = value;
-                    OnPropertyChanged(nameof(PaymentStatus));
+                    _serialNumber = value;
+                    OnPropertyChanged(nameof(SerialNumber));
                 }
             }
         }
@@ -157,16 +176,12 @@ namespace ORM_MVVM_WPF.Models
                 }
             }
         }
+
+
         public bool ProcessPayment()
         {
             PaymentStatus = PaymentStatus.Paid;
             return true;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
     }

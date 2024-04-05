@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Xml.Serialization;
 
 namespace ORM_MVVM_WPF.Models
 {
@@ -30,6 +31,12 @@ namespace ORM_MVVM_WPF.Models
         private float _price;
         private int _seller_id;
 
+        //Variables related to View only
+        private OrderStatus _itemStatusinOrder;
+        public Item()
+        {
+            ItemStatusinOrder = OrderStatus.Pending;
+        }
         public int Id
         {
             get { return _id; }
@@ -42,6 +49,8 @@ namespace ORM_MVVM_WPF.Models
                 }
             }
         }
+
+        [XmlIgnore]
         public int SerialNumber
         {
             get { return _serialNumber; }
@@ -105,18 +114,28 @@ namespace ORM_MVVM_WPF.Models
                 }
             }
         }
-        
+
+        [XmlIgnore]
+        public OrderStatus ItemStatusinOrder
+        {
+            get { return _itemStatusinOrder; }
+            set
+            {
+                if (_itemStatusinOrder != value)
+                {
+                    _itemStatusinOrder = value;
+                    OnPropertyChanged(nameof(_itemStatusinOrder));
+                }
+            }
+        }
+
+
         public virtual string Type => ItemType();
 
        
         public virtual string ItemType()
         {
             return "general";
-        }
-
-        public Item()
-        {
-
         }
 
         

@@ -28,5 +28,24 @@ namespace ORM_MVVM_WPF.Views.Admin
             _adminOVM = new AdminOrderViewModel();
             DataContext = _adminOVM;
         }
+
+        private void DeliverOrder_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult msg = MessageBox.Show("Are you sure you want to deliver items?"
+                , "Delivary Confirmation", MessageBoxButton.OKCancel);
+
+            if (msg != MessageBoxResult.OK)
+                return;
+
+            var button = sender as Button;
+
+            if (button == null)
+                return;
+
+            int id = (int)button.CommandParameter;
+            _adminOVM.DeliverOrder(id);
+
+
+        }
     }
 }

@@ -14,9 +14,11 @@ namespace ORM_MVVM_WPF.ViewModels.Seller
         private List<Order> orderList;
         private List<Item> itemList;
         private List<Item> filterSellerItemsList;
+        
         private ObservableCollection<Order> _orderObservableCollection;
         private ObservableCollection<Item> _itemOCOrder;
 
+        //Variables related to Filter
         private PaymentStatus _paymentStatus;
         private OrderStatus _orderStatus;
 
@@ -64,6 +66,7 @@ namespace ORM_MVVM_WPF.ViewModels.Seller
                 }
             }
         }
+
         public ObservableCollection<Order> OrderObservableCollection
         {
             get { return _orderObservableCollection; }
@@ -85,18 +88,25 @@ namespace ORM_MVVM_WPF.ViewModels.Seller
                 return; // No items to show
             
             orderList = Serialization.DeSerializeList<Order>();
+            int serialNumber = 1;
             foreach (var order in orderList)
             {
-                order.OrdersItemsByCustomer = filterSellerItemsList.Where(item =>
-                                                    order.OrdersItemIDByCustomer.Contains(item.Id)).ToList();
+                order.OrdersItemsByCustomer = filterSellerItemsList
+                                               .Where(item => order.OrdersItemIDByCustomer.Contains(item.Id))
+                                               .ToList();
+
                 if (order.OrdersItemsByCustomer.Count > 0)
                 {
+                    order.SerialNumber = serialNumber++ ;
                     order.TotalAmount = order.OrdersItemsByCustomer.Sum(item => item.Price);
+                    if (order.OrderStatusDictionary.TryGetValue($"sel_{sellerId}", out OrderStatus orderStatus))
+                    {
+                        order.OrderStatus = orderStatus;
+                    } 
                     OrderObservableCollection.Add(order);
                 }
             
             }
-            CalculateSerialNumbers();
         }
         private void CalculateSerialNumbers()
         {
@@ -117,17 +127,15 @@ namespace ORM_MVVM_WPF.ViewModels.Seller
             OrderObservableCollection = new ObservableCollection<Order>(orderList.Where(filterPredicate));
         }
 
-        public bool DeliverOrder(int id)
+        public bool ShipItem(int id)
         {
             try
             {
-                var orderToUpdate = orderList.FirstOrDefault(or => or.Id == id);
-                if (orderToUpdate != null)
-                {
-                    orderToUpdate.OrderStatus = OrderStatus.Delivered;
-                    Serialization.SerializeList(orderList);
-                    OrderObservableCollection = new ObservableCollection<Order>(orderList);
-                }
+                Order orderToUpdate = orderList.FirstOrDefault(or => or.Id == id);
+                orderToUpdate.OrderStatusDictionary[$"sel_{sellerId}"] = OrderStatus.Shipped;
+                orderToUpdate.OrderStatus = OrderStatus.Shipped;
+                Serialization.SerializeList(orderList);
+                OrderObservableCollection = new ObservableCollection<Order>(orderList);
             }
             catch 
             { 

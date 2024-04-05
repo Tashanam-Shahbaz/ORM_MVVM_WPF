@@ -1,6 +1,5 @@
 ﻿using ORM_MVVM_WPF.Models;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -13,14 +12,12 @@ namespace ORM_MVVM_WPF.ViewModels.Admin
     {
         private List<Order> orderList;
         private List<Item> itemList;
-        private List<Item> filterSellerItemsList;
         private ObservableCollection<Order> _orderObservableCollection;
         private ObservableCollection<Item> _itemOCOrder;
 
+        // Filters
         private PaymentStatus _paymentStatus;
         private OrderStatus _orderStatus;
-
-        private int sellerId = ((Models.Seller)User.AuthUser).SellerID;
 
         public AdminOrderViewModel()
         {
@@ -36,6 +33,18 @@ namespace ORM_MVVM_WPF.ViewModels.Admin
                 OnPropertyChanged(nameof(ItemOCOrder));
             }
         }
+        public ObservableCollection<Order> OrderObservableCollection
+        {
+            get { return _orderObservableCollection; }
+            set
+            {
+                _orderObservableCollection = value;
+                CalculateSerialNumbers();
+                OnPropertyChanged(nameof(OrderObservableCollection));
+            }
+        }
+
+        //Filters
         public PaymentStatus ComboPaymentStatus
         {
             get => _paymentStatus;
@@ -64,39 +73,33 @@ namespace ORM_MVVM_WPF.ViewModels.Admin
                 }
             }
         }
-        public ObservableCollection<Order> OrderObservableCollection
-        {
-            get { return _orderObservableCollection; }
-            set
-            {
-                _orderObservableCollection = value;
-                CalculateSerialNumbers();
-                OnPropertyChanged(nameof(OrderObservableCollection));
-            }
-        }
+
 
         private void Bind()
         {
             OrderObservableCollection = new ObservableCollection<Order>();
             itemList = Serialization.DeSerializeList<Item>();
-            filterSellerItemsList = itemList.Where(i => i.SellerID == sellerId).ToList();
-
-            if (filterSellerItemsList.Count == 0)
-                return; // No items to show
 
             orderList = Serialization.DeSerializeList<Order>();
+            int serialNumber = 1;
             foreach (var order in orderList)
             {
-                order.OrdersItemsByCustomer = filterSellerItemsList.Where(item =>
-                                                    order.OrdersItemIDByCustomer.Contains(item.Id)).ToList();
+                order.OrdersItemsByCustomer = itemList
+                                               .Where(item => order.OrdersItemIDByCustomer.Contains(item.Id))
+                                               .ToList();
+
                 if (order.OrdersItemsByCustomer.Count > 0)
                 {
+                    order.SerialNumber = serialNumber++;
                     order.TotalAmount = order.OrdersItemsByCustomer.Sum(item => item.Price);
+                    if (order.OrderStatusDictionary.Values.All(stu => stu == OrderStatus.Shipped))
+                    {
+                        order.OrderStatus = OrderStatus.Shipped;
+                    }
                     OrderObservableCollection.Add(order);
                 }
 
             }
-            CalculateSerialNumbers();
         }
         private void CalculateSerialNumbers()
         {
@@ -110,8 +113,7 @@ namespace ORM_MVVM_WPF.ViewModels.Admin
         {
             Func<Order, bool> filterPredicate = o =>
                 (_paymentStatus == PaymentStatus.All || o.PaymentStatus == _paymentStatus) &&
-                (_orderStatus == OrderStatus.All || o.OrderStatus == _orderStatus) &&
-                o.OrdersItemsByCustomer.Any(i => i.SellerID == sellerId);
+                (_orderStatus == OrderStatus.All || o.OrderStatus == _orderStatus);
 
 
             OrderObservableCollection = new ObservableCollection<Order>(orderList.Where(filterPredicate));
@@ -124,6 +126,7 @@ namespace ORM_MVVM_WPF.ViewModels.Admin
                 var orderToUpdate = orderList.FirstOrDefault(or => or.Id == id);
                 if (orderToUpdate != null)
                 {
+                    orderToUpdate.OrderStatusDictionary["admin_0"] = OrderStatus.Delivered;
                     orderToUpdate.OrderStatus = OrderStatus.Delivered;
                     Serialization.SerializeList(orderList);
                     OrderObservableCollection = new ObservableCollection<Order>(orderList);

@@ -3,71 +3,46 @@
   <Order>
     <Id>1</Id>
     <Customer_Id>1</Customer_Id>
-    <OrderDate>2024-03-26T13:05:53.4160678+05:00</OrderDate>
-    <OrdersItemIDByCustomer>
-      <int>2</int>
-      <int>3</int>
-      <int>1</int>
-    </OrdersItemIDByCustomer>
-    <OrderStatus>Pending</OrderStatus>
-    <PaymentStatus>Pending</PaymentStatus>
-  </Order>
-  <Order>
-    <Id>2</Id>
-    <Customer_Id>1</Customer_Id>
-    <OrderDate>2024-03-26T13:46:27.1876272+05:00</OrderDate>
+    <OrderDate>2024-04-04T01:17:26.5124583+05:00</OrderDate>
     <OrdersItemIDByCustomer>
       <int>8</int>
-      <int>4</int>
-      <int>5</int>
-      <int>6</int>
       <int>7</int>
-    </OrdersItemIDByCustomer>
-    <OrderStatus>Completed</OrderStatus>
-    <PaymentStatus>Paid</PaymentStatus>
-  </Order>
-  <Order>
-    <Id>3</Id>
-    <Customer_Id>1</Customer_Id>
-    <OrderDate>2024-03-26T16:58:44.6518587+05:00</OrderDate>
-    <OrdersItemIDByCustomer>
       <int>6</int>
-      <int>7</int>
     </OrdersItemIDByCustomer>
-    <OrderStatus>Pending</OrderStatus>
-    <PaymentStatus>Pending</PaymentStatus>
-  </Order>
-  <Order>
-    <Id>4</Id>
-    <Customer_Id>2</Customer_Id>
-    <OrderDate>2024-03-26T20:43:35.7132928+05:00</OrderDate>
-    <OrdersItemIDByCustomer>
-      <int>9</int>
-    </OrdersItemIDByCustomer>
-    <OrderStatus>Pending</OrderStatus>
+    <OrderStatusDictionary>
+      <Item>
+        <Key>
+          <string>sel_1</string>
+        </Key>
+        <Value>
+          <OrderStatus>Shipped</OrderStatus>
+        </Value>
+      </Item>
+      <Item>
+        <Key>
+          <string>sel_2</string>
+        </Key>
+        <Value>
+          <OrderStatus>Shipped</OrderStatus>
+        </Value>
+      </Item>
+      <Item>
+        <Key>
+          <string>admin_0</string>
+        </Key>
+        <Value>
+          <OrderStatus>Delivered</OrderStatus>
+        </Value>
+      </Item>
+      <Item>
+        <Key>
+          <string>cus_1</string>
+        </Key>
+        <Value>
+          <OrderStatus>Completed</OrderStatus>
+        </Value>
+      </Item>
+    </OrderStatusDictionary>
     <PaymentStatus>Paid</PaymentStatus>
-  </Order>
-  <Order>
-    <Id>5</Id>
-    <Customer_Id>2</Customer_Id>
-    <OrderDate>2024-03-26T20:44:01.0881378+05:00</OrderDate>
-    <OrdersItemIDByCustomer>
-      <int>5</int>
-      <int>6</int>
-      <int>7</int>
-    </OrdersItemIDByCustomer>
-    <OrderStatus>Delivered</OrderStatus>
-    <PaymentStatus>Paid</PaymentStatus>
-  </Order>
-  <Order>
-    <Id>6</Id>
-    <Customer_Id>2</Customer_Id>
-    <OrderDate>2024-03-26T20:48:27.8082822+05:00</OrderDate>
-    <OrdersItemIDByCustomer>
-      <int>4</int>
-      <int>5</int>
-    </OrdersItemIDByCustomer>
-    <OrderStatus>Pending</OrderStatus>
-    <PaymentStatus>Pending</PaymentStatus>
   </Order>
 </ArrayOfOrder>

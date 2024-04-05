@@ -33,18 +33,22 @@ namespace ORM_MVVM_WPF.Views.Seller
 
         }
 
-        private void OrderStatusChange_Click(object sender, RoutedEventArgs e)
+        private void ItemStatusChangeinOrder_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult msg = MessageBox.Show("Are you sure you want to deliver items?", "Delivary Confirmation", MessageBoxButton.OKCancel);
+            MessageBoxResult msg = MessageBox.Show("Are you sure you want to deliver items?"
+                , "Delivary Confirmation", MessageBoxButton.OKCancel);
 
-            if (msg == MessageBoxResult.OK)
-            {
-                var button = sender as Button;
-                if (button == null)
-                    return;
-                int id = (int)button.CommandParameter;
-                _sellerOVM.DeliverOrder(id);
-            }
+            if (msg != MessageBoxResult.OK)
+                return;
+
+            var button = sender as Button;
+            
+            if (button == null)
+                return;
+
+            int id = (int)button.CommandParameter;
+            _sellerOVM.ShipItem(id);
+            
 
         }
     }
