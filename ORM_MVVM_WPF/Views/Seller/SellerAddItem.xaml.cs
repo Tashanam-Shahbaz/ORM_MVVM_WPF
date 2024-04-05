@@ -4,6 +4,7 @@ using ORM_MVVM_WPF.ViewModels.Seller;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -59,6 +60,8 @@ namespace ORM_MVVM_WPF.Views.Seller
             if (string.IsNullOrWhiteSpace(NameTextBox.Text) ||
                 string.IsNullOrWhiteSpace(DescriptionTextBox.Text) ||
                 string.IsNullOrWhiteSpace(PriceTextBox.Text) ||
+                !float.TryParse(PriceTextBox.Text, out float p) ||
+               !float.TryParse(SizeTextBox.Text, out float size) ||
                 ItemTypeComboBox.SelectedItem == null)
             {
                 ShowIncompleteFieldsMessage();

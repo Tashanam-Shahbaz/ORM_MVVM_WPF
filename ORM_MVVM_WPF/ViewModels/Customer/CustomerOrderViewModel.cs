@@ -112,7 +112,7 @@ namespace ORM_MVVM_WPF.ViewModels.Customer
 
                     return order;
                 }
-                    ).Where(order => order.Customer_Id == cusId )
+                    ).Where(order => order.Customer_Id == cusId && order.OrdersItemsByCustomer.Count > 0)
                 ); 
         }
         private void CalculateSerialNumbers()

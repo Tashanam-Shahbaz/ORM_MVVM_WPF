@@ -2,7 +2,6 @@
 <ArrayOfItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Item xsi:type="ItemCloth">
     <Id>1</Id>
-    <SerialNumber>1</SerialNumber>
     <Name>Shirt</Name>
     <Description>“Elevate Your Style with Our Classic Shirts!” Whether it’s a crisp white button-down or a playful printed shirt, our collection offers timeless elegance and versatility. Perfect for both formal occasions and casual outings, our shirts blend comfort with sophistication. Get ready to make a lasting impression! 👔</Description>
     <Price>1500</Price>
@@ -12,7 +11,6 @@
   </Item>
   <Item xsi:type="ItemCloth">
     <Id>2</Id>
-    <SerialNumber>2</SerialNumber>
     <Name>Frock </Name>
     <Description>Our frocks are a celebration of femininity. From flowy maxi dresses to tailored A-line frocks, each piece tells a story. Picture yourself twirling in a garden, the sun-kissed fabric swirling around you. Whether it’s a romantic date night or a daytime adventure, our frocks are your canvas for self-expression. 🌸👗</Description>
     <Price>2000</Price>
@@ -22,7 +20,6 @@
   </Item>
   <Item xsi:type="ItemCloth">
     <Id>3</Id>
-    <SerialNumber>3</SerialNumber>
     <Name>Hoodie Jacket</Name>
     <Description>When comfort meets street style, magic happens. Our hoodie jackets are more than outerwear; they’re an attitude. Picture chilly evenings, hands tucked into cozy pockets, hood up against the breeze. Whether you’re hitting the skate park or grabbing coffee, our hoodie jackets keep you warm and effortlessly cool. Get ready to own the streets! 🧥🔥</Description>
     <Price>3000</Price>
@@ -32,7 +29,6 @@
   </Item>
   <Item xsi:type="ItemElectronic">
     <Id>4</Id>
-    <SerialNumber>4</SerialNumber>
     <Name>Air Purifier</Name>
     <Description>“Breathe Fresh, Live Pure!” Our air purifiers silently combat dust, allergens, and pollutants, leaving you with crisp, clean air. Say goodbye to sneezes and hello to serenity! 🌬️</Description>
     <Price>5000</Price>
@@ -41,7 +37,6 @@
   </Item>
   <Item xsi:type="ItemElectronic">
     <Id>5</Id>
-    <SerialNumber>5</SerialNumber>
     <Name>Alarm Clock</Name>
     <Description>Wake Up in Style!” Our sleek alarm clocks blend functionality with aesthetics. Rise and shine to soothing melodies or a gentle crescendo. Time waits for no one—make every second count! ⏰🎶</Description>
     <Price>1000</Price>
@@ -50,7 +45,6 @@
   </Item>
   <Item xsi:type="ItemElectronic">
     <Id>6</Id>
-    <SerialNumber>6</SerialNumber>
     <Name>Backup Charger</Name>
     <Description>“Power Up Anywhere!” Our portable chargers are your lifeline. When your phone’s battery gasps its last breath, our backup chargers swoop in like superheroes. Stay connected, stay charged! 🔋💪</Description>
     <Price>900</Price>
@@ -59,7 +53,6 @@
   </Item>
   <Item xsi:type="ItemElectronic">
     <Id>7</Id>
-    <SerialNumber>1</SerialNumber>
     <Name>Quantum Smart Glasses</Name>
     <Description> the epitome of futuristic innovation and style! With a sleek, minimalist design and cutting-edge technology, these glasses seamlessly integrate into your daily life, transforming the way you perceive the world.</Description>
     <Price>300000</Price>
@@ -68,7 +61,6 @@
   </Item>
   <Item xsi:type="ItemElectronic">
     <Id>8</Id>
-    <SerialNumber>2</SerialNumber>
     <Name>: Holographic Projection Watch</Name>
     <Description>Step into the future with the Holographic Projection Watch - a revolution in timekeeping technology! This sleek wrist accessory combines the elegance of traditional watches with the innovation of holographic projection, offering a futuristic way to tell time.</Description>
     <Price>300000</Price>
@@ -77,12 +69,28 @@
   </Item>
   <Item xsi:type="ItemCloth">
     <Id>9</Id>
-    <SerialNumber>3</SerialNumber>
     <Name>Abaya</Name>
     <Description>Elagant Abayas!</Description>
     <Price>3000</Price>
     <SellerID>2</SellerID>
     <Size>3</Size>
     <Material>silk </Material>
+  </Item>
+  <Item xsi:type="ItemElectronic">
+    <Id>10</Id>
+    <Name>Arduino</Name>
+    <Description>Explore limitless creativity with Arduino – your gateway to innovation! From beginners to experts, Arduino simplifies electronics projects with its user-friendly platform. Join a dynamic community of makers and dive into a world of endless possibilities. Start creating, experimenting, and innovating today!</Description>
+    <Price>100000</Price>
+    <SellerID>2</SellerID>
+    <Brand>samsung</Brand>
+  </Item>
+  <Item xsi:type="ItemCloth">
+    <Id>11</Id>
+    <Name>Scraf</Name>
+    <Description>Red Scraf</Description>
+    <Price>1000</Price>
+    <SellerID>1</SellerID>
+    <Size>3</Size>
+    <Material>organza</Material>
   </Item>
 </ArrayOfItem>

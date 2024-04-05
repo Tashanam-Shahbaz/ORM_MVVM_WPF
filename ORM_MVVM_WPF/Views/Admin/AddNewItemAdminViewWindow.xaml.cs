@@ -13,8 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using ORM_MVVM_WPF.ViewModels.Items;
-
+using ORM_MVVM_WPF.ViewModels.Seller;
 namespace ORM_MVVM_WPF.Views.Admin
 {
     /// <summary>
@@ -22,8 +21,8 @@ namespace ORM_MVVM_WPF.Views.Admin
     /// </summary>
     public partial class AddNewItemAdminViewWindow : Window
     {
-        ItemViewModel _viewModel;
-        public AddNewItemAdminViewWindow(ItemViewModel viewModel)
+        SellerItemViewModel _viewModel;
+        public AddNewItemAdminViewWindow(SellerItemViewModel viewModel)
         {
             InitializeComponent();
             _viewModel = viewModel;
