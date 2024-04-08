@@ -48,6 +48,10 @@
             <adminviews:AdminOrderView/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type adminviewmodels:AdminSellerViewModel}">
+            <adminviews:AdminSellerView/>
+        </DataTemplate>
+
         <DataTemplate DataType="{x:Type sellerviewmodels:SellerItemViewModel}">
             <sellerviews:SellerItemView/>
         </DataTemplate>

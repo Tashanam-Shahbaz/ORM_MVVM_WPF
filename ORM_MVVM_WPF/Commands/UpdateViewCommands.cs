@@ -25,7 +25,8 @@ namespace ORM_MVVM_WPF.Commands
             { "admin_manage_order", typeof(AdminOrderViewModel) },
             { "admin_manage_item", typeof(AdminItemViewModel) },
             { "seller_manage_order", typeof(SellerOrderViewModel) },
-            { "seller_manage_item", typeof(SellerItemViewModel) }
+            { "seller_manage_item", typeof(SellerItemViewModel) },
+            { "admin_manage_seller", typeof(AdminSellerViewModel)}
         };
         public UpdateViewCommands(MainViewModel viewModel)
         {

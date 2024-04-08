@@ -81,6 +81,7 @@
     <Compile Include="Utilities\SerializableDictionary.cs" />
     <Compile Include="ViewModels\Admin\AdminItemViewModel.cs" />
     <Compile Include="ViewModels\Admin\AdminOrderViewModel.cs" />
+    <Compile Include="ViewModels\Admin\AdminSellerViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Customer\CustomerItemViewModel.cs" />
     <Compile Include="ViewModels\Customer\CustomerOrderViewModel.cs" />
@@ -104,6 +105,9 @@
     </Compile>
     <Compile Include="Views\Admin\AdminOrderView.xaml.cs">
       <DependentUpon>AdminOrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\AdminSellerView.xaml.cs">
+      <DependentUpon>AdminSellerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Customer\CustomerDashboard.xaml.cs">
       <DependentUpon>CustomerDashboard.xaml</DependentUpon>
@@ -152,6 +156,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Admin\AdminOrderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\AdminSellerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
