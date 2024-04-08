@@ -44,7 +44,7 @@
 
         <WrapPanel Grid.Row="3">
             <Label  FontSize="20" FontWeight="Bold" Content="Items"/>
-            <Button Content="Buy Item" FontSize="15" FontWeight="DemiBold" Margin="705 0 0 0" Padding="10 0 10 0" Click="PlaceOrder_Click"></Button>
+            <Button Content="Place Order" FontSize="15" FontWeight="DemiBold" Margin="705 0 0 0" Padding="10 0 10 0" Click="PlaceOrder_Click"></Button>
         </WrapPanel>
 
         <!--NO DATA LABEL-->

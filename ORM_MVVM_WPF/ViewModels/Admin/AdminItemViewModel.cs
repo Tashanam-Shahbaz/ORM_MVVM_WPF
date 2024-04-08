@@ -16,7 +16,7 @@ namespace ORM_MVVM_WPF.ViewModels.Admin
 
         public AdminItemViewModel()
         {
-            BindItem();
+            //BindItem();
         }
         public ObservableCollection<Item> ItemObservableCollection
         {

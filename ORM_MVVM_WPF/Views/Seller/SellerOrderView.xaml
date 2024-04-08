@@ -126,14 +126,24 @@
                                                 <TextBlock Text="YOUR TOTAL ORDER VALUE  "  FontWeight="Bold"></TextBlock>
                                                 <TextBlock Text="{Binding TotalAmount}" Margin="0 0 0 5"/>
                                             </StackPanel>
-                                            <Button Content="Ship" Click="ItemStatusChangeinOrder_Click" CommandParameter="{Binding Id}" Width="200" Margin="450 0 0 0">
+                                            
+                                            <Button Content="Ship" 
+                                                    Click="ItemStatusChangeinOrder_Click" 
+                                                    CommandParameter="{Binding Id}" 
+                                                    Width="200"
+                                                    Margin="450 0 0 0">
+                                                
                                                 <Button.Style>
                                                     <Style TargetType="Button">
                                                         <Setter Property="Visibility" Value="Collapsed"/>
                                                         <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding OrderStatus}" Value="Pending">
+                                                            <MultiDataTrigger>
+                                                                <MultiDataTrigger.Conditions>
+                                                                    <Condition Binding="{Binding OrderStatus}" Value="Pending"></Condition>
+                                                                    <Condition Binding="{Binding PaymentStatus}" Value="Paid"></Condition>
+                                                                </MultiDataTrigger.Conditions>
                                                                 <Setter Property="Visibility" Value="Visible"/>
-                                                            </DataTrigger>
+                                                            </MultiDataTrigger>
                                                         </Style.Triggers>
                                                     </Style>
                                                 </Button.Style>

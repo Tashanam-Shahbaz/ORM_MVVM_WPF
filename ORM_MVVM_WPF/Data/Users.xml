@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfUser xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <User xsi:type="Customer">
-    <Username>Tash</Username>
+    <Username>Tashanam</Username>
     <Password>t</Password>
     <Email>t</Email>
     <CustomerID>1</CustomerID>
-    <CustomerType>Regular</CustomerType>
+    <CustomerType>Premium</CustomerType>
   </User>
   <User xsi:type="Admin">
     <Username>Admin</Username>

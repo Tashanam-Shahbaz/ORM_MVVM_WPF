@@ -5,9 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using ORM_MVVM_WPF.ViewModels.Items;
 using ORM_MVVM_WPF.Models;
-using ORM_MVVM_WPF.ViewModels.Orders;
 using System.Windows.Data;
 using ORM_MVVM_WPF.ViewModels.Customer;
 namespace ORM_MVVM_WPF.Views.Customer

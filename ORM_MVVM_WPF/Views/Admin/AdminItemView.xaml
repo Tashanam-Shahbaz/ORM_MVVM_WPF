@@ -7,7 +7,7 @@
              d:DesignHeight="900" d:DesignWidth="1000" Background="White">
 
     <Grid Margin="10">
-        <Grid.RowDefinitions>
+        <!--<Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="70"/>
             <RowDefinition Height="40"/>
@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
 
         
-        <!-- Heading Section -->
+        --><!-- Heading Section --><!--
         <StackPanel Grid.Row="0" Orientation="Vertical">
             <Label FontSize="20" FontWeight="Bold" Content="Add New Item"/>
         </StackPanel>
@@ -28,12 +28,12 @@
             <Button  Width="250" Height="40" Margin="12" FontSize="15" FontWeight="Bold" Content="+ Add New Item" Click="AddItem_Click" />
         </StackPanel>
 
-        <!-- Heading Section -->
+        --><!-- Heading Section --><!--
         <StackPanel Grid.Row="2" Orientation="Vertical">
             <Label FontSize="20" FontWeight="Bold" Content="Search Item"/>
         </StackPanel>
 
-        <!-- Search Fields Section -->
+        --><!-- Search Fields Section --><!--
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="10">
             <StackPanel Orientation="Horizontal" Margin="0 5">
                 <Label FontSize="15" Content="Enter Type:"></Label>
@@ -48,7 +48,7 @@
         </StackPanel>
 
 
-        <!-- Heading Section -->
+        --><!-- Heading Section --><!--
         <StackPanel Grid.Row="4" Orientation="Horizontal">
             <Label    FontSize="20" FontWeight="Bold" Content="Items"/>
             <Button  Margin="600,5,0,5" FontSize="15" FontWeight="Bold" Content="Delete" Width="150" Click="DeleteButton_Click"/>
@@ -62,10 +62,10 @@
             </DataGrid.Resources>
             
             <DataGrid.Columns>
-                <!-- First column: SerialNumber -->
+                --><!-- First column: SerialNumber --><!--
                 <DataGridTextColumn Header="SNo" Binding="{Binding SerialNumber}" />
 
-                <!-- Second column: Details -->
+                --><!-- Second column: Details --><!--
                 <DataGridTemplateColumn Header="Details" Width="150" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -87,7 +87,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <!-- Third column: Description -->
+                --><!-- Third column: Description --><!--
                 <DataGridTemplateColumn Header="Description" Width="650" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -97,9 +97,10 @@
                 </DataGridTemplateColumn>
 
             </DataGrid.Columns>
-        </DataGrid>
+        </DataGrid>-->
 
 
+        <Label> Admin View </Label>
 
     </Grid>
 </UserControl>
