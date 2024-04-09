@@ -17,15 +17,17 @@
     <Username>Seller1</Username>
     <Password>s</Password>
     <Email>seller@gmail.com</Email>
-    <SellerID>1</SellerID>
     <SellerType>Wholesaler</SellerType>
+    <ApprovalStatus>Pending</ApprovalStatus>
+    <SellerID>1</SellerID>
   </User>
   <User xsi:type="Seller">
     <Username>s2</Username>
     <Password>s2</Password>
     <Email>s2</Email>
-    <SellerID>2</SellerID>
     <SellerType>Wholesaler</SellerType>
+    <ApprovalStatus>Pending</ApprovalStatus>
+    <SellerID>2</SellerID>
   </User>
   <User xsi:type="Customer">
     <Username>c2</Username>
@@ -33,5 +35,61 @@
     <Email>c2</Email>
     <CustomerID>2</CustomerID>
     <CustomerType>Regular</CustomerType>
+  </User>
+  <User xsi:type="Seller">
+    <Username>s3</Username>
+    <Password>s3</Password>
+    <Email>s3@example.com</Email>
+    <SellerType>Retailer</SellerType>
+    <ApprovalStatus>Pending</ApprovalStatus>
+    <SellerID>4</SellerID>
+  </User>
+  <User xsi:type="Seller">
+    <Username>s3</Username>
+    <Password>s3</Password>
+    <Email>s3@example.com</Email>
+    <SellerType>Retailer</SellerType>
+    <ApprovalStatus>Pending</ApprovalStatus>
+    <SellerID>4</SellerID>
+  </User>
+  <User xsi:type="Seller">
+    <Username>user3</Username>
+    <Password>password3</Password>
+    <Email>user3@example.com</Email>
+    <SellerType>Retailer</SellerType>
+    <ApprovalStatus>Pending</ApprovalStatus>
+    <SellerID>5</SellerID>
+  </User>
+  <User xsi:type="Seller">
+    <Username>user6</Username>
+    <Password>password6</Password>
+    <Email>user6@example.com</Email>
+    <SellerType>Retailer</SellerType>
+    <ApprovalStatus>Accepted</ApprovalStatus>
+    <SellerID>6</SellerID>
+  </User>
+  <User xsi:type="Seller">
+    <Username>user3</Username>
+    <Password>password3</Password>
+    <Email>user3@example.com</Email>
+    <SellerType>Retailer</SellerType>
+    <ApprovalStatus>Accepted</ApprovalStatus>
+    <SellerID>7</SellerID>
+  </User>
+  <User xsi:type="Seller">
+    <Username>user11</Username>
+    <Password>password11</Password>
+    <Email>user11@example.com</Email>
+    <SellerType>Retailer</SellerType>
+    <ApprovalStatus>Accepted</ApprovalStatus>
+    <SellerID>8</SellerID>
+  </User>
+  <User xsi:type="Seller">
+    <Username>s5</Username>
+    <Password>s5</Password>
+    <Email>s5</Email>
+    <SellerType>Wholesaler</SellerType>
+    <ApprovalStatus>Accepted</ApprovalStatus>
+    <SellerID>9</SellerID>
   </User>
 </ArrayOfUser>

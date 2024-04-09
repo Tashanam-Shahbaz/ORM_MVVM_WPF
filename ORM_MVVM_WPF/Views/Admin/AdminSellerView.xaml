@@ -4,57 +4,63 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ORM_MVVM_WPF.Views.Admin"
+             xmlns:utilities="clr-namespace:ORM_MVVM_WPF.Utilities"
+              xmlns:models="clr-namespace:ORM_MVVM_WPF.Models"
              mc:Ignorable="d" 
               d:DesignHeight="900" d:DesignWidth="1000" Background="White">
-    <Grid Margin="10">
+    <Grid Margin="50 0 50 0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="70"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="70"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition  Height="100" />
+            <RowDefinition Height="50"  />
+            <RowDefinition Height="70" />
+            <RowDefinition Height="40"  />
+            <RowDefinition Height="Auto"  />
         </Grid.RowDefinitions>
 
 
+        <StackPanel Grid.Row="0" >
+            <TextBlock   FontWeight="Bold" FontSize="30">Seller</TextBlock>
+        </StackPanel>
+        
         <!-- Heading Section -->
-        <!--<StackPanel Grid.Row="0" Orientation="Vertical">
-            <Label FontSize="20" FontWeight="Bold" Content="Add New Item"/>
-        </StackPanel>-->
-
-        <!--<StackPanel HorizontalAlignment="Left" Grid.Row="1">
-            <Button  Width="250" Height="40" Margin="12" FontSize="15" FontWeight="Bold" Content="+ Add New Item" Click="AddItem_Click" />
-        </StackPanel>-->
-
-        <!-- Heading Section -->
-        <!--<StackPanel Grid.Row="2" Orientation="Vertical">
-            <Label FontSize="20" FontWeight="Bold" Content="Search Item"/>
+        <StackPanel Grid.Row="1" Orientation="Vertical">
+            <Label FontSize="20" FontWeight="Bold" Content="Filter"/>
         </StackPanel>
 
-        --><!-- Search Fields Section --><!--
-        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="10">
-            <StackPanel Orientation="Horizontal" Margin="0 5">
-                <Label FontSize="15" Content="Enter Type:"></Label>
-                <ComboBox x:Name="FilterBy" Width="200" Margin="5 0" SelectionChanged="SearchItemType_SelectionChanged"/>
+         <!--Search Fields Section--> 
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10">
+
+            <StackPanel Orientation="Horizontal" Margin="0 0 10 0">
+                <Label FontSize="13" Content="Username:"/>
+                <TextBox Width="150" Margin="0 5" Text="{Binding TextUsername, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="40 5">
-                <Label FontSize="15" Content="Enter Name:"></Label>
-                <TextBox x:Name="FilterTextBox" Width="200" Margin="5 0" TextChanged="SearchItemName_TextChanged"/>
+            <StackPanel Orientation="Horizontal" Margin="0">
+                <Label FontSize="13" Content="Email:"/>
+                <TextBox Width="150" Margin="0 5" Text="{Binding TextEmail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
 
-        </StackPanel>-->
+
+            <StackPanel Orientation="Horizontal" Margin="0">
+                <Label FontSize="13" Content="Seller Type:"></Label>
+                <ComboBox Width="150"  Margin="0 5" ItemsSource="{Binding Source={utilities:EnumBindingSourceExtention {x:Type models:SellerType}}}" SelectedItem="{Binding ComboSellerType, Mode=TwoWay}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0">
+                <Label FontSize="13" Content="Seller Approval Status:"></Label>
+                <ComboBox  Width="150"  Margin="0 5" ItemsSource="{Binding Source={utilities:EnumBindingSourceExtention {x:Type models:SellerApprovalStatus}}}"  SelectedItem="{Binding ComboApprovalStatus, Mode=TwoWay}"/>
+            </StackPanel>
+
+
+        </StackPanel>
 
 
         <!-- Heading Section -->
-        <!--<StackPanel Grid.Row="4" Orientation="Horizontal">
+        <StackPanel Grid.Row="3" Orientation="Horizontal">
             <Label    FontSize="20" FontWeight="Bold" Content="Seller"/>
-            <Button  Margin="600,5,0,5" FontSize="15" FontWeight="Bold" Content="Delete" Width="150" Click="DeleteButton_Click"/>
-        </StackPanel>-->
+        </StackPanel>
 
-        <DataGrid Grid.Row="5" x:Name="SellerGrid" ItemsSource="{Binding SellersOC}" AutoGenerateColumns="False"  Width="850" Margin="50,30,50,10" Grid.RowSpan="2" CanUserAddRows="False" HeadersVisibility="Column" MaxHeight="400" VerticalScrollBarVisibility="Auto">
+        <DataGrid Grid.Row="4" x:Name="SellerGrid" ItemsSource="{Binding SellersOC}" AutoGenerateColumns="False"  Width="850" Margin="50,30,50,10" Grid.RowSpan="2" CanUserAddRows="False" HeadersVisibility="Column" MaxHeight="400" VerticalScrollBarVisibility="Auto">
             <DataGrid.Resources>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="FontWeight" Value="Bold" ></Setter>
@@ -66,44 +72,47 @@
                 <DataGridTextColumn Header="Username" Binding="{Binding Username}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Email" Binding="{Binding Email}"></DataGridTextColumn>
                 <DataGridTextColumn Header="SellerType" Binding="{Binding SellerType}"></DataGridTextColumn>
-
-                <DataGridTemplateColumn Header="Approve/Delete">
+                <DataGridTextColumn Header="Seller Approval Status" Binding="{Binding ApprovalStatus}"></DataGridTextColumn>
+                
+                <DataGridTemplateColumn Header="Action">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
-
                                     <StackPanel.Style>
                                         <Style TargetType="StackPanel">
                                             <Setter Property="Visibility" Value="Collapsed"/>
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding IsVerified}" Value="True" >
+
+                                                <DataTrigger Binding="{Binding ApprovalStatus}" Value="Accepted">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding ApprovalStatus}" Value="Rejected">
                                                     <Setter Property="Visibility" Value="Visible"/>
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
                                     </StackPanel.Style>
-
-                                    <Label Content="Approved"></Label>
+                                    <Label Content="Done"/>
                                 </StackPanel>
-                                
-                                <StackPanel Orientation="Horizontal">
+
+
+                                <StackPanel Orientation="Horizontal" Width="550">
 
                                     <StackPanel.Style>
                                         <Style TargetType="StackPanel">
                                             <Setter Property="Visibility" Value="Collapsed"/>
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding IsVerified}" 
-                                    Value="False" >
+                                                <DataTrigger Binding="{Binding ApprovalStatus}" Value="Pending" >
                                                     <Setter Property="Visibility" Value="Visible"/>
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
                                     </StackPanel.Style>
 
-                                    <Button Content="Approve" Click="ApproveButton_Click" CommandParameter="{Binding SellerID}"/>
-                                    <Button Content="Delete" Click="DeleteButton_Click" CommandParameter="{Binding SellerID}"/>
+                                    <Button Content="Approve" Click="ApproveButton_Click" CommandParameter="{Binding SellerID}" Margin="5" Width="100"/>
+                                    <Button Content="Reject" Click="RejectButton_Click" CommandParameter="{Binding SellerID}" Margin="5" Width="100" />
                                 </StackPanel>
                             </StackPanel>
                             

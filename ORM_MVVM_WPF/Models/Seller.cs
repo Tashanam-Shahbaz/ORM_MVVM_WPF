@@ -16,10 +16,11 @@ namespace ORM_MVVM_WPF.Models
         private int sNo;
         private string companyName;
         private SellerType sellerType;
-        private  bool isVerified;
+        private SellerApprovalStatus approvalStatus;
         public Seller()
         {
-            IsVerified = false;
+            ApprovalStatus = SellerApprovalStatus.Pending;
+            SellerType = SellerType.Retailer;
         }
 
         [XmlIgnore]
@@ -59,13 +60,13 @@ namespace ORM_MVVM_WPF.Models
                 OnPropertyChanged(nameof(SellerType));
             }
         }
-        public bool IsVerified
+        public SellerApprovalStatus ApprovalStatus
         {
-            get { return isVerified; }
+            get { return approvalStatus; }
             set
             {
-                isVerified = value;
-                OnPropertyChanged(nameof(IsVerified));
+                approvalStatus = value;
+                OnPropertyChanged(nameof(ApprovalStatus));
             }
         }
 
@@ -85,10 +86,20 @@ namespace ORM_MVVM_WPF.Models
 
     public enum SellerType
     {
+        All,
         Retailer,
         Wholesaler,
         Manufacturer,
         Dropshipper,
         Franchisee
+    }
+
+    public enum SellerApprovalStatus
+    {
+        All,
+        Pending,
+        Accepted,
+        Rejected
+
     }
 }

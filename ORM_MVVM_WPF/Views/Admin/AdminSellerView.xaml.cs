@@ -29,14 +29,17 @@ namespace ORM_MVVM_WPF.Views.Admin
             DataContext = _adminSellerVM;
         }
 
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        private void RejectButton_Click(object sender, RoutedEventArgs e)
         {
 
             var button = sender as Button;
             if (button == null)
                 return;
             int id = (int)button.CommandParameter;
-            _adminSellerVM.DeleteSeller(id);
+            bool result = _adminSellerVM.RejectSeller(id);
+            string msg = result ? "Seller deleted successfully." : 
+                                  "Unable to delete seller. Please try again later.";
+            MessageBox.Show(msg);
         }
         private void ApproveButton_Click(object sender, RoutedEventArgs e)
         {
@@ -45,7 +48,13 @@ namespace ORM_MVVM_WPF.Views.Admin
             if (button == null)
                 return;
             int id = (int)button.CommandParameter;
-            _adminSellerVM.ApproveSeller(id);
+            bool result = _adminSellerVM.ApproveSeller(id);
+            string msg = result ? "Seller approved successfully." : 
+                                  "Failed to approve seller. There was an issue encountered. Please try again later.";
+            MessageBox.Show(msg);
+
         }
+
+
     }
 }

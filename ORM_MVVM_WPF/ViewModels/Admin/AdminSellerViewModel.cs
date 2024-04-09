@@ -13,6 +13,14 @@ namespace ORM_MVVM_WPF.ViewModels.Admin
     {
         private ObservableCollection<Models.Seller> _sellers;
         private List<Models.Seller> _sellerList;
+        private List<User> _user;
+
+        //Variable for Filters
+        private string _sellerUsername;
+        private string _sellerEmail;
+        private SellerType _sellerType;
+        private SellerApprovalStatus _sellerApprovalStatus;
+
         public AdminSellerViewModel()
         {
             Bind();
@@ -23,13 +31,84 @@ namespace ORM_MVVM_WPF.ViewModels.Admin
             set
             {
                 _sellers = value;
-                OnPropertyChanged("Sellers");
+                OnPropertyChanged(nameof(SellersOC));
+                CalculateSerialNumbers();
             }
-        }   
+        }
+
+        public string TextUsername
+        {
+            get { return _sellerUsername; }
+            set
+            {
+                if (_sellerUsername != value)
+                {
+                    _sellerUsername = value;
+                    OnPropertyChanged(nameof(TextUsername));
+                    FilterOOC();
+                }
+
+            }
+        }
+        
+        public string TextEmail
+        {
+            get { return _sellerEmail; }
+            set {
+                if (_sellerEmail!= value)
+                {
+                    _sellerEmail = value;
+                    OnPropertyChanged(nameof(TextEmail));
+                    FilterOOC();
+                }
+
+            }
+        }
+        public SellerType ComboSellerType
+        {
+            get { return _sellerType; }
+            set
+            {
+                if (_sellerType != value)
+                {
+                    _sellerType = value;
+                    FilterOOC();
+                    OnPropertyChanged(nameof(ComboSellerType));
+                }
+            }
+        }
+        public SellerApprovalStatus ComboApprovalStatus
+        {
+            get { return _sellerApprovalStatus; }
+            set 
+            {
+                if (_sellerApprovalStatus != value)
+                {
+                    _sellerApprovalStatus = value;
+                    FilterOOC();
+                    OnPropertyChanged(nameof(ComboApprovalStatus));
+                }
+            }
+        }
+        //Filter Region
+
+        private void FilterOOC()
+        {
+            Func<Models.Seller, bool> func = s =>
+            ( string.IsNullOrEmpty(_sellerUsername) || s.Username.Contains(_sellerUsername)) &&
+            ( string.IsNullOrEmpty(_sellerEmail)    || s.Username.Contains(_sellerEmail))    &&
+            ( _sellerType == SellerType.All || s.SellerType == _sellerType)                  &&
+            (_sellerApprovalStatus == SellerApprovalStatus.All || s.ApprovalStatus == _sellerApprovalStatus);
+
+
+            SellersOC = new ObservableCollection<Models.Seller>(_sellerList.Where(func));
+        }
+
         private void Bind()
         {
             _sellerList = Serialization.DeSerializeList<Models.Seller>();
             SellersOC = new ObservableCollection<Models.Seller>(_sellerList);
+            _user = Serialization.DeSerializeList<User>();
             CalculateSerialNumbers();
         }
         private void Save()
@@ -46,14 +125,14 @@ namespace ORM_MVVM_WPF.ViewModels.Admin
             }
         }
 
-        public bool DeleteSeller(int id)
+        public bool RejectSeller(int id)
         {
             try 
             {
                 var seller = _sellerList.FirstOrDefault(x => x.SellerID == id);
                 if (seller == null)
                     return false;
-                _sellerList.Remove(seller);
+                seller.ApprovalStatus = SellerApprovalStatus.Rejected;
                 Save();
                               
             }
@@ -72,7 +151,12 @@ namespace ORM_MVVM_WPF.ViewModels.Admin
                 var seller = _sellerList.FirstOrDefault(x => x.SellerID == id);
                 if (seller == null)
                     return false;
-                seller.IsVerified = true;
+                seller.ApprovalStatus = SellerApprovalStatus.Accepted;
+                seller.SellerID = _user.OfType<Models.Seller>().Count() + 1;
+                
+                _user.Add(seller);
+                Serialization.SerializeList(_user);
+               
                 Save();
             }
             catch (Exception e)
